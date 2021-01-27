@@ -1,0 +1,44 @@
+.button {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 79px;
+    width: 338px;
+    margin-top: 41px;
+    height: 81px;
+}
+.button span {
+    position: relative;
+    pointer-events: none;
+}
+.button::before {
+    --size: 0;
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side,  #5E33D1 0%, #1FE1E9 70%, transparent);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease;
+}
+.button:hover::before {
+    --size: 400px;
+}
+
+.btn-txt {
+    text-align: left;
+    font: normal normal bold 23px/28px Helvetica Neue;
+    letter-spacing: 2.3px;
+    color: #d1346e;
+    opacity: 1;
+}

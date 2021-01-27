@@ -1,0 +1,78 @@
+$bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 65%, #FFB33F 100%) 0% 0% no-repeat padding-box;
+
+[class*="btn-"] {
+  outline:0;
+  cursor: pointer;
+  border-radius: 79px;
+  font: normal normal bold 23px/28px Helvetica Neue;
+  letter-spacing: 2.3px;
+  overflow: hidden;
+  position: relative; //absolute
+  margin-top: 31px; 
+  width: 284px;
+  height: 79px;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 500ms ease-in-out;
+  &::after, &::before { 
+    content: "";
+    position: absolute;
+  }
+  &:hover, &:focus {
+    background: rgba(255, 255, 255, 0.8);
+  }
+}
+
+[class*="btn-mix"] {
+  &::after {
+    background: $bg-color;
+    border-radius: 79px;
+    content: attr(data-text);
+    color: #fff;
+    top: 25px;
+    left: 63px;
+    -moz-user-select: none;
+    user-select: none;
+    user-drag: none;
+  }
+  &::before {
+    background: transparent;
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 1em 2em 3em rgba(255, 50, 0, 0.5),
+                -4em -2em 2em 2em rgba(255, 0, 150, 0.5),
+                -4em 2em 2em 4em rgba(0, 0, 150, 0.5),
+                0 -3em 2em 3em rgba(31, 225, 233, 0.8);
+    width: 0;
+    height: 0;
+    animation: mix 5s linear infinite;
+  }
+}
+
+@keyframes mix {
+  
+  30% {
+    box-shadow: 0 -1em 2em 3em rgba(255, 0, 200, 0.5),
+                4em -1em 2em 3em rgba(255, 50, 0, 0.8),
+                -4em 2em 3em 2em rgba(155, 200, 0, 0.5),
+                -4em -2em 2em 2em rgba(200, 0, 150, 0.6),
+                0 3em 2em 2em rgba(31, 225, 233, 0.5),
+                2em 1em 2em 2em rgba(50, 10, 250, 0.5);
+  }
+  60% {
+    box-shadow: 2em 1em 2em 3em rgba(55, 0, 200, 0.5),
+                3em 1em 2em 3em rgba(25, 150, 0, 0.6),
+                3em -2em 3em 3em rgba(155, 200, 0, 0.5),
+                -4em 2em 2em 3em rgba(200, 0, 50, 0.6),
+                0 -3em 2em 3em rgba(31, 225, 233, 0.9),
+                -2em 1em 2em 3em rgba(50, 210, 250, 0.6);
+  }
+}
+
+.btn-mix-noborder {
+  &::after {
+    background: transparent !important;
+    color: $bg-color !important;
+  }
+}
