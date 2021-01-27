@@ -2,6 +2,9 @@
 Front-End Assessment where I am tasked to turn the design into a website. Most of the animations will be done using React-Spring. 
 Home page transition (wave motion) will be done using curtains.js. Routing will be done using React-Router-Dom. Might use Material UI for existing buttons to save time.
 
+MAIN LIBRARIES:
+React, React-Router-Dom, React-Spring, curtains.js, possibly but unlikely Material UI for buttons etc...
+
 Note: Most of the time will probably be used on learning curtains.js, a quick read suggests that the animation is done through WebGL and canvas. 
 
 Plan: 
