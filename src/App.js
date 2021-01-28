@@ -1,14 +1,12 @@
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 
 import LandingPage from './Sections/LandingPage';
-import Header from './Components/Header';
 
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <Header />
       <Route path="/" render={() =>
         <LandingPage />}
       />

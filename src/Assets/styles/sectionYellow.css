@@ -1,4 +1,4 @@
-.button {
+.button-yellow {
     position: relative;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -11,14 +11,14 @@
     overflow: hidden;
     border-radius: 79px;
     width: 338px;
-    margin-top: 41px;
+    margin-top: 47px;
     height: 81px;
 }
-.button span {
+.button-yellow span {
     position: relative;
     pointer-events: none;
 }
-.button::before {
+.button-yellow::before {
     --size: 0;
     content: "";
     position: absolute;
@@ -26,16 +26,16 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side,  #5E33D1 0%, #1FE1E9 70%, transparent);
+    background: radial-gradient(circle closest-side, #d34848 0%, #5e33d1 50%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     transition: width 0.2s ease, height 0.2s ease;
 }
-.button:hover::before {
+.button-yellow:hover::before {
     --size: 500px;
 }
 
-.button-red-try {
+.button-yellow-try {
     position: absolute;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -48,13 +48,14 @@
     overflow: hidden;
     border-radius: 79px;
     width: 248px;
+    margin-top: 66px;
     height: 62px;
 }
-.button-red-try span {
+.button-yellow-try span {
     position: relative;
     pointer-events: none;
 }
-.button-red-try::before {
+.button-yellow-try::before {
     --size: 0;
     content: "";
     position: absolute;
@@ -62,28 +63,57 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side,  #5E33D1 0%, #1FE1E9 70%, transparent);
+    background: radial-gradient(circle closest-side, #d34848 0%, #5e33d1 50%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     transition: width 0.2s ease, height 0.2s ease;
 }
-.button-red-try:hover::before {
+.button-yellow-try:hover::before {
     --size: 400px;
 }
 
-.btn-txt-red {
-    text-align: left;
-    font: normal normal bold 23px/28px Helvetica Neue;
-    letter-spacing: 2.3px;
-    color: #d1346e;
-    opacity: 1;
-}
-
-.btn-txt-red-try {
+.btn-txt-yellow-try {
     text-align: left;
     font: normal normal bold 18px/23px Helvetica Neue;
     letter-spacing: 1.8px;
-    color: #D1346E;
+    color: #ffb33f;
     opacity: 1;
 }
 
+.btn-txt-yellow {
+    text-align: left;
+    font: normal normal bold 23px/28px Helvetica Neue;
+    letter-spacing: 2.3px;
+    color: #ffb33f;
+    opacity: 1;
+}
+
+.txt-h1 {
+    text-align: left;
+    font: normal normal bold 74px/90px Helvetica Neue;
+    letter-spacing: 7.4px;
+    color: #ffffff;
+    opacity: 1;
+}
+
+.txt-h2 {
+    font: normal normal normal 51px/61px Helvetica Neue;
+    color: #191919;
+    letter-spacing: 5.1px;
+}
+
+.button-txt {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    max-width: 831px;
+}
+
+.button-txt span {
+    position: relative;
+    pointer-events: none;
+}
