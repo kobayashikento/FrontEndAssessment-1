@@ -6,6 +6,7 @@ import Header from '../Components/Header';
 import CurtainContent from '../Sections/CurtainContent';
 import SectionRed from '../Sections/SectionRed';
 import SectionYellow from '../Sections/SectionYellow';
+import Perks from '../Sections/Perks';
 
 import { useWheel } from 'react-use-gesture';
 
@@ -14,6 +15,7 @@ import '../Assets/styles/landingPage.css';
 const LandingPage = () => {
 
     const [index, setIndex] = React.useState(0);
+    const [size, setSize] = React.useState([window.innerWidth, window.innerHeight]);
 
     const bind = useWheel(({ wheeling, xy, direction }) => {
         if (wheeling) {
@@ -26,20 +28,39 @@ const LandingPage = () => {
         }
     })
 
+    React.useLayoutEffect(() => {
+        const updateSize = () => {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+
     return (
         <div {...bind()} >
             <Header
                 index={index}
+                size={size}
             />
-            <div className="node-master">
+            <div className="node-master" style={{ background: "0% 0% no-repeat padding-box padding-box rgb(211, 72, 72)" }}>
                 <Curtains
                     pixelRatio={Math.min(1.5, window.devicePixelRatio)}
                     autoRender={false}
                 >
-                    <CurtainContent />
+                    <CurtainContent
+                        size={size}
+                    />
                 </Curtains>
-                <SectionRed />
-                <SectionYellow />
+                <SectionRed
+                    size={size}
+                />
+                <SectionYellow
+                    size={size}
+                />
+                <Perks
+                    size={size}
+                />
             </div>
         </div>
 

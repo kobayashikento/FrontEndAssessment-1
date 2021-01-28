@@ -22,17 +22,20 @@ const Header = (props) => {
 
     const items = [
         <Button style={{ padding: "0px", }}>
-            <Typography style={{ textAlign: "left", font: "normal normal bold 47px/57px Helvetica Neue", color: firstColor, letterSpacing: "4.7px", }}>
+            <Typography style={{
+                textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: firstColor,
+                letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
+            }}>
                 WHAT IS IT
                         </Typography>
         </Button>,
-        <Button style={{ padding: "0px", marginTop: "12px" }}>
-            <Typography style={{ textAlign: "left", font: "normal normal bold 47px/57px Helvetica Neue", color: secondColor, letterSpacing: "4.7px", }}>
+        <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px` }}>
+            <Typography style={{ textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: secondColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`, }}>
                 PERKS
                         </Typography>
         </Button>,
-        <Button style={{ padding: "0px", marginTop: "12px" }}>
-            <Typography style={{ textAlign: "left", font: "normal normal bold 47px/57px Helvetica Neue", color: thirdColor, letterSpacing: "4.7px", }}>
+        <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px` }}>
+            <Typography style={{ textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: thirdColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`, }}>
                 PRICING
                         </Typography>
         </Button>
@@ -75,10 +78,11 @@ const Header = (props) => {
             setItemsOpen(true);
         }
     }
-
-    const expandCircle = useSpring({
+    
+   
+    let expandCircle = useSpring({
         to: { transform: navOpen ? "scale(1) " : "scale(0) ", left: navOpen ? "-84px" : "-235px", top: navOpen ? "-142px" : "-235px" },
-        from: { width: "682px", height: "682px", transform: "scale(0)", left: "-235px", top: "-235px", },
+        from: { width: ` calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))`, height: ` calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))`, transform: "scale(0)", left: "-235px", top: "-235px", },
         onRest: () => springCallback()
     });
 
@@ -103,17 +107,20 @@ const Header = (props) => {
     return (
         <div style={{ position: "fixed", zIndex: 2020 }}>
             <animated.div ref={wrapperRef} style={{ ...expandCircle, background: "#0B0B0B", borderRadius: "50% 55% 48%", position: "absolute", boxShadow: "0px 3px 6px #00000029" }} />
-            <div style={{ display: "flex", display: "flex", flexDirection: "column", position: "fixed", left: `${window.innerWidth * headLeftRatio}px`, top: `${headTopRatio * window.innerHeight}px`, }}>
+            <div style={{ display: "flex", display: "flex", flexDirection: "column", position: "fixed", left: `${props.size[0] * headLeftRatio}px`, top: `${headTopRatio * props.size[1]}px`, }}>
                 <div style={{ display: "flex" }}>
                     <IconButton style={{ padding: "0px", borderRadius: "4px" }} onClick={() => handleNavClick()} >
-                        <DehazeIcon style={{ color: navOpen ? headIconsColor : "#FFFFFF", fontSize: "56px" }} />
+                        <DehazeIcon style={{ color: navOpen ? headIconsColor : "#FFFFFF", fontSize: `${56 / 1920 * props.size[0]}px` }} />
                     </IconButton>
-                    <Typography style={{ textAlign: "left", font: "normal normal normal 48px/57px Helvetica Neue", color: navOpen ? headIconsColor : "#FFFFFF", letterSpacing: "4.8px", marginLeft: `${headMarginRatio * window.innerWidth}px` }}>
+                    <Typography style={{
+                        textAlign: "left", font: `normal normal normal ${48 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: navOpen ? headIconsColor : "#FFFFFF",
+                        letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${headMarginRatio * props.size[0]}px`
+                    }}>
                         EXP|CON
             </Typography>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: "26px" }}>
-                    {itemsOpen ? <Trail items={items} from={{ transform: 'translate3d(0,56px,0)', opacity: 0 }} to={{ transform: 'translate3d(0,0px,0)', opacity: 1, }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: `${26 / 1920 * props.size[0]}px` }}>
+                    {itemsOpen ? <Trail items={items} from={{ transform: `translate3d(0,${56 / 1920 * props.size[0]}px,0)`, opacity: 0 }} to={{ transform: 'translate3d(0,0px,0)', opacity: 1, }}>
                         {item => props => <span style={props}>{item}</span>}
                     </Trail> : null}
                 </div>

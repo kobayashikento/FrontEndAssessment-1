@@ -13,7 +13,7 @@ import landing_image_1 from '../../Assets/pictures/LandingPage/landing_image_1.p
 import landing_image_2 from '../../Assets/pictures/LandingPage/landing_image_2.png';
 import landing_image_3 from '../../Assets/pictures/LandingPage/landing_image_3.png';
 
-const Slideshow = () => {
+const Slideshow = (props) => {
     const [plane, setPlane] = React.useState(null);
 
     const slideshowInner = React.useRef(null);
@@ -21,10 +21,14 @@ const Slideshow = () => {
     // slideshow states
     const [activeTexture, setActiveTexture] = React.useState(1);
     const [activeRadio, setActiveRadio] = React.useState(1);
+    const [cycleIndex, setCycleIndex] = React.useState(2);
     const [maxTextures, setMaxTextures] = React.useState(0);
 
+    // regs
     const isChanging = React.useRef(false);
     const tween = React.useRef(null);
+    const activeTex = React.useRef(null);
+    const nextTex = React.useRef(null);
 
     React.useEffect(() => {
         if (slideshowInner.current) {
@@ -38,9 +42,6 @@ const Slideshow = () => {
             }
         };
     }, []);
-
-    const activeTex = React.useRef(null);
-    const nextTex = React.useRef(null);
 
     const uniforms = {
         transitionTimer: {
@@ -62,7 +63,6 @@ const Slideshow = () => {
     const handleRadioClick = (index) => {
         if (!isChanging.current && plane && index !== activeTexture) {
             isChanging.current = true;
-
             // check what will be next image
             let nextTextureIndex;
             if (index < maxTextures) {
@@ -74,7 +74,6 @@ const Slideshow = () => {
             }
             // apply it to our next texture
             nextTex.current.setSource(plane.images[nextTextureIndex]);
-
             tween.current = gsap.to(plane.uniforms.transitionTimer, {
                 duration: 1.25,
                 value: 90,
@@ -93,6 +92,27 @@ const Slideshow = () => {
             });
         }
     };
+
+    React.useEffect(() => {
+        setInterval(() => {
+            if (!isChanging.current && plane) {
+                switch (cycleIndex) {
+                    case 1:
+                        handleRadioClick(1);
+                        setCycleIndex(2);
+                        break;
+                    case 2:
+                        handleRadioClick(2);
+                        setCycleIndex(3);
+                        break;
+                    case 3:
+                        handleRadioClick(3);
+                        setCycleIndex(1);
+                        break;
+                }
+            }
+        }, 10000)
+    }, [isChanging, plane])
 
     useCurtains(
         (curtains) => {
@@ -129,6 +149,8 @@ const Slideshow = () => {
         from: { transform: `scale(0)`, background: "#FFF", margin: "0px", border: "1px", boxShadow: "none" },
     })
 
+
+
     return (
         <Plane
             className="Slideshow"
@@ -140,8 +162,10 @@ const Slideshow = () => {
             onLoading={onLoading}
             onReady={onReady}
         >
-            <LandingPageContent />
-            <div style={{ position: "absolute", bottom: "40px", height: "17px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <LandingPageContent
+                size={props.size}
+            />
+            <div style={{ position: "absolute", bottom: `${37 / 1080 * props.size[1]}px`, height: "17px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <div className="radio-btn" onClick={() => handleRadioClick(1)}>
                     <animated.div style={springFirst} className="radio-btn" />
                 </div>

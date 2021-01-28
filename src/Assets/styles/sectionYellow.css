@@ -13,6 +13,7 @@
     width: 338px;
     margin-top: 47px;
     height: 81px;
+    box-shadow: 0px 2px 2px #00000029;
 }
 .button-yellow span {
     position: relative;
@@ -50,6 +51,7 @@
     width: 248px;
     margin-top: 66px;
     height: 62px;
+    box-shadow: 0px 2px 2px #00000029;
 }
 .button-yellow-try span {
     position: relative;
@@ -90,14 +92,11 @@
 
 .txt-h1 {
     text-align: left;
-    font: normal normal bold 74px/90px Helvetica Neue;
-    letter-spacing: 7.4px;
     color: #ffffff;
     opacity: 1;
 }
 
 .txt-h2 {
-    font: normal normal normal 51px/61px Helvetica Neue;
     color: #191919;
     letter-spacing: 5.1px;
 }

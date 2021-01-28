@@ -7,7 +7,7 @@ import Slideshow from '../Components/CurtainComponents/Slideshow';
 
 import '../Assets/styles/curtainStyle.css';
 
-const CurtainContent = () => {
+const CurtainContent = (props) => {
   useCurtains((curtains) => {
     // use gsap ticker to render our curtains scene
     gsap.ticker.add(curtains.render.bind(curtains));
@@ -15,7 +15,9 @@ const CurtainContent = () => {
 
   return (
     <div>
-      <Slideshow />
+      <Slideshow
+        size={props.size}
+      />
     </div>
   );
 }

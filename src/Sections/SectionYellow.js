@@ -1,20 +1,23 @@
 import React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-
 import '../Assets/styles/sectionYellow.css';
 
 import gambino from '../Assets/pictures/Yellow/gambino_s.png';
 
-const SectionYellow = () => {
+const SectionYellow = (props) => {
 
-    const canvasRef = React.useRef();
-    const marginTopRatio = 357 / 1080;
     const marginLeftRatio = 900 / 1920;
     const tryBtnTop = 95 / 1080;
     const tryBtnRight = 79 / 1920;
+
+    //refs
     const buttonYellowRef = React.useRef();
     const buttonTryRef = React.useRef();
+    const canvasRef = React.useRef();
+
+    // states
+    const [btn1, setBtn1] = React.useState([0,0]);
+    const [btn2, setBtn2] = React.useState([0,0]);
 
     React.useEffect(() => {
         if (buttonYellowRef.current) {
@@ -42,14 +45,14 @@ const SectionYellow = () => {
         }
     }, [buttonTryRef])
 
-
+    // painting interaction
     React.useEffect(() => {
         if (canvasRef) {
             let ctx = canvasRef.current;
             let ctxCanvas = ctx.getContext('2d');
             ctxCanvas.fillStyle = "#FFB33F";
             ctxCanvas.fillRect(0, 0, ctx.width, ctx.height);
-            let brushRadius = 8;
+            let brushRadius = 40;
 
             const getBrushPos = (xRef, yRef) => {
                 var ctxRect = ctx.getBoundingClientRect();
@@ -75,10 +78,14 @@ const SectionYellow = () => {
         }
     }, [canvasRef])
 
+    React.useEffect(() => {
+        setBtn1([338 - buttonYellowRef.current.getBoundingClientRect().width, 81 - buttonYellowRef.current.getBoundingClientRect().height]);
+        setBtn2([248 - buttonTryRef.current.getBoundingClientRect().width, 62 - buttonTryRef.current.getBoundingClientRect().height]);
+    }, [props.size])
 
     return (
-        <div style={{ height: "100vh", background: "#FFB33F", display: "flex" }}>
-            <button class="button-yellow-try" ref={buttonTryRef} style={{ marginTop: `${tryBtnTop * window.innerHeight}px`, right: `${tryBtnRight * window.innerWidth}px`, zIndex: 1 }}>
+        <div style={{ height: "100vh", background: "#FFB33F 0% 0% no-repeat padding-box", display: "flex" }}>
+            <button class="button-yellow-try" ref={buttonTryRef} style={{ transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${tryBtnTop * window.innerHeight}px`, right: `${tryBtnRight * window.innerWidth}px`, zIndex: 1 }}>
                 <span className="btn-txt-yellow-try">TRY IT NOW</span>
             </button>
             <canvas ref={canvasRef} style={{
@@ -87,12 +94,13 @@ const SectionYellow = () => {
             }} />
             <div style={{ display: "flex", marginLeft: `${marginLeftRatio * window.innerWidth}px`, flexDirection: "column", justifyContent: "center", }}>
                 <span className="button-txt">
-                    <span className="txt-h1">FRONT ROW SEATS</span>
+                    <span style={{ font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${7.4 / 1920 * props.size[0]}px` }}
+                        className="txt-h1">FRONT ROW SEATS</span>
                 </span>
-                <span className="button-txt" style={{ marginTop: "23px" }}>
+                <span className="button-txt" style={{ maxWidth: "831px", marginTop: `${23 / 1080 * props.size[1]}px`, font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${5.1 / 1920 * props.size[0]}px` }}>
                     <span className="txt-h2">Experience concerts up close and personal.</span>
                 </span>
-                <button className="button-yellow" ref={buttonYellowRef}>
+                <button className="button-yellow" ref={buttonYellowRef} style={{ marginTop: `${46 / 1080 * props.size[1]}px`, transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px,-${btn1[1]}px)` }}>
                     <span className="btn-txt-yellow">SEE DEMO</span>
                 </button>
             </div>
