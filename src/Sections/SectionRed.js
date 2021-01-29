@@ -16,9 +16,11 @@ const SectionRed = (props) => {
     const speaker1 = React.useRef();
     const speaker2 = React.useRef();
 
+    // states
     const [btn1, setBt1] = React.useState([0, 0])
     const [btn2, setBt2] = React.useState([0, 0])
 
+    // listen to button events
     React.useEffect(() => {
         if (buttonRef.current) {
             buttonRef.current.onmousemove = function (e) {
@@ -46,6 +48,7 @@ const SectionRed = (props) => {
         }
     }, [buttonTryRef]);
 
+    // reponsive width and height change
     React.useEffect(() => {
         setBt1([338 - buttonRef.current.getBoundingClientRect().width, 81 - buttonRef.current.getBoundingClientRect().height]);
         setBt2([248 - buttonTryRef.current.getBoundingClientRect().width, 62 - buttonTryRef.current.getBoundingClientRect().height]);
@@ -67,7 +70,7 @@ const SectionRed = (props) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [speaker1, props.playing]);
+    }, [speaker1, props.playing, props]);
 
     React.useEffect(() => {
         /**
@@ -85,7 +88,7 @@ const SectionRed = (props) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [speaker2, props.playing]);
+    }, [speaker2, props.playing, props]);
 
     return (
         <div style={{ height: "100vh", background: "#D34848 0% 0% no-repeat padding-box" }}>
@@ -96,7 +99,7 @@ const SectionRed = (props) => {
                 playing={props.playing}
                 loop={true}
             />
-            <button class="button-red-try" ref={buttonTryRef} style={{ cursor: "none", zIndex: 2, transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${95 / 1080 * props.size[1]}px`, right: `${79 / 1920 * props.size[0]}px` }}>
+            <button className="button-red-try" ref={buttonTryRef} style={{ cursor: "none", zIndex: 2, transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${95 / 1080 * props.size[1]}px`, right: `${79 / 1920 * props.size[0]}px` }}>
                 <span className="button-txt-red-try">TRY IT NOW</span>
             </button>
             <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
@@ -107,13 +110,13 @@ const SectionRed = (props) => {
                     <Typography style={{ marginTop: `${(27 / 1080) * props.size[1]}px`, width: `${898 / 1920 * props.size[0]}px`, font: `normal normal normal ${(51 / 1920) * props.size[0]}px/${(61 / 1920) * props.size[0]}px Helvetica Neue`, letterSpacing: `${(5.1 / 1920) * props.size[0]}px`, color: "#0B0B0B" }}>
                         Experience live versions of your favourite songs.
                 </Typography>
-                    <button class="button-red" ref={buttonRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn1[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
+                    <button className="button-red" ref={buttonRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn1[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
                         <span className="button-txt-red">SEE DEMO</span>
                     </button>
                 </div>
                 <div style={{ display: "flex", position: "absolute", right: `${157 / 1920 * props.size[0]}px`, paddingTop: "6.5%" }}>
-                    <img ref={speaker1} style={{ width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
-                    <img ref={speaker2} style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
+                    <img ref={speaker1} alt="right_speakers" style={{ width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
+                    <img ref={speaker2} alt="left_speakers" style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
                 </div>
             </div>
         </div>

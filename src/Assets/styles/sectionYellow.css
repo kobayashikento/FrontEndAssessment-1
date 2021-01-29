@@ -13,7 +13,6 @@
     width: 338px;
     margin-top: 47px;
     height: 81px;
-    box-shadow: 0px 2px 2px #00000029;
 }
 .button-yellow span {
     position: relative;
@@ -27,13 +26,13 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side, #d34848 0%, #5e33d1 50%, transparent);
+    background: radial-gradient(circle closest-side,  #5e33d1 -3%, #d34848 62%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    transition: width 0.2s ease, height 0.2s ease;
+    transition: width 0.5s ease, height 0.5s ease;
 }
 .button-yellow:hover::before {
-    --size: 500px;
+    --size: 350px;
 }
 
 .button-yellow-try {
@@ -51,7 +50,6 @@
     width: 248px;
     margin-top: 66px;
     height: 62px;
-    box-shadow: 0px 2px 2px #00000029;
 }
 .button-yellow-try span {
     position: relative;
@@ -66,10 +64,10 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side, #d34848 0%, #5e33d1 50%, transparent);
+    background: radial-gradient(circle closest-side, #5e33d1 -3%, #d34848 62%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    transition: width 0.2s ease, height 0.2s ease;
+    transition: width 0.5s ease, height 0.5s ease;
 }
 .button-yellow-try:hover::before {
     --size: 400px;

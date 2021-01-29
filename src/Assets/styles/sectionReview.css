@@ -27,13 +27,13 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side, #d34848 0%, #5e33d1 50%, transparent);
+    background: radial-gradient(circle closest-side, #5e33d1 -3%, #d34848 62%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    transition: width 0.2s ease, height 0.2s ease;
+    transition: width 0.5s ease, height 0.5s ease;
 }
 .button-review-try:hover::before {
-    --size: 400px;
+    --size: 300px;
 }
 
 .button-review-try:hover > span {

@@ -64,11 +64,9 @@ const SectionYellow = (props) => {
         if (canvasRef) {
             let ctx = canvasRef.current;
             let ctxCanvas = ctx.getContext('2d');
-            ctxCanvas.fillStyle = "#FFB33F";
-            console.log(props.size[0], ctx.height)
+            ctxCanvas.fillStyle = "#FFB33F"
             ctxCanvas.fillRect(0, 0, 1920, 1080);
-            let brushRadius = 90;
-
+            let brushRadius = 100;
             const getBrushPos = (xRef, yRef) => {
                 var ctxRect = ctx.getBoundingClientRect();
                 return {
@@ -100,7 +98,7 @@ const SectionYellow = (props) => {
 
     return (
         <div style={{ height: "100vh", background: "#FFB33F 0% 0% no-repeat padding-box", display: "flex" }}>
-            <button class="button-yellow-try" ref={buttonTryRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${tryBtnTop * props.size[1]}px`, right: `${tryBtnRight * props.size[0]}px`, zIndex: 1 }}>
+            <button className="button-yellow-try" ref={buttonTryRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${tryBtnTop * props.size[1]}px`, right: `${tryBtnRight * props.size[0]}px`, zIndex: 1 }}>
                 <span className="button-txt-yellow-try">TRY IT NOW</span>
             </button>
             <canvas ref={canvasRef} width={props.size[0]} height={props.size[1]} style={{

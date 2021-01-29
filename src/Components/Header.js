@@ -1,11 +1,12 @@
 import React from 'react';
 
+// import dependencies
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import { IconButton, Button, Typography } from '@material-ui/core';
 
 import { Trail } from 'react-spring/renderprops'
 
-import { useSpring, animated, useTrail } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 
 const Header = (props) => {
     const wrapperRef = React.useRef(null);
@@ -13,34 +14,54 @@ const Header = (props) => {
     const headMarginRatio = 37.87 / 1920;
     const headTopRatio = 86.32 / 1080;
 
+    // states
     const [navOpen, setNavOpen] = React.useState(false);
     const [itemsOpen, setItemsOpen] = React.useState(false);
     const [firstColor, setFirstColor] = React.useState("#FFFFFF");
     const [secondColor, setSecondColor] = React.useState("#FFFFFF");
     const [thirdColor, setThirdColor] = React.useState("#FFFFFF");
     const [headIconsColor, setHeadIconsColor] = React.useState("#FFFFFF");
+    const [highlight, setHighlight] = React.useState("#FFFFFF");
+    const [showWhat, setShowWhat] = React.useState(false);
+    const [showPerks, setShowPerks] = React.useState(false);
+    const [showPricing, setShowPricing] = React.useState(false);
 
+    // react components for menu list
     const items = [
-        <Button style={{ padding: "0px", }} onClick={() => handleWhatClick()}>
-            <Typography style={{
-                textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: firstColor,
-                letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
-            }}>
-                WHAT IS IT
+        {
+            key: 1, content: <Button style={{ padding: "0px", backgroundColor: "transparent" }} onClick={() => handleWhatClick()}>
+                <Typography onMouseEnter={() => setShowWhat(true)} onMouseLeave={() => setShowWhat(false)} style={{
+                    textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showWhat ? highlight : firstColor,
+                    letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
+                }}>
+                    WHAT IS IT
+                    </Typography>
+            </Button>
+        },
+        {
+            key: 2,
+            content: <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px`, backgroundColor: "transparent" }} onClick={() => handlePerkClick()}>
+                <Typography onMouseEnter={() => setShowPerks(true)} onMouseLeave={() => setShowPerks(false)} style={{
+                    textAlign: "left",
+                    font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showPerks ? highlight : secondColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
+                }}>
+                    PERKS
                         </Typography>
-        </Button>,
-        <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px` }} onClick={() => handlePerkClick()}>
-            <Typography style={{ textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: secondColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`, }}>
-                PERKS
-                        </Typography>
-        </Button>,
-        <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px` }}>
-            <Typography style={{ textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: thirdColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`, }}>
-                PRICING
-                        </Typography>
-        </Button>
-    ]
+            </Button>
+        },
+        {
+            key: 3,
+            content: <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px`, backgroundColor: "transparent" }}>
+                <Typography onMouseEnter={() => setShowPricing(true)} onMouseLeave={() => setShowPricing(false)} style={{
+                    textAlign: "left",
+                    font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showPricing ? highlight : thirdColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
+                }}>
+                    PRICING
+                    </Typography>
+            </Button>
+        }]
 
+    // handle click event for menu item clicks
     const handleWhatClick = () => {
         if (props.index === 1) {
             window.scrollTo({
@@ -63,7 +84,7 @@ const Header = (props) => {
                 behavior: 'smooth'
             });
             handleNavClick();
-        } 
+        }
     }
 
     const handlePerkClick = () => {
@@ -75,6 +96,7 @@ const Header = (props) => {
         handleNavClick();
     }
 
+    // handle color change from scroll offset change 
     React.useEffect(() => {
         switch (props.index) {
             case 0:
@@ -82,34 +104,41 @@ const Header = (props) => {
                 setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFFFFF");
+                setHighlight("#FFFFFF");
                 break;
             case 1:
                 setFirstColor("#D34848");
                 setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#D34848");
+                setHighlight("#D34848");
                 break;
             case 2:
                 setFirstColor("#FFB33F");
                 setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFB33F");
+                setHighlight("#FFB33F");
                 break;
             case 3:
                 setFirstColor("#FFFFFF");
                 setSecondColor("#000000");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFFFFF");
+                setHighlight("#000000");
                 break;
             case 4:
                 setFirstColor("#1FE1E9");
                 setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#1FE1E9");
+                setHighlight("#1FE1E9");
                 break;
+            default:
         }
     }, [props.index]);
 
+    // handle nav button click
     const handleNavClick = () => {
         if (!navOpen) {
             setNavOpen(true);
@@ -119,36 +148,19 @@ const Header = (props) => {
         }
     }
 
+    // call back to delay showing the list items
     const springCallback = () => {
         if (navOpen) {
             setItemsOpen(true);
         }
     }
 
-
+    // animation the circle expansion
     let expandCircle = useSpring({
         to: { transform: navOpen ? "scale(1) " : "scale(0) ", left: navOpen ? "-84px" : "-235px", top: navOpen ? "-142px" : "-235px" },
         from: { width: ` calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))`, height: ` calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))`, transform: "scale(0)", left: "-235px", top: "-235px", },
         onRest: () => springCallback()
     });
-
-    // React.useEffect(() => {
-    //     /**
-    //      * Alert if clicked on outside of element
-    //      */
-    //     function handleClickOutside(event) {
-    //         if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-    //             alert("You clicked outside of me!");
-    //         }
-    //     }
-
-    //     // Bind the event listener
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         // Unbind the event listener on clean up
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, [wrapperRef]);
 
     return (
         <div style={{ position: "fixed", zIndex: 2020 }}>
@@ -167,7 +179,7 @@ const Header = (props) => {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: `${26 / 1920 * props.size[0]}px` }}>
                     {itemsOpen ? <Trail items={items} from={{ transform: `translate3d(0,${56 / 1920 * props.size[0]}px,0)`, opacity: 0 }} to={{ transform: 'translate3d(0,0px,0)', opacity: 1, }}>
-                        {item => props => <span style={props}>{item}</span>}
+                        {item => prop => <span key={item.key} style={prop}>{item.content}</span>}
                     </Trail> : null}
                 </div>
             </div>

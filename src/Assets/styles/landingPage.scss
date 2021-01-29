@@ -48,7 +48,7 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
                 0 -3em 2em 3em rgba(31, 225, 233, 0.8);
     width: 0;
     height: 0;
-    animation: mix 2s linear infinite;
+    animation: mix 4s linear infinite;
   }
 }
 
@@ -76,11 +76,9 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
                 0 -3em 2em 3em rgba(31, 225, 233, 0.8);
     width: 0;
     height: 0;
-    animation: mix 2s linear infinite;
+    animation: mix 4s linear infinite;
   }
 }
-
-//gba(31, 225, 233, 1) 0%, rgba(94, 51, 209, 1) 34%, rgba(211, 72, 72, 1) 65%, rgba(255, 179, 63, 1) 100%)
 
 @keyframes mix {  
   30% {

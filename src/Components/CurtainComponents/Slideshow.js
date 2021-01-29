@@ -1,12 +1,17 @@
 import React from 'react';
+
+// import slideshow
 import { Plane, useCurtains } from 'react-curtains';
 import gsap from 'gsap';
 import { vertexShader, fragmentShader } from './Shader';
 
+// import component
 import LandingPageContent from '../LandingPage/LandingPageContent';
 
+// import styles
 import '../../Assets/styles/curtainStyle.css';
 
+// import spring
 import { useSpring, animated } from 'react-spring'
 
 import landing_image_1 from '../../Assets/pictures/LandingPage/landing_image_1.png';
@@ -14,27 +19,25 @@ import landing_image_2 from '../../Assets/pictures/LandingPage/landing_image_2.p
 import landing_image_3 from '../../Assets/pictures/LandingPage/landing_image_3.png';
 
 const Slideshow = (props) => {
-    const [plane, setPlane] = React.useState(null);
-
-    const slideshowInner = React.useRef(null);
-
     // slideshow states
+    const [plane, setPlane] = React.useState(null);
+    const slideshowInner = React.useRef(null);
     const [activeTexture, setActiveTexture] = React.useState(1);
     const [activeRadio, setActiveRadio] = React.useState(1);
     const [cycleIndex, setCycleIndex] = React.useState(2);
     const [maxTextures, setMaxTextures] = React.useState(0);
 
-    // regs
+    // refs
     const isChanging = React.useRef(false);
     const tween = React.useRef(null);
     const activeTex = React.useRef(null);
     const nextTex = React.useRef(null);
 
+    // handle initial load
     React.useEffect(() => {
         if (slideshowInner.current) {
             setMaxTextures(slideshowInner.current.childElementCount);
         }
-
         let currentTween = tween.current;
         return () => {
             if (currentTween) {
@@ -43,6 +46,7 @@ const Slideshow = (props) => {
         };
     }, []);
 
+    // confid transition timer 
     const uniforms = {
         transitionTimer: {
             name: "uTransitionTimer",
@@ -51,16 +55,19 @@ const Slideshow = (props) => {
         }
     };
 
+    // onload callback for the slideshow
     const onLoading = (plane, texture) => {
         // improve texture rendering on small screens with LINEAR_MIPMAP_NEAREST minFilter
         texture.setMinFilter(texture.gl.LINEAR_MIPMAP_NEAREST);
     };
 
+    // callback when slideshow is ready
     const onReady = (plane) => {
         setPlane(plane);
     };
 
-    const handleRadioClick = (index) => {
+    // event triggered when radio buttons are clicked
+    const handleRadioClick = React.useCallback((index) => {
         if (!isChanging.current && plane && index !== activeTexture) {
             isChanging.current = true;
             // check what will be next image
@@ -91,12 +98,13 @@ const Slideshow = (props) => {
                 }
             });
         }
-    };
+    }, [activeTexture, maxTextures, plane])
 
+    // set the time interval to 10secs for automatic shuffle of the slideshows
     React.useEffect(() => {
         const timer = window.setInterval(() => {
             handleRadioClick(cycleIndex);
-            switch (cycleIndex){
+            switch (cycleIndex) {
                 case 1: {
                     setCycleIndex(2);
                     break;
@@ -109,14 +117,16 @@ const Slideshow = (props) => {
                     setCycleIndex(1);
                     break;
                 }
+                default:
             }
-            
+
         }, 10000);
         return () => {
             window.clearInterval(timer);
         };
-    }, [isChanging, plane, cycleIndex])
+    }, [isChanging, plane, cycleIndex, handleRadioClick])
 
+    // initialize slideshow objects after plane is built 
     useCurtains(
         (curtains) => {
             if (plane) {
@@ -136,7 +146,7 @@ const Slideshow = (props) => {
         [plane]
     );
 
-    //onChange={handleChange}
+    // React-Spring for smooth radio animations 
     const springFirst = useSpring({
         to: { transform: activeRadio === 1 ? `scale(1.1)` : `scale(0)` },
         from: { transform: `scale(0)`, background: "#FFF", margin: "0px", border: "1px", boxShadow: "none" },
@@ -151,8 +161,6 @@ const Slideshow = (props) => {
         to: { transform: activeRadio === 3 ? `scale(1.1)` : `scale(0)` },
         from: { transform: `scale(0)`, background: "#FFF", margin: "0px", border: "1px", boxShadow: "none" },
     })
-
-
 
     return (
         <Plane

@@ -14,6 +14,7 @@ const SectionReview = (props) => {
     const buttonTryRef = React.useRef();
     const [btn1, setBt1] = React.useState([0, 0])
 
+    // listening to button events
     React.useEffect(() => {
         if (buttonTryRef.current) {
             buttonTryRef.current.onmousemove = function (e) {
@@ -33,15 +34,15 @@ const SectionReview = (props) => {
 
     return (
         <div style={{ height: "100vh", background: "#1FE1E9 0% 0% no-repeat padding-box" }}>
-            <button class="button-review-try" ref={buttonTryRef} style={{
+            <button className="button-review-try" ref={buttonTryRef} style={{
                 transform: `scale(${props.size[0] / 1920}) translate(${btn1[0]}px, -${btn1[1]}px)`,
                 marginTop: `${79 / 1080 * props.size[1]}px`, right: `${62 / 1920 * props.size[0]}px`, zIndex: 1
             }}>
                 <span className="button-txt-review-try">TRY IT NOW</span>
             </button>
             <div style={{ display: "flex", flexDirection: "column", position: "absolute", left: `${54.85 / 1920 * props.size[0]}px`, paddingTop: `${284.4 / 1080 * props.size[1]}px` }}>
-                <img style={{ position: "absolute", width: `${493 / 1920 * props.size[0]}px`, height: `${408 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={speakers_top} />
-                <img style={{ paddingTop: `${260 / 1080 * props.size[1]}px`, marginLeft: `${(150.7 - 54.85) / 1920 * props.size[0]}px`, width: `${495 / 1920 * props.size[0]}px`, height: `${408 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={speakers_bot} />
+                <img alt="right_small_speakers" style={{ position: "absolute", width: `${493 / 1920 * props.size[0]}px`, height: `${408 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={speakers_top} />
+                <img alt="left_small_speakers" style={{ paddingTop: `${260 / 1080 * props.size[1]}px`, marginLeft: `${(150.7 - 54.85) / 1920 * props.size[0]}px`, width: `${495 / 1920 * props.size[0]}px`, height: `${408 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={speakers_bot} />
             </div>
             <div style={{ display: "flex", flexDirection: "column", paddingTop: `${384 / 1080 * props.size[1]}px`, marginLeft: `${659 / 1920 * props.size[0]}px` }}>
                 <Typography style={{
