@@ -96,7 +96,7 @@ const SectionRed = (props) => {
                 playing={props.playing}
                 loop={true}
             />
-            <button class="button-red-try" ref={buttonTryRef} style={{ zIndex: 2, transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${95 / 1080 * props.size[1]}px`, right: `${79 / 1920 * props.size[0]}px` }}>
+            <button class="button-red-try" ref={buttonTryRef} style={{ cursor: "none", zIndex: 2, transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${95 / 1080 * props.size[1]}px`, right: `${79 / 1920 * props.size[0]}px` }}>
                 <span className="button-txt-red-try">TRY IT NOW</span>
             </button>
             <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
@@ -107,7 +107,7 @@ const SectionRed = (props) => {
                     <Typography style={{ marginTop: `${(27 / 1080) * props.size[1]}px`, width: `${898 / 1920 * props.size[0]}px`, font: `normal normal normal ${(51 / 1920) * props.size[0]}px/${(61 / 1920) * props.size[0]}px Helvetica Neue`, letterSpacing: `${(5.1 / 1920) * props.size[0]}px`, color: "#0B0B0B" }}>
                         Experience live versions of your favourite songs.
                 </Typography>
-                    <button class="button-red" ref={buttonRef} style={{ transform: `scale(${props.size[0] / 1920}) translate(-${btn1[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
+                    <button class="button-red" ref={buttonRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn1[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
                         <span className="button-txt-red">SEE DEMO</span>
                     </button>
                 </div>

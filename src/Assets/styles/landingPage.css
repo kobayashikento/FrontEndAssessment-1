@@ -1,3 +1,48 @@
 .node-master > div:first-child {
     height: 100vh;
 }
+
+.cursor {
+    width: 145px;
+    height: 145px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+    animation: cursorAnim 0.5s infinite alternate;
+    pointer-events: none;
+    font: normal normal bold 27px/33px Helvetica Neue;
+    letter-spacing: 2.7px;
+    color: #ffffff;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes cursorAnim2 {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.4);
+    }
+}
+
+@keyframes cursorAnim3 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.expand {
+    animation: cursorAnim3 0.5s forwards;
+    border: 1px solid white;
+}
