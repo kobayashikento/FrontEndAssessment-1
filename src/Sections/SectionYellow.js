@@ -85,14 +85,13 @@ const SectionYellow = (props) => {
 
     return (
         <div style={{ height: "100vh", background: "#FFB33F 0% 0% no-repeat padding-box", display: "flex" }}>
-            <button class="button-yellow-try" ref={buttonTryRef} style={{ transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${tryBtnTop * window.innerHeight}px`, right: `${tryBtnRight * window.innerWidth}px`, zIndex: 1 }}>
-                <span className="btn-txt-yellow-try">TRY IT NOW</span>
+            <button class="button-yellow-try" ref={buttonTryRef} style={{ transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${tryBtnTop * props.size[1]}px`, right: `${tryBtnRight * props.size[0]}px`, zIndex: 1 }}>
+                <span className="button-txt-yellow-try">TRY IT NOW</span>
             </button>
             <canvas ref={canvasRef} style={{
                 backgroundImage: `url(${gambino})`, height: "100%", width: "100%", backgroundSize: "cover", position: "absolute",
-                cursor: `url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/circular-cursor.png) 53 53, crosshair`
             }} />
-            <div style={{ display: "flex", marginLeft: `${marginLeftRatio * window.innerWidth}px`, flexDirection: "column", justifyContent: "center", }}>
+            <div style={{ display: "flex", marginLeft: `${marginLeftRatio * props.size[0]}px`, flexDirection: "column", justifyContent: "center", }}>
                 <span className="button-txt">
                     <span style={{ font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${7.4 / 1920 * props.size[0]}px` }}
                         className="txt-h1">FRONT ROW SEATS</span>
@@ -101,7 +100,7 @@ const SectionYellow = (props) => {
                     <span className="txt-h2">Experience concerts up close and personal.</span>
                 </span>
                 <button className="button-yellow" ref={buttonYellowRef} style={{ marginTop: `${46 / 1080 * props.size[1]}px`, transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px,-${btn1[1]}px)` }}>
-                    <span className="btn-txt-yellow">SEE DEMO</span>
+                    <span className="button-txt-yellow">SEE DEMO</span>
                 </button>
             </div>
         </div>

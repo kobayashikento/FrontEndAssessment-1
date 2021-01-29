@@ -21,7 +21,7 @@ const Header = (props) => {
     const [headIconsColor, setHeadIconsColor] = React.useState("#FFFFFF");
 
     const items = [
-        <Button style={{ padding: "0px", }}>
+        <Button style={{ padding: "0px", }} onClick={() => handleWhatClick()}>
             <Typography style={{
                 textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: firstColor,
                 letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
@@ -29,7 +29,7 @@ const Header = (props) => {
                 WHAT IS IT
                         </Typography>
         </Button>,
-        <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px` }}>
+        <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px` }} onClick={() => handlePerkClick()}>
             <Typography style={{ textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: secondColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`, }}>
                 PERKS
                         </Typography>
@@ -40,6 +40,40 @@ const Header = (props) => {
                         </Typography>
         </Button>
     ]
+
+    const handleWhatClick = () => {
+        if (props.index === 1) {
+            window.scrollTo({
+                top: props.size[1] * 2,
+                left: 0,
+                behavior: 'smooth'
+            });
+            handleNavClick();
+        } else if (props.index === 2) {
+            window.scrollTo({
+                top: props.size[1] * 4.2,
+                left: 0,
+                behavior: 'smooth'
+            });
+            handleNavClick();
+        } else {
+            window.scrollTo({
+                top: props.size[1],
+                left: 0,
+                behavior: 'smooth'
+            });
+            handleNavClick();
+        } 
+    }
+
+    const handlePerkClick = () => {
+        window.scrollTo({
+            top: props.size[1] * 3,
+            left: 0,
+            behavior: 'smooth'
+        });
+        handleNavClick();
+    }
 
     React.useEffect(() => {
         switch (props.index) {
@@ -55,11 +89,23 @@ const Header = (props) => {
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#D34848");
                 break;
-            case 1:
-                setFirstColor("#FFFFFF");
-                setSecondColor("#FFB33F");
+            case 2:
+                setFirstColor("#FFB33F");
+                setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFB33F");
+                break;
+            case 3:
+                setFirstColor("#FFFFFF");
+                setSecondColor("#000000");
+                setThirdColor("#FFFFFF");
+                setHeadIconsColor("#FFFFFF");
+                break;
+            case 4:
+                setFirstColor("#1FE1E9");
+                setSecondColor("#FFFFFF");
+                setThirdColor("#FFFFFF");
+                setHeadIconsColor("#1FE1E9");
                 break;
         }
     }, [props.index]);
@@ -78,8 +124,8 @@ const Header = (props) => {
             setItemsOpen(true);
         }
     }
-    
-   
+
+
     let expandCircle = useSpring({
         to: { transform: navOpen ? "scale(1) " : "scale(0) ", left: navOpen ? "-84px" : "-235px", top: navOpen ? "-142px" : "-235px" },
         from: { width: ` calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))`, height: ` calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))`, transform: "scale(0)", left: "-235px", top: "-235px", },
@@ -106,10 +152,10 @@ const Header = (props) => {
 
     return (
         <div style={{ position: "fixed", zIndex: 2020 }}>
-            <animated.div ref={wrapperRef} style={{ ...expandCircle, background: "#0B0B0B", borderRadius: "50% 55% 48%", position: "absolute", boxShadow: "0px 3px 6px #00000029" }} />
+            <animated.div ref={wrapperRef} style={{ ...expandCircle, background: props.index === 3 ? "#1FE1E9" : "#0B0B0B", borderRadius: "50% 55% 48%", position: "absolute", boxShadow: "0px 3px 6px #00000029" }} />
             <div style={{ display: "flex", display: "flex", flexDirection: "column", position: "fixed", left: `${props.size[0] * headLeftRatio}px`, top: `${headTopRatio * props.size[1]}px`, }}>
                 <div style={{ display: "flex" }}>
-                    <IconButton style={{ padding: "0px", borderRadius: "4px" }} onClick={() => handleNavClick()} >
+                    <IconButton style={{ padding: "0px", borderRadius: "4px", backgroundColor: "transparent" }} onClick={() => handleNavClick()} >
                         <DehazeIcon style={{ color: navOpen ? headIconsColor : "#FFFFFF", fontSize: `${56 / 1920 * props.size[0]}px` }} />
                     </IconButton>
                     <Typography style={{

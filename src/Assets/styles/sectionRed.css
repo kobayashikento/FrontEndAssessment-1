@@ -1,4 +1,4 @@
-.button {
+.button-red {
     position: relative;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -15,11 +15,11 @@
     height: 81px;
     box-shadow: 0px 2px 2px #00000029;
 }
-.button span {
+.button-red span {
     position: relative;
     pointer-events: none;
 }
-.button::before {
+.button-red::before {
     --size: 0;
     content: "";
     position: absolute;
@@ -27,12 +27,12 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side,  #5E33D1 0%, #1FE1E9 70%, transparent);
+    background: radial-gradient(circle closest-side, #5e33d1 0%, #1fe1e9 70%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     transition: width 0.2s ease, height 0.2s ease;
 }
-.button:hover::before {
+.button-red:hover::before {
     --size: 500px;
 }
 
@@ -64,16 +64,25 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side,  #5E33D1 0%, #1FE1E9 70%, transparent);
+    background: radial-gradient(circle closest-side, #5e33d1 0%, #1fe1e9 70%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     transition: width 0.2s ease, height 0.2s ease;
 }
+
 .button-red-try:hover::before {
     --size: 400px;
 }
 
-.btn-txt-red {
+.button-red-try:hover > span {
+    color: #FFFFFF;
+}
+
+.button-red:hover > span {
+    color: #FFFFFF;
+}
+
+.button-txt-red {
     text-align: left;
     font: normal normal bold 23px/28px Helvetica Neue;
     letter-spacing: 2.3px;
@@ -81,11 +90,10 @@
     opacity: 1;
 }
 
-.btn-txt-red-try {
+.button-txt-red-try {
     text-align: left;
     font: normal normal bold 18px/23px Helvetica Neue;
     letter-spacing: 1.8px;
-    color: #D1346E;
+    color: #d1346e;
     opacity: 1;
 }
-

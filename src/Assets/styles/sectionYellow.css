@@ -74,7 +74,15 @@
     --size: 400px;
 }
 
-.btn-txt-yellow-try {
+.button-yellow:hover > span {
+    color: #FFFFFF;
+}
+
+.button-yellow-try:hover > span {
+    color: #FFFFFF;
+}
+
+.button-txt-yellow-try {
     text-align: left;
     font: normal normal bold 18px/23px Helvetica Neue;
     letter-spacing: 1.8px;
@@ -82,7 +90,15 @@
     opacity: 1;
 }
 
-.btn-txt-yellow {
+.button-txt-review-try {
+    text-align: left;
+    font: normal normal bold 18px/23px Helvetica Neue;
+    letter-spacing: 1.8px;
+    color: #1FE1E9;
+    opacity: 1;
+}
+
+.button-txt-yellow {
     text-align: left;
     font: normal normal bold 23px/28px Helvetica Neue;
     letter-spacing: 2.3px;

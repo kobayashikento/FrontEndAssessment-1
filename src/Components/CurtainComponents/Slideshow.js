@@ -94,25 +94,28 @@ const Slideshow = (props) => {
     };
 
     React.useEffect(() => {
-        setInterval(() => {
-            if (!isChanging.current && plane) {
-                switch (cycleIndex) {
-                    case 1:
-                        handleRadioClick(1);
-                        setCycleIndex(2);
-                        break;
-                    case 2:
-                        handleRadioClick(2);
-                        setCycleIndex(3);
-                        break;
-                    case 3:
-                        handleRadioClick(3);
-                        setCycleIndex(1);
-                        break;
+        const timer = window.setInterval(() => {
+            handleRadioClick(cycleIndex);
+            switch (cycleIndex){
+                case 1: {
+                    setCycleIndex(2);
+                    break;
+                }
+                case 2: {
+                    setCycleIndex(3);
+                    break;
+                }
+                case 3: {
+                    setCycleIndex(1);
+                    break;
                 }
             }
-        }, 10000)
-    }, [isChanging, plane])
+            
+        }, 10000);
+        return () => {
+            window.clearInterval(timer);
+        };
+    }, [isChanging, plane, cycleIndex])
 
     useCurtains(
         (curtains) => {

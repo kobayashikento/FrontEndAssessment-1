@@ -29,7 +29,7 @@ const Perks = (props) => {
             <div style={{ display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: `${marginLeftRatio * props.size[0]}px` }}>
                 <Typography style={{
                     textAlign: "left", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`, color: " #FFFFFF", height: "88px"
+                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`, color: " #FFFFFF", height: `${88 / 1080 * props.size[1]}px`
                 }}>
                     PERKS
                 </Typography>
