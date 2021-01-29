@@ -1,0 +1,49 @@
+.button-review-try {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 79px;
+    width: 248px;
+    margin-top: 66px;
+    height: 62px;
+    box-shadow: 0px 2px 2px #00000029;
+}
+.button-review-try span {
+    position: relative;
+    pointer-events: none;
+}
+.button-review-try::before {
+    --size: 0;
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side, #5e33d1 -3%, #d34848 62%, transparent);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+.button-review-try:hover::before {
+    --size: 300px;
+}
+
+.button-review-try:hover > span {
+    color: #ffffff;
+}
+
+.button-txt-review-try {
+    text-align: left;
+    font: normal normal bold 18px/23px Helvetica Neue;
+    letter-spacing: 1.8px;
+    color: #1fe1e9;
+    opacity: 1;
+}

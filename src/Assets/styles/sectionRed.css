@@ -1,0 +1,99 @@
+.button-red {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 79px;
+    width: 338px;
+    margin-top: 41px;
+    height: 81px;
+    box-shadow: 0px 2px 2px #00000029;
+}
+.button-red span {
+    position: relative;
+    pointer-events: none;
+}
+.button-red::before {
+    --size: 0;
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side, #5e33d1 0%, #1fe1e9 70%, transparent);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+.button-red:hover::before {
+    --size: 500px;
+}
+
+.button-red-try {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 79px;
+    width: 248px;
+    height: 62px;
+    box-shadow: 0px 2px 2px #00000029;
+}
+.button-red-try span {
+    position: relative;
+    pointer-events: none;
+}
+.button-red-try::before {
+    --size: 0;
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side, #5e33d1 0%, #1fe1e9 70%, transparent);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.button-red-try:hover::before {
+    --size: 400px;
+}
+
+.button-red-try:hover > span {
+    color: #FFFFFF;
+}
+
+.button-red:hover > span {
+    color: #FFFFFF;
+}
+
+.button-txt-red {
+    text-align: left;
+    font: normal normal bold 23px/28px Helvetica Neue;
+    letter-spacing: 2.3px;
+    color: #d1346e;
+    opacity: 1;
+}
+
+.button-txt-red-try {
+    text-align: left;
+    font: normal normal bold 18px/23px Helvetica Neue;
+    letter-spacing: 1.8px;
+    color: #d1346e;
+    opacity: 1;
+}
