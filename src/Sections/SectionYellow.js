@@ -14,7 +14,8 @@ const SectionYellow = (props) => {
     const buttonYellowRef = React.useRef();
     const buttonTryRef = React.useRef();
     const canvasRef = React.useRef();
-    const textRef = React.useRef();
+    const innerTextRef = React.useRef();
+    const innerTextRef1 = React.useRef();
 
     // states
     const [btn1, setBtn1] = React.useState([0, 0]);
@@ -46,19 +47,6 @@ const SectionYellow = (props) => {
         }
     }, [buttonTryRef])
 
-    React.useEffect(() => {
-        if (textRef.current) {
-            textRef.current.onmousemove = function (e) {
-
-                var x = e.pageX - e.target.offsetLeft;
-                var y = e.pageY - e.target.offsetTop;
-
-                e.target.style.setProperty('--x', x + 'px');
-                e.target.style.setProperty('--y', y + 'px');
-            }
-        }
-    }, [textRef])
-
     // painting interaction
     React.useEffect(() => {
         if (canvasRef) {
@@ -75,6 +63,30 @@ const SectionYellow = (props) => {
                 };
             }
 
+            const initialDraw1 = () => {
+                ctxCanvas.beginPath();
+                ctxCanvas.arc(props.size[0] - ((200 / 1920 * props.size[0]) / 2), props.size[1] - ((200 / 1920 * props.size[0]) / 2.6), (250 / 1920 * props.size[0]), 0, 2 * Math.PI, true);
+                ctxCanvas.fillStyle = '#000';
+                ctxCanvas.globalCompositeOperation = "destination-out";
+                ctxCanvas.fill();
+            }
+
+            const initialDraw2 = () => {
+                ctxCanvas.beginPath();
+                ctxCanvas.arc(655 / 1920 * props.size[0], 360 / 1080 * props.size[1], (150 / 1920 * props.size[0]), 0, 2 * Math.PI, true);
+                ctxCanvas.fillStyle = '#000';
+                ctxCanvas.globalCompositeOperation = "destination-out";
+                ctxCanvas.fill();
+            }
+
+            const initialDraw3 = () => {
+                ctxCanvas.beginPath();
+                ctxCanvas.arc(472 / 1920 * props.size[0], 636 / 1080 * props.size[1], (200 / 1920 * props.size[0]), 0, 2 * Math.PI, true);
+                ctxCanvas.fillStyle = '#000';
+                ctxCanvas.globalCompositeOperation = "destination-out";
+                ctxCanvas.fill();
+            }
+
             const drawDot = (mouseX, mouseY) => {
                 ctxCanvas.beginPath();
                 ctxCanvas.arc(mouseX, mouseY, brushRadius, 0, 2 * Math.PI, true);
@@ -88,8 +100,32 @@ const SectionYellow = (props) => {
                 drawDot(brushPos.x, brushPos.y);
             }, false);
 
+            initialDraw1();
+            initialDraw2();
+            initialDraw3();
         }
     }, [canvasRef])
+
+    React.useEffect(() => {
+        if (innerTextRef.current) {
+            innerTextRef.current.onmousemove = function (e) {
+                var x = e.pageX - e.target.offsetLeft;
+                var y = e.pageY - e.target.offsetTop;
+                innerTextRef.current.style.backgroundPosition = `${x - 125}px ${y - 125}px`;
+            }
+        }
+    }, [innerTextRef])
+
+
+    React.useEffect(() => {
+        if (innerTextRef1.current) {
+            innerTextRef1.current.onmousemove = function (e) {
+                var x = e.pageX - e.target.offsetLeft;
+                var y = e.pageY - e.target.offsetTop;
+                innerTextRef1.current.style.backgroundPosition = `${x - 125}px ${y - 125}px`;
+            }
+        }
+    }, [innerTextRef1])
 
     React.useEffect(() => {
         setBtn1([338 - buttonYellowRef.current.getBoundingClientRect().width, 81 - buttonYellowRef.current.getBoundingClientRect().height]);
@@ -105,14 +141,27 @@ const SectionYellow = (props) => {
                 backgroundImage: `url(${gambino})`, height: "100%", width: "100%", backgroundSize: "cover", position: "absolute",
             }} />
             <div style={{ display: "flex", marginLeft: `${marginLeftRatio * props.size[0]}px`, flexDirection: "column", justifyContent: "center", }}>
-                <span className="button-txt">
-                    <span ref={textRef} style={{ font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${7.4 / 1920 * props.size[0]}px` }}
-                        className="txt-h1">FRONT ROW SEATS</span>
-                </span>
-                <span className="button-txt" style={{ maxWidth: "831px", marginTop: `${23 / 1080 * props.size[1]}px`, font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${5.1 / 1920 * props.size[0]}px` }}>
-                    <span className="txt-h2">Experience concerts up close and personal.</span>
-                </span>
-                <button className="button-yellow" ref={buttonYellowRef} style={{ cursor: "none", marginTop: `${46 / 1080 * props.size[1]}px`, transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px,-${btn1[1]}px)` }}>
+                <div>
+                    <span style={{ position: "relative", color: "white", position: "absolute", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${7.4 / 1920 * props.size[0]}px` }}>
+                        FRONT ROW SEATS
+                    </span>
+                    <div className="button-txt">
+                        <span ref={innerTextRef} style={{ zIndex: 2, font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${7.4 / 1920 * props.size[0]}px` }}
+                            className="txt-h1">FRONT ROW SEATS
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <span style={{ position: "relative", color: "#191919", position: "absolute", maxWidth: "831px", font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${5.1 / 1920 * props.size[0]}px` }}>
+                        Experience concerts up close and personal.
+                    </span>
+                    <div className="button-txt">
+                        <span ref={innerTextRef1} style={{ zIndex: 2, maxWidth: "831px", font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`, letterSpacing: `${5.1 / 1920 * props.size[0]}px` }}
+                            className="txt-h2">Experience concerts up close and personal.
+                        </span>
+                    </div>
+                </div>
+                <button className="button-yellow" ref={buttonYellowRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px,-${btn1[1]}px)` }}>
                     <span className="button-txt-yellow">SEE DEMO</span>
                 </button>
             </div>

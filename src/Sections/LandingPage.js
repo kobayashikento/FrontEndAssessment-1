@@ -75,17 +75,17 @@ const LandingPage = () => {
     const [trail, set] = useTrail(1, () => ({ xy: [0, 0], config: i => (i === 0 ? stiff : slow) }))
 
     return (
-        <div onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: circle ? "none" : "auto" }}>
+        <div onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: circle ? "move" : "auto" }}>
             <Header
                 index={index}
                 size={size}
             />
             {trail.map((props, index) => (
                 <animated.div key={index} ref={cursorRef} style={{
-                    transform: props.xy.interpolate(trans), position: "absolute", height: `${145 / 1920 * size[0]}px`, width: `${145 / 1920 * size[0]}px`,
+                    transform: props.xy.interpolate(trans), position: "absolute", height: `${142 / 1920 * size[0]}px`, width: `${142 / 1920 * size[0]}px`,
                     font: `normal normal bold ${27 / 1920 * size[0]}px/${33 / 1920 * size[0]}px Helvetica Neue`, letterSpacing: `${2.7 / 1920 * size[0]}`, zIndex: 2023,
-                    color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%",
-                    pointerEvents: "none", border: circle ? "3px solid #ffffff" : ""
+                    color: text === "REVEAL" ? "#000000" : "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%",
+                    pointerEvents: "none", border: !circle ? "" : text === "REVEAL" ? "3px solid #000000" : "3px solid #ffffff" 
                 }} >
                     {text}
                 </animated.div>

@@ -26,7 +26,7 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side,  #5e33d1 -3%, #d34848 62%, transparent);
+    background: radial-gradient(circle closest-side, #5e33d1 -3%, #d34848 62%, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     transition: width 0.5s ease, height 0.5s ease;
@@ -74,11 +74,11 @@
 }
 
 .button-yellow:hover > span {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .button-yellow-try:hover > span {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .button-txt-yellow-try {
@@ -93,7 +93,7 @@
     text-align: left;
     font: normal normal bold 18px/23px Helvetica Neue;
     letter-spacing: 1.8px;
-    color: #1FE1E9;
+    color: #1fe1e9;
     opacity: 1;
 }
 
@@ -105,29 +105,43 @@
     opacity: 1;
 }
 
-.txt-h1 {
-    text-align: left;
-    color: #ffffff;
-    opacity: 1;
-}
-
 .txt-h2 {
     color: #191919;
     letter-spacing: 5.1px;
 }
 
-.button-txt {
+.button-txt > span {
     position: relative;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: none;
-    outline: none;
-    overflow: hidden;
-    max-width: 831px;
+    -webkit-text-stroke-color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: no-repeat;
+    transition: background-size 0.9s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.button-txt span {
-    position: relative;
-    pointer-events: none;
+.txt-h1 {
+    background-image: radial-gradient(circle closest-side, #30EAEA -3%, #30EAEA 0%, #2DDBBA 90%, transparent);
+    opacity: 0;
+    background-size: 0px;
 }
+
+.txt-h1:hover {
+    background-size: 250px 250px;
+    opacity: 1;
+    background-position: var(--x) var(--y);
+}
+
+.txt-h2 {
+    background-image: radial-gradient(circle closest-side, #30EAEA -3%, #30EAEA 0%, #2DDBBA 90%, transparent);
+    opacity: 0;
+    background-size: 0px;
+}
+
+.txt-h2:hover {
+    background-size: 250px 250px;
+    opacity: 1;
+    background-position: var(--x) var(--y);
+}
+

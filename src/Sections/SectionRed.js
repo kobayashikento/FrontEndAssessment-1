@@ -110,7 +110,7 @@ const SectionRed = (props) => {
                     <Typography style={{ marginTop: `${(27 / 1080) * props.size[1]}px`, width: `${898 / 1920 * props.size[0]}px`, font: `normal normal normal ${(51 / 1920) * props.size[0]}px/${(61 / 1920) * props.size[0]}px Helvetica Neue`, letterSpacing: `${(5.1 / 1920) * props.size[0]}px`, color: "#0B0B0B" }}>
                         Experience live versions of your favourite songs.
                 </Typography>
-                    <button className="button-red" ref={buttonRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn1[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
+                    <button className="button-red" ref={buttonRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
                         <span className="button-txt-red">SEE DEMO</span>
                     </button>
                 </div>
