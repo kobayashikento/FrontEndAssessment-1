@@ -11,7 +11,6 @@
     overflow: hidden;
     border-radius: 79px;
     width: 338px;
-    margin-top: 47px;
     height: 81px;
 }
 .button-yellow span {
@@ -108,17 +107,6 @@
 .txt-h2 {
     color: #191919;
     letter-spacing: 5.1px;
-}
-
-.button-txt > span {
-    position: relative;
-    -webkit-text-stroke-color: transparent;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    background-repeat: no-repeat;
-    transition: background-size 0.9s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .txt-h1 {

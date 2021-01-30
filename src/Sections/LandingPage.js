@@ -20,6 +20,7 @@ const LandingPage = () => {
     const [playing, setPlaying] = React.useState(false);
     const [text, setText] = React.useState("");
     const [circle, setCircle] = React.useState(false);
+    const [speakerHover, setSpeakerHover] = React.useState(false);
 
     //refs
     const cursorRef = React.useRef();
@@ -52,6 +53,14 @@ const LandingPage = () => {
         return () => window.removeEventListener('resize', updateSize);
     }, []);
 
+    const handleSpeakerHover = (state) => {
+        if (state) {
+            setSpeakerHover(true);
+        } else {
+            setSpeakerHover(false);
+        }
+    }
+
     React.useEffect(() => {
         if (cursorRef) {
             document.addEventListener('mousemove', e => {
@@ -75,7 +84,7 @@ const LandingPage = () => {
     const [trail, set] = useTrail(1, () => ({ xy: [0, 0], config: i => (i === 0 ? stiff : slow) }))
 
     return (
-        <div onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: circle ? "move" : "auto" }}>
+        <div onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
             <Header
                 index={index}
                 size={size}
@@ -83,9 +92,9 @@ const LandingPage = () => {
             {trail.map((props, index) => (
                 <animated.div key={index} ref={cursorRef} style={{
                     transform: props.xy.interpolate(trans), position: "absolute", height: `${142 / 1920 * size[0]}px`, width: `${142 / 1920 * size[0]}px`,
-                    font: `normal normal bold ${27 / 1920 * size[0]}px/${33 / 1920 * size[0]}px Helvetica Neue`, letterSpacing: `${2.7 / 1920 * size[0]}`, zIndex: 2023,
-                    color: text === "REVEAL" ? "#000000" : "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%",
-                    pointerEvents: "none", border: !circle ? "" : text === "REVEAL" ? "3px solid #000000" : "3px solid #ffffff" 
+                    font: `normal normal bold ${27 / 1920 * size[0]}px/${33 / 1920 * size[0]}px Helvetica Neue`, letterSpacing: `${2.7 / 1920 * size[0]}`, zIndex: 1020,
+                    color: text === "REVEAL" ? "#000000" : speakerHover ? "#FFFFFF" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%",
+                    pointerEvents: "none", border: !circle ? "" : text === "REVEAL" ? "3px solid #000000" : speakerHover ? "3px solid #ffffff" : "transparent"
                 }} >
                     {text}
                 </animated.div>
@@ -103,6 +112,7 @@ const LandingPage = () => {
                     size={size}
                     playing={playing}
                     handlePlay={() => handlePlay()}
+                    handleSpeakerHover={(state) => handleSpeakerHover(state)}
                 />
                 <SectionYellow
                     size={size}

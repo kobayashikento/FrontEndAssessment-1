@@ -27,7 +27,7 @@ const SectionRed = (props) => {
 
                 var x = e.pageX - e.target.offsetLeft;
                 var y = e.pageY - e.target.offsetTop;
-
+                console.log(x,y)
                 e.target.style.setProperty('--x', x + 'px');
                 e.target.style.setProperty('--y', y + 'px');
             }
@@ -99,7 +99,7 @@ const SectionRed = (props) => {
                 playing={props.playing}
                 loop={true}
             />
-            <button className="button-red-try" ref={buttonTryRef} style={{ cursor: "none", zIndex: 2, transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${95 / 1080 * props.size[1]}px`, right: `${79 / 1920 * props.size[0]}px` }}>
+            <button className="button-red-try" ref={buttonTryRef} style={{ zIndex: 2, transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${95 / 1080 * props.size[1]}px`, right: `${79 / 1920 * props.size[0]}px` }}>
                 <span className="button-txt-red-try">TRY IT NOW</span>
             </button>
             <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
@@ -110,13 +110,13 @@ const SectionRed = (props) => {
                     <Typography style={{ marginTop: `${(27 / 1080) * props.size[1]}px`, width: `${898 / 1920 * props.size[0]}px`, font: `normal normal normal ${(51 / 1920) * props.size[0]}px/${(61 / 1920) * props.size[0]}px Helvetica Neue`, letterSpacing: `${(5.1 / 1920) * props.size[0]}px`, color: "#0B0B0B" }}>
                         Experience live versions of your favourite songs.
                 </Typography>
-                    <button className="button-red" ref={buttonRef} style={{ cursor: "none", transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
+                    <button className="button-red" ref={buttonRef} style={{ transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px, -${btn1[1]}px)`, marginTop: `${41 / 1080 * props.size[1]}px` }}>
                         <span className="button-txt-red">SEE DEMO</span>
                     </button>
                 </div>
                 <div style={{ display: "flex", position: "absolute", right: `${157 / 1920 * props.size[0]}px`, paddingTop: "6.5%" }}>
-                    <img ref={speaker1} alt="right_speakers" style={{ width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
-                    <img ref={speaker2} alt="left_speakers" style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
+                    <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker1} alt="right_speakers" style={{ width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
+                    <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker2} alt="left_speakers" style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
                 </div>
             </div>
         </div>

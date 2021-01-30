@@ -52,13 +52,17 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
   }
 }
 
-[class*="btn-mix-try"] {
+[class*="btn-try"] {
   &::after {
     background: $bg-color;
     border-radius: 79px;
     content: attr(data-text);
     color: #fff;
     top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 122px;
     height: 22px;
     left: 64px;
     -moz-user-select: none;
@@ -104,7 +108,7 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
   }
 }
 
-.btn-mix-try-noborder {
+.btn-try-noborder {
   &::after {
     background: transparent !important;
     color: $bg-color !important;
