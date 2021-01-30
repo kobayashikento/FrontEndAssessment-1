@@ -21,13 +21,18 @@ const LandingPage = () => {
     const [text, setText] = React.useState("");
     const [circle, setCircle] = React.useState(false);
     const [speakerHover, setSpeakerHover] = React.useState(false);
-    const [tryMargin, setTryMargin] = React.useState([0,0]);
+    const [tryMargin, setTryMargin] = React.useState([0, 0]);
+    const [demoPos, setDemoPos] = React.useState([0, 0]);
 
     //refs
     const cursorRef = React.useRef();
 
     const handleTryMarginChange = (pos) => {
         setTryMargin(pos);
+    }
+
+    const handleDemoPosChange = (pos) => {
+        setDemoPos(pos);
     }
 
     const handlePlay = () => {
@@ -118,19 +123,25 @@ const LandingPage = () => {
                     playing={playing}
                     handlePlay={() => handlePlay()}
                     handleSpeakerHover={(state) => handleSpeakerHover(state)}
-                    handleTryMarginChange={(pos)=>handleTryMarginChange(pos)}
+                    handleTryMarginChange={(pos) => handleTryMarginChange(pos)}
+                    handleDemoPosChange={(pos) => handleDemoPosChange(pos)}
+                    tryPos={tryMargin}
+                    demoPos={demoPos}
                 />
                 <SectionYellow
                     size={size}
-                    tryMargin={tryMargin}
+                    tryPos={tryMargin}
+                    demoPos={demoPos}
                 />
                 <Perks
                     size={size}
-                    tryMargin={tryMargin}
+                    tryPos={tryMargin}
+                    demoPos={demoPos}
                 />
                 <Review
                     size={size}
-                    tryMargin={tryMargin}
+                    tryPos={tryMargin}
+                    demoPos={demoPos}
                 />
             </div>
         </div>

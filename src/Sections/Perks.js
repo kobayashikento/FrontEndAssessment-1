@@ -1,20 +1,20 @@
 import React from 'react';
 
-import '../Assets/styles/landingPage.scss';
+import RainbowButton from '../Components/RainbowButton';
+
 import { Typography } from '@material-ui/core';
 
 const Perks = (props) => {
 
-    const buttonTryRef = React.useRef();
     const marginTopRatio = 327 / 1229;
     const marginLeftRatio = 172 / 1920;
 
     return (
         <div style={{ background: "#191919 0% 0% no-repeat padding-box", minHeight: `${1229 / 1080 * props.size[1]}px` }}>
-            <div ref={buttonTryRef} style={{ display: "flex", position: "absolute", right: `${77/1920 * props.size[0]}px` }}>
+            <div style={{ display: "flex", position: "absolute", right: `${77 / 1920 * props.size[0]}px` }}>
                 <a style={{
-                    width: "248px", height: "62px", marginTop: `${69/1080 * props.size[1]}px`,
-                    transform: `scale(${props.size[0] / 1920}) translate(${props.tryMargin[0]}px, -${props.tryMargin[1]}px)`, 
+                    width: "248px", height: "62px", marginTop: `${69 / 1080 * props.size[1]}px`,
+                    transform: `scale(${props.size[0] / 1920}) translate(${props.tryPos[0]}px, ${props.tryPos[1]}px)`,
                 }} className="btntry-try-noborder" data-text="TRY IT NOW" />
             </div>
             <div style={{ display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: `${marginLeftRatio * props.size[0]}px` }}>

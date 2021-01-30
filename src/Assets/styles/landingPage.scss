@@ -3,7 +3,6 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
 
 [class*="btn-"] {
   outline: 0;
-  //box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   border-radius: 79px;
   font: normal normal bold 23px/28px Helvetica Neue;
@@ -13,6 +12,7 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
   margin-top: 31px;
   width: 284px;
   height: 79px;
+  background: $bg-color;
   text-transform: uppercase;
   -webkit-tap-highlight-color: transparent;
   transition: all 500ms ease-in-out;
@@ -23,7 +23,7 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
   }
   &:hover,
   &:focus {
-    background: $bg-color;
+    background: rgba(255, 255, 255, 0.7);
   }
 }
 
@@ -55,7 +55,6 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
 
 [class*="btntry"] {
   outline: 0;
-  //box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   border-radius: 79px;
   font: normal normal bold 18px/23px Helvetica Neue;
@@ -63,6 +62,7 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
   overflow: hidden;
   position: relative; //absolute
   width: 284px;
+  background: $bg-color;
   height: 79px;
   margin-top: 69px;
   text-transform: uppercase;
@@ -75,7 +75,7 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
   }
   &:hover,
   &:focus {
-    background: $bg-color;
+    background: rgba(255, 255, 255, 0.7);
   }
 }
 
@@ -108,6 +108,18 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
   30% {
     box-shadow: 0 -1em 2em 3em rgba(211, 72, 72, 1), 4em -1em 2em 3em rgba(255, 179, 63, 1),
       -4em 2em 3em 2em rgba(94, 51, 209, 1), -4em -2em 2em 2em rgba(31, 225, 233, 1);
+  }
+  60% {
+    box-shadow: 2em 1em 2em 3em rgba(94, 51, 209, 1), 3em 1em 2em 3em rgba(31, 225, 233, 0.8),
+      3em -2em 3em 3em rgba(31, 225, 233, 1), -4em 2em 2em 3em rgba(200, 0, 50, 0.8),
+      0 -3em 2em 3em rgba(31, 225, 233, 1), -2em 1em 2em 3em rgba(50, 210, 250, 0.8);
+  }
+}
+
+@keyframes mixReverse {
+  30% {
+    box-shadow: -4em 2em 3em 2em rgba(94, 51, 209, 1), -4em -2em 2em 2em rgba(31, 225, 233, 1),
+      0 -1em 2em 3em rgba(211, 72, 72, 1), 4em -1em 2em 3em rgba(255, 179, 63, 1);
   }
   60% {
     box-shadow: 2em 1em 2em 3em rgba(94, 51, 209, 1), 3em 1em 2em 3em rgba(31, 225, 233, 0.8),
