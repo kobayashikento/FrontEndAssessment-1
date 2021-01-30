@@ -6,10 +6,6 @@ import gambino from '../Assets/pictures/Yellow/gambino_s.png';
 
 const SectionYellow = (props) => {
 
-    const marginLeftRatio = 900 / 1920;
-    const tryBtnTop = 95 / 1080;
-    const tryBtnRight = 79 / 1920;
-
     //refs
     const buttonYellowRef = React.useRef();
     const buttonTryRef = React.useRef();
@@ -19,8 +15,8 @@ const SectionYellow = (props) => {
 
     // states
     const [btn1, setBtn1] = React.useState([0, 0]);
-    const [btn2, setBtn2] = React.useState([0, 0]);
 
+    // handle hover radial-gradient change event
     React.useEffect(() => {
         if (buttonYellowRef.current) {
             buttonYellowRef.current.onmousemove = function (e) {
@@ -104,14 +100,15 @@ const SectionYellow = (props) => {
         }
     }, [canvasRef])
 
+    // adjust button margins based on the scale reduction or increase
     React.useEffect(() => {
         setBtn1([338 - buttonYellowRef.current.getBoundingClientRect().width, 81 - buttonYellowRef.current.getBoundingClientRect().height]);
-        setBtn2([248 - buttonTryRef.current.getBoundingClientRect().width, 62 - buttonTryRef.current.getBoundingClientRect().height]);
     }, [props.size])
 
     return (
         <div style={{ height: "100vh", backgroundImage: `url(${gambino})`, width: "100%", display: "flex", backgroundSize: "cover", }}>
-            <button className="button-yellow-try" ref={buttonTryRef} style={{ transform: `scale(${props.size[0] / 1920}) translate(${btn2[0]}px, -${btn2[1]}px)`, marginTop: `${tryBtnTop * props.size[1]}px`, right: `${tryBtnRight * props.size[0]}px`, zIndex: 1 }}>
+            <button ref={buttonTryRef} className="button-yellow-try" style={{ transform: `scale(${props.size[0] / 1920}) translate(${props.tryMargin[0]}px, -${props.tryMargin[1]}px)`, 
+            marginTop: `${79 / 1080 * props.size[1]}px`, right: `${62 / 1920 * props.size[0]}px`, zIndex: 1 }}>
                 <span className="button-txt-yellow-try">TRY IT NOW</span>
             </button>
             <canvas ref={canvasRef} width={props.size[0]} height={props.size[1]} style={{ position: "absolute" }} />
@@ -130,7 +127,7 @@ const SectionYellow = (props) => {
                     </span>
             </div>
             <button className="button-yellow" ref={buttonYellowRef} style={{
-                transform: `scale(${props.size[0] / 1920}) translate(-${btn2[0]}px,-${btn1[1]}px)`,
+                transform: `scale(${props.size[0] / 1920}) translate(-${props.tryMargin[0]}px,-${btn1[1]}px)`,
                 position: "absolute", marginTop: `${636 / 1080 * props.size[1]}px`, marginLeft: `${900 / 1920 * props.size[0]}px`
             }}>
                 <span className="button-txt-yellow">SEE DEMO</span>

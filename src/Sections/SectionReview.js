@@ -12,7 +12,6 @@ import Rating from '@material-ui/lab/Rating';
 const SectionReview = (props) => {
     //refs
     const buttonTryRef = React.useRef();
-    const [btn1, setBt1] = React.useState([0, 0])
 
     // listening to button events
     React.useEffect(() => {
@@ -28,14 +27,10 @@ const SectionReview = (props) => {
         }
     }, [buttonTryRef])
 
-    // React.useEffect(() => {
-    //     setBt1([338 - buttonTryRef.current.getBoundingClientRect().width, 81 - buttonTryRef.current.getBoundingClientRect().height]);
-    // }, [props.size])
-
     return (
         <div style={{ height: "100vh", background: "#1FE1E9 0% 0% no-repeat padding-box" }}>
             <button className="button-review-try" ref={buttonTryRef} style={{
-                transform: `scale(${props.size[0] / 1920}) translate(${btn1[0]}px, -${btn1[1]}px)`,
+                transform: `scale(${props.size[0] / 1920}) translate(${props.tryMargin[0]}px, -${props.tryMargin[1]}px)`,
                 marginTop: `${79 / 1080 * props.size[1]}px`, right: `${62 / 1920 * props.size[0]}px`, zIndex: 1
             }}>
                 <span className="button-txt-review-try">TRY IT NOW</span>

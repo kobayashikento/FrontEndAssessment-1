@@ -177,14 +177,14 @@ const Slideshow = (props) => {
                 size={props.size}
             />
             <div style={{ position: "absolute", bottom: `${37 / 1080 * props.size[1]}px`, height: "17px", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <div className="radio-btn" onClick={() => handleRadioClick(1)}>
-                    <animated.div style={springFirst} className="radio-btn" />
+                <div className="radio-btn" style={{ width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} onClick={() => handleRadioClick(1)}>
+                    <animated.div style={{ ...springFirst, width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} className="radio-btn" />
                 </div>
-                <div className="radio-btn" onClick={() => handleRadioClick(2)}>
-                    <animated.div style={springSecond} className="radio-btn" />
+                <div className="radio-btn" style={{ width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} onClick={() => handleRadioClick(2)}>
+                    <animated.div style={{ ...springSecond, width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} className="radio-btn" />
                 </div>
-                <div className="radio-btn" onClick={() => handleRadioClick(3)}>
-                    <animated.div style={springThird} className="radio-btn" />
+                <div className="radio-btn" style={{ width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} onClick={() => handleRadioClick(3)}>
+                    <animated.div style={{ ...springThird, width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} className="radio-btn" />
                 </div>
             </div>
             <div ref={slideshowInner}>

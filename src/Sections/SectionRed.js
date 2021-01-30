@@ -50,8 +50,10 @@ const SectionRed = (props) => {
 
     // reponsive width and height change
     React.useEffect(() => {
+        let tryPos = [248 - buttonTryRef.current.getBoundingClientRect().width, 62 - buttonTryRef.current.getBoundingClientRect().height];
         setBt1([338 - buttonRef.current.getBoundingClientRect().width, 81 - buttonRef.current.getBoundingClientRect().height]);
-        setBt2([248 - buttonTryRef.current.getBoundingClientRect().width, 62 - buttonTryRef.current.getBoundingClientRect().height]);
+        setBt2(tryPos);
+        props.handleTryMarginChange(tryPos)
     }, [props.size]);
 
     React.useEffect(() => {

@@ -30,11 +30,8 @@
 }
 
 .radio-btn {
-    width: 15px;
-    height: 15px;
     border: 1px solid #fff;
     border-radius: 50%;
     margin: 5px;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(2, 11, 22, 0.5);
 }

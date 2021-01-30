@@ -9,22 +9,13 @@ const Perks = (props) => {
     const marginTopRatio = 327 / 1229;
     const marginLeftRatio = 172 / 1920;
 
-    //states
-    const [btn1, setBtn1] = React.useState([0, 0]);
-
-    //responsive size change
-    React.useEffect(() => {
-        setBtn1([250 - buttonTryRef.current.getBoundingClientRect().width, 62 - buttonTryRef.current.getBoundingClientRect().height]);
-    }, [props.size])
-
-
     return (
         <div style={{ background: "#191919 0% 0% no-repeat padding-box", minHeight: `${1229 / 1080 * props.size[1]}px` }}>
-            <div ref={buttonTryRef} style={{ display: "flex", position: "absolute", right: `${77 / 1920 * props.size[0]}px`, marginTop: `${69 / 1229 * props.size[1]}px` }}>
+            <div ref={buttonTryRef} style={{ display: "flex", position: "absolute", right: `${77/1920 * props.size[0]}px` }}>
                 <a style={{
-                    width: "250px", height: "62px", font: `normal normal bold ${18 / 1920 * props.size[0]}px/${23 / 1920 * props.size[0]}px Helvetica Neue`,
-                    transform: `scale(${props.size[0] / 1920}) translate(${btn1[0]}px, -${btn1[1]}px)`, letterSpacing: `${1.8 / 1920 * props.size[0]}px`
-                }} className="btn-try-noborder" data-text="TRY IT NOW" />
+                    width: "248px", height: "62px", marginTop: `${69/1080 * props.size[1]}px`,
+                    transform: `scale(${props.size[0] / 1920}) translate(${props.tryMargin[0]}px, -${props.tryMargin[1]}px)`, 
+                }} className="btntry-try-noborder" data-text="TRY IT NOW" />
             </div>
             <div style={{ display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: `${marginLeftRatio * props.size[0]}px` }}>
                 <Typography style={{

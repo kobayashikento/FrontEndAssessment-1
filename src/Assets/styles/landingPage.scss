@@ -1,7 +1,8 @@
-$bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 65%, #FFB33F 100%) 0% 0% no-repeat padding-box;
+$bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 65%, #ffb33f 100%) 0% 0% no-repeat
+  padding-box;
 
 [class*="btn-"] {
-  outline:0;
+  outline: 0;
   //box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   border-radius: 79px;
@@ -9,17 +10,19 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
   letter-spacing: 2.3px;
   overflow: hidden;
   position: relative; //absolute
-  margin-top: 31px; 
+  margin-top: 31px;
   width: 284px;
   height: 79px;
   text-transform: uppercase;
   -webkit-tap-highlight-color: transparent;
   transition: all 500ms ease-in-out;
-  &::after, &::before { 
+  &::after,
+  &::before {
     content: "";
     position: absolute;
   }
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: $bg-color;
   }
 }
@@ -42,28 +45,47 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
     border-radius: 100%;
     top: 50%;
     left: 50%;
-    box-shadow: 0 1em 2em 3em rgba(255, 50, 0, 0.5),
-                -4em -2em 2em 2em rgba(255, 0, 150, 0.5),
-                -4em 2em 2em 4em rgba(0, 0, 150, 0.5),
-                0 -3em 2em 3em rgba(31, 225, 233, 0.8);
+    box-shadow: 0 1em 2em 3em rgba(255, 50, 0, 0.5), -4em -2em 2em 2em rgba(255, 0, 150, 0.5),
+      -4em 2em 2em 4em rgba(0, 0, 150, 0.5), 0 -3em 2em 3em rgba(31, 225, 233, 0.8);
     width: 0;
     height: 0;
     animation: mix 4s linear infinite;
   }
 }
 
-[class*="btn-try"] {
+[class*="btntry"] {
+  outline: 0;
+  //box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border-radius: 79px;
+  font: normal normal bold 18px/23px Helvetica Neue;
+  letter-spacing: 1.8px;
+  overflow: hidden;
+  position: relative; //absolute
+  width: 284px;
+  height: 79px;
+  margin-top: 69px;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 500ms ease-in-out;
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+  }
+  &:hover,
+  &:focus {
+    background: $bg-color;
+  }
+}
+
+[class*="btntry-try"] {
   &::after {
     background: $bg-color;
     border-radius: 79px;
     content: attr(data-text);
     color: #fff;
     top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 122px;
-    height: 22px;
     left: 64px;
     -moz-user-select: none;
     user-select: none;
@@ -74,30 +96,23 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
     border-radius: 100%;
     top: 50%;
     left: 50%;
-    box-shadow: 0 1em 2em 3em rgba(255, 50, 0, 0.5),
-                -4em -2em 2em 2em rgba(255, 0, 150, 0.5),
-                -4em 2em 2em 4em rgba(0, 0, 150, 0.5),
-                0 -3em 2em 3em rgba(31, 225, 233, 0.8);
+    box-shadow: 0 1em 2em 3em rgba(255, 50, 0, 0.5), -4em -2em 2em 2em rgba(255, 0, 150, 0.5),
+      -4em 2em 2em 4em rgba(0, 0, 150, 0.5), 0 -3em 2em 3em rgba(31, 225, 233, 0.8);
     width: 0;
     height: 0;
     animation: mix 4s linear infinite;
   }
 }
 
-@keyframes mix {  
+@keyframes mix {
   30% {
-    box-shadow: 0 -1em 2em 3em rgba(211, 72, 72, 1),
-                4em -1em 2em 3em rgba(255, 179, 63, 1),
-                -4em 2em 3em 2em rgba(94, 51, 209, 1),
-                -4em -2em 2em 2em rgba(31, 225, 233, 1),
+    box-shadow: 0 -1em 2em 3em rgba(211, 72, 72, 1), 4em -1em 2em 3em rgba(255, 179, 63, 1),
+      -4em 2em 3em 2em rgba(94, 51, 209, 1), -4em -2em 2em 2em rgba(31, 225, 233, 1);
   }
   60% {
-    box-shadow: 2em 1em 2em 3em rgba(94, 51, 209, 1),
-                3em 1em 2em 3em rgba(31, 225, 233, 0.8),
-                3em -2em 3em 3em rgba(31, 225, 233, 1),
-                -4em 2em 2em 3em rgba(200, 0, 50, 0.8),
-                0 -3em 2em 3em rgba(31, 225, 233, 1),
-                -2em 1em 2em 3em rgba(50, 210, 250, 0.8);
+    box-shadow: 2em 1em 2em 3em rgba(94, 51, 209, 1), 3em 1em 2em 3em rgba(31, 225, 233, 0.8),
+      3em -2em 3em 3em rgba(31, 225, 233, 1), -4em 2em 2em 3em rgba(200, 0, 50, 0.8),
+      0 -3em 2em 3em rgba(31, 225, 233, 1), -2em 1em 2em 3em rgba(50, 210, 250, 0.8);
   }
 }
 
@@ -108,7 +123,7 @@ $bg-color: transparent linear-gradient(90deg, #1FE1E9 0%, #5E33D1 34%, #D34848 6
   }
 }
 
-.btn-try-noborder {
+.btntry-try-noborder {
   &::after {
     background: transparent !important;
     color: $bg-color !important;
