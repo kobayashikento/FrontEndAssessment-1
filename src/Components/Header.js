@@ -8,6 +8,26 @@ import { Trail } from 'react-spring/renderprops'
 
 import { useSpring, animated } from 'react-spring'
 
+function useOnClickOutside(ref, handler) {
+    React.useEffect(() => {
+        const listener = event => {
+            if (!ref.current || ref.current.contains(event.target)) {
+                return;
+            }
+
+            handler(event);
+        };
+
+        document.addEventListener("mousedown", listener);
+        document.addEventListener("touchstart", listener);
+
+        return () => {
+            document.removeEventListener("mousedown", listener);
+            document.removeEventListener("touchstart", listener);
+        };
+    }, [ref, handler]);
+}
+
 const Header = (props) => {
     const wrapperRef = React.useRef(null);
     const headLeftRatio = 83 / 1920;
@@ -26,10 +46,16 @@ const Header = (props) => {
     const [showPerks, setShowPerks] = React.useState(false);
     const [showPricing, setShowPricing] = React.useState(false);
 
+    const handler = React.useCallback(() => handleNavClose(), []);
+    //useOnClickOutside(wrapperRef, handler);
+
+    const handleNavClose = () => {
+        setNavOpen(false);
+    }
     // react components for menu list
     const items = [
         {
-            key: 1, content: <Button style={{ padding: "0px", backgroundColor: "transparent" }} onClick={() => handleWhatClick()}>
+            key: 1, content: <Button style={{ padding: "0px", backgroundColor: "transparent" }} onClick={() => handleNavItemClick(0)}>
                 <Typography onMouseEnter={() => setShowWhat(true)} onMouseLeave={() => setShowWhat(false)} style={{
                     textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showWhat ? highlight : firstColor,
                     letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
@@ -62,29 +88,9 @@ const Header = (props) => {
         }]
 
     // handle click event for menu item clicks
-    const handleWhatClick = () => {
-        if (props.index === 1) {
-            window.scrollTo({
-                top: props.size[1] * 2,
-                left: 0,
-                behavior: 'smooth'
-            });
-            handleNavClick();
-        } else if (props.index === 2) {
-            window.scrollTo({
-                top: props.size[1] * 4.2,
-                left: 0,
-                behavior: 'smooth'
-            });
-            handleNavClick();
-        } else {
-            window.scrollTo({
-                top: props.size[1],
-                left: 0,
-                behavior: 'smooth'
-            });
-            handleNavClick();
-        }
+    const handleNavItemClick = (index) => {
+       props.handleNavItemClick(index);
+       handleNavClick();
     }
 
     const handlePerkClick = () => {
@@ -134,6 +140,12 @@ const Header = (props) => {
                 setHeadIconsColor("#1FE1E9");
                 setHighlight("#1FE1E9");
                 break;
+            case 5:
+                setFirstColor("#1FE1E9");
+                setSecondColor("#FFFFFF");
+                setThirdColor("#FFFFFF");
+                setHeadIconsColor("#1FE1E9");
+                setHighlight("#1FE1E9");
             default:
         }
     }, [props.index]);
@@ -175,7 +187,7 @@ const Header = (props) => {
                         letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${headMarginRatio * props.size[0]}px`
                     }}>
                         EXP|CON
-            </Typography>
+                    </Typography>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: `${26 / 1920 * props.size[0]}px` }}>
                     {itemsOpen ? <Trail items={items} from={{ transform: `translate3d(0,${56 / 1920 * props.size[0]}px,0)`, opacity: 0 }} to={{ transform: 'translate3d(0,0px,0)', opacity: 1, }}>

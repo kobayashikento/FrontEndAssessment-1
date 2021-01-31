@@ -20,12 +20,8 @@ const SectionYellow = (props) => {
     React.useEffect(() => {
         if (buttonYellowRef.current) {
             buttonYellowRef.current.onmousemove = function (e) {
-
-                var x = e.pageX - e.target.offsetLeft;
-                var y = e.pageY - e.target.offsetTop;
-
-                e.target.style.setProperty('--x', x + 'px');
-                e.target.style.setProperty('--y', y + 'px');
+                e.target.style.setProperty('--x', e.offsetX + 'px');
+                e.target.style.setProperty('--y', e.offsetY + 'px');
             }
         }
     }, [buttonYellowRef])
@@ -33,12 +29,8 @@ const SectionYellow = (props) => {
     React.useEffect(() => {
         if (buttonTryRef.current) {
             buttonTryRef.current.onmousemove = function (e) {
-
-                var x = e.pageX - e.target.offsetLeft;
-                var y = e.pageY - e.target.offsetTop;
-
-                e.target.style.setProperty('--x', x + 'px');
-                e.target.style.setProperty('--y', y + 'px');
+                e.target.style.setProperty('--x', e.offsetX + 'px');
+                e.target.style.setProperty('--y', e.offsetY + 'px');
             }
         }
     }, [buttonTryRef])
@@ -101,7 +93,7 @@ const SectionYellow = (props) => {
     }, [canvasRef])
 
     return (
-        <div style={{ height: "100vh", backgroundImage: `url(${gambino})`, width: "100%", display: "flex", backgroundSize: "cover", }}>
+        <div style={{ height: "100vh", backgroundImage: `url(${gambino})`, display: "flex", backgroundSize: "cover", }}>
             <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="yellow" >
                 <span>TRY IT NOW</span>
             </TryButton>
@@ -109,16 +101,18 @@ const SectionYellow = (props) => {
                 <span >SEE DEMO</span>
             </DemoButton>
             <canvas ref={canvasRef} width={props.size[0]} height={props.size[1]} style={{ position: "absolute" }} />
-            <div style={{ position: "relative", width: "100vw", height: "100vh", pointerEvents: "none" }}>
+            <div style={{
+                position: "absolute", pointerEvents: "none", marginTop: `${357 / 1080 * props.size[1]}px`,
+                marginLeft: `${900 / 1920 * props.size[0]}px`,
+            }}>
                 <Typography style={{
-                    color: "white", position: "absolute", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`, top: `${357 / 1080 * props.size[1]}px`, left: `${900 / 1920 * props.size[0]}px`,
-                    height: `${88 / 1080 * props.size[1]}px`, pointerEvents: "none", display: "flex", alignItems: "center"
+                    color: "white", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
+                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`, height: `${88 / 1080 * props.size[1]}px`, display: "flex", alignItems: "center"
                 }}>FRONT ROW SEATS</Typography>
                 <Typography style={{
-                    position: "absolute", color: "#191919", position: "absolute", maxWidth: `${831 / 1920 * props.size[0]}px`, font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${5.1 / 1920 * props.size[0]}px`, top: `${468 / 1080 * props.size[1]}px`, left: `${900 / 1920 * props.size[0]}px`,
-                    height: `${121 / 1080 * props.size[1]}px`, pointerEvents: "none"
+                    color: "#191919", maxWidth: `${831 / 1920 * props.size[0]}px`, font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`,
+                    letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${23 / 1920 * props.size[0]}px`,
+                    height: `${121 / 1080 * props.size[1]}px`,
                 }}>
                     Experience concerts up close and personal.
                     </Typography>

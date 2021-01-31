@@ -1,7 +1,5 @@
 import React from 'react';
 
-import RainbowButton from '../Components/RainbowButton';
-
 import { Typography } from '@material-ui/core';
 
 const Perks = (props) => {

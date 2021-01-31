@@ -22,22 +22,17 @@ const SectionRed = (props) => {
     React.useEffect(() => {
         if (buttonRef.current) {
             buttonRef.current.onmousemove = function (e) {
-                var x = e.pageX - e.target.offsetLeft;
-                var y = e.pageY - e.target.offsetTop;
-                e.target.style.setProperty('--x', x + 'px');
-                e.target.style.setProperty('--y', y + 'px');
+                e.target.style.setProperty('--x', e.offsetX + 'px');
+                e.target.style.setProperty('--y', e.offsetY + 'px');
             }
-
         }
     }, [buttonRef]);
 
     React.useEffect(() => {
         if (buttonTryRef.current) {
             buttonTryRef.current.onmousemove = function (e) {
-                var x = e.pageX - e.target.offsetLeft;
-                var y = e.pageY - e.target.offsetTop;
-                e.target.style.setProperty('--x', x + 'px');
-                e.target.style.setProperty('--y', y + 'px');
+                e.target.style.setProperty('--x', e.offsetX + 'px');
+                e.target.style.setProperty('--y', e.offsetY + 'px');
             }
         }
     }, [buttonTryRef]);
@@ -86,8 +81,6 @@ const SectionRed = (props) => {
         };
     }, [speaker2, props.playing, props]);
 
-    console.log(buttonRef)
-
     return (
         <div style={{ height: "100vh", background: "#D34848 0% 0% no-repeat padding-box" }}>
             <ReactPlayer
@@ -100,28 +93,27 @@ const SectionRed = (props) => {
             <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="red" >
                 <span>TRY IT NOW</span>
             </TryButton>
-            <DemoButton ref={buttonRef} size={props.size} pos={props.demoPos} type="red">
-                <span >SEE DEMO</span>
-            </DemoButton>
-            <div style={{ height: "100vh", marginLeft: `${184 / 1920 * props.size[0]}px` }}>
+            <div style={{ marginLeft: `${184 / 1920 * props.size[0]}px`, marginTop: `${431 / 1080 * props.size[1]}px`, position: "absolute" }}>
                 <Typography style={{
                     font: `normal normal bold ${(74 / 1920) * props.size[0]}px/${(90 / 1920) * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${(7.4 / 1920) * props.size[0]}px`, color: "#FFFFFF", position: "absolute",
-                    paddingTop: `${431 / 1080 * props.size[1]}px`
+                    letterSpacing: `${(7.4 / 1920) * props.size[0]}px`, color: "#FFFFFF", height: `${88 / 1920 * props.size[0]}px`
                 }}>
                     SUPERIOR SOUND
                     </Typography>
                 <Typography style={{
                     width: `${898 / 1920 * props.size[0]}px`, font: `normal normal normal ${(51 / 1920) * props.size[0]}px/${(61 / 1920) * props.size[0]}px Helvetica Neue`,
                     letterSpacing: `${(5.1 / 1920) * props.size[0]}px`, color: "#0B0B0B",
-                    position: "absolute", paddingTop: `${(546 / 1080) * props.size[1]}px`,
+                    marginTop: `${(27 / 1920) * props.size[0]}px`,
                 }}>
                     Experience live versions of your favourite songs.
                     </Typography>
-                <div style={{ display: "flex", position: "absolute", right: `${157 / 1920 * props.size[0]}px`, paddingTop: `${(239 / 1080) * props.size[1]}px` }}>
-                    <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker1} alt="right_speakers" style={{ width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
-                    <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker2} alt="left_speakers" style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: `${440 / 1080 * props.size[1]}px`, background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
-                </div>
+                <DemoButton ref={buttonRef} size={props.size} pos={props.demoPos} type="red">
+                    <span >SEE DEMO</span>
+                </DemoButton>
+            </div>
+            <div style={{ display: "flex", marginRight: `${157 / 1920 * props.size[0]}px`, marginTop: `${(239 / 1080) * props.size[1]}px`, float: "right" }}>
+                <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker1} alt="right_speakers" style={{ width: `${300 / 1920 * props.size[0]}px`, height: "100%", background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
+                <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker2} alt="left_speakers" style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: "100%", background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
             </div>
         </div>
     )

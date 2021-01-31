@@ -16,7 +16,7 @@ export default styled.button`
     border-radius: 79px;
     width: ${TRY_CTA_WIDTH}px;
     height: ${TRY_CTA_HEIGHT}px;
-    margin-top: ${(props) => (95 / 1080 * props.size[1] + 'px')};
+    margin-top: ${(props) => (66 / 1920 * props.size[0] + 'px')};
     right: ${(props) => (79 / 1920 * props.size[0] + `px`)};
     transform: ${(props) => (`translate(${props.pos[0]}px, ${-props.pos[1]}px) scale(${props.size[0] / 1920})`)};
 
