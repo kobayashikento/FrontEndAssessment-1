@@ -20,7 +20,6 @@ function useOnClickOutside(ref, handler) {
             if (!ref.current || ref.current.contains(event.target)) {
                 return;
             }
-
             handler(event);
         };
 
@@ -111,7 +110,7 @@ const Header = (props) => {
 
     // handle click event for menu item clicks
     const handleNavItemClick = (index) => {
-        if (props.navIndex === 3) {
+        if (props.navIndex === 3 || props.menuIndex === 6) {
             if (index === 0) {
                 props.setMenuIndex(0);
                 props.setNavIndex(0);
@@ -242,6 +241,11 @@ const Header = (props) => {
         setPricingOpen(true);
     }
 
+    const headerTextSpring = useSpring({
+        to: { opacity: navOpen ? 1 : props.showNavText ? 1 : 0 },
+        from: { opacity: 0 }
+    })
+
     return (
         <div style={{ position: "fixed", zIndex: 2020 }}>
             <animated.div ref={wrapperRef} style={{ ...expandCircle, background: props.navIndex === 2 ? "#1FE1E9" : "#0B0B0B", borderRadius: "50% 55% 48%", position: "absolute", boxShadow: "0px 3px 6px #00000029" }} />
@@ -250,12 +254,14 @@ const Header = (props) => {
                     <IconButton style={{ padding: "0px", borderRadius: "4px", backgroundColor: "transparent" }} onClick={() => handleNavClick()} >
                         <DehazeIcon style={{ color: navOpen ? headIconsColor : defaultColor, fontSize: `${56 / 1920 * props.size[0]}px` }} />
                     </IconButton>
-                    <Typography style={{
-                        textAlign: "left", font: `normal normal normal ${48 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, 
-                        color: navOpen ? headIconsColor : defaultColor, letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${37.87 / 1920 * props.size[0]}px`
-                    }}>
-                        EXP|CON
+                    <animated.div style={headerTextSpring}>
+                        <Typography style={{
+                            textAlign: "left", font: `normal normal normal ${48 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
+                            color: navOpen ? headIconsColor : defaultColor, letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${37.87 / 1920 * props.size[0]}px`
+                        }}>
+                            EXP|CON
                     </Typography>
+                    </animated.div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginTop: `${29 / 1920 * props.size[0]}px` }}>
                     {itemsOpen ? <Trail items={items} from={{ transform: `translate3d(0,${56 / 1920 * props.size[0]}px,0)`, opacity: 0 }} to={{ transform: 'translate3d(0,0px,0)', opacity: 1, }}>
@@ -272,6 +278,7 @@ const mapStateToProps = (state) => {
         menuIndex: state.propertyReducer.menuIndex,
         size: state.propertyReducer.size,
         navIndex: state.propertyReducer.navIndex,
+        showNavText: state.propertyReducer.showNavText
     }
 }
 

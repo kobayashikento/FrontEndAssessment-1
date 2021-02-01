@@ -14,9 +14,13 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { useTrail, animated, useSpring } from 'react-spring';
 
+import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+
 // Redux
 import { connect } from 'react-redux';
-import { setMenuIndex, setNavIndex} from '../Redux/actions/propertyAction';
+import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
+
+import { useWheel } from 'react-use-gesture';
 
 import '../Assets/styles/landingPage.css';
 
@@ -36,6 +40,14 @@ const LandingPage = (props) => {
         }
     }
 
+    const bind = useWheel(({ wheeling, direction }) => {
+        if (wheeling && direction[1] === 1) {
+            props.setShowNavText(false);
+        } else if (wheeling && direction[1] === -1) {
+            props.setShowNavText(true);
+        }
+    })
+
     const handleScroll = (e) => {
         if (props.size[1] * 0.51 < e.scrollTop && e.scrollTop < props.size[1] * 1.5 && props.setMenuIndex !== 1) {
             props.setMenuIndex(1);
@@ -51,7 +63,6 @@ const LandingPage = (props) => {
             props.setMenuIndex(0);
         }
     }
-
 
     const mouseMove = (e) => {
         if (scrollRef.current !== null) {
@@ -100,7 +111,7 @@ const LandingPage = (props) => {
     }, [props.navIndex, props.size])
 
     return (
-        <div onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
+        <div {...bind()} onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
             {trail.map((prop, index) => (
                 <animated.div key={index} ref={cursorRef} style={{
                     ...cursorSpring, transform: prop.xy.interpolate(trans), position: "absolute",
@@ -119,18 +130,27 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div className="node-master" style={{background: "#0B0B0B"}}>
+                <div className="node-master" style={{ background: "#0B0B0B" }}>
+                    {/* <Parallax pages={6}>
+                        <ParallaxLayer
+                            offset={0}
+                            speed={0.1}
+                        >
+                           
+                        </ParallaxLayer>
+                    </Parallax> */}
+
                     <Curtains
-                        pixelRatio={Math.min(1.5, window.devicePixelRatio)}
-                        autoRender={false}
-                    >
-                        <CurtainContent
-                            size={[window.innerWidth, window.innerHeight]}
-                        />
-                    </Curtains>
-                    <SectionRed
-                        handleSpeakerHover={(state) => handleSpeakerHover(state)}
-                    />
+                                pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+                                autoRender={false}
+                            >
+                                <CurtainContent
+                                    size={[window.innerWidth, window.innerHeight]}
+                                />
+                            </Curtains>
+                            <SectionRed
+                                handleSpeakerHover={(state) => handleSpeakerHover(state)}
+                            />
                     <SectionYellow />
                     <Perks />
                     <Review />
@@ -138,7 +158,7 @@ const LandingPage = (props) => {
                     <SectionFooter />
                 </div>
             </Scrollbars>
-        </div>
+        </div >
     )
 }
 
@@ -154,6 +174,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
         setNavIndex: (index) => dispatch(setNavIndex(index)),
+        setShowNavText: (boolean) => dispatch(setShowNavText(boolean)),
     }
 }
 

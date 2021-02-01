@@ -10,7 +10,9 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { connect } from 'react-redux';
 
-import { setMenuIndex, setNavIndex } from '../Redux/actions/propertyAction';
+import { useWheel } from 'react-use-gesture';
+
+import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
 
 const Pricing = (props) => {
 
@@ -19,8 +21,16 @@ const Pricing = (props) => {
         props.setMenuIndex(5);
     }, [])
 
+    const bind = useWheel(({ wheeling, direction }) => {
+        if (wheeling && direction[1] === 1) {
+            props.setShowNavText(false);
+        } else  if (wheeling && direction[1] === -1) {
+            props.setShowNavText(true);
+        }
+    })
+
     return (
-        <div style={{ background: "#191919 0% 0% no-repeat padding-box" }}>
+        <div {...bind()} style={{ background: "#191919 0% 0% no-repeat padding-box" }}>
             <Scrollbars
                 // This will activate auto hide
                 autoHide
@@ -97,7 +107,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
-        setNavIndex: (index) => dispatch(setNavIndex(index))
+        setNavIndex: (index) => dispatch(setNavIndex(index)),
+        setShowNavText: (boolean) => dispatch(setShowNavText(boolean)),
     }
 }
 

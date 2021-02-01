@@ -15,7 +15,9 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-import { setPlanPayment, setMenuIndex, setNavIndex } from '../Redux/actions/propertyAction';
+import { useWheel } from 'react-use-gesture';
+
+import { setPlanPayment, setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
 
 const countries = [
     { code: 'AD', label: 'Andorra', phone: '376' },
@@ -283,6 +285,14 @@ const Payment = (props) => {
         props.setPlanPayment(event.target.value);
     };
 
+    const bind = useWheel(({ wheeling, direction }) => {
+        if (wheeling && direction[1] === 1) {
+            props.setShowNavText(false);
+        } else  if (wheeling && direction[1] === -1) {
+            props.setShowNavText(true);
+        }
+    })
+
     const theme = createMuiTheme({
         overrides: {
             MuiInput: {
@@ -340,12 +350,12 @@ const Payment = (props) => {
 
     React.useEffect(() => {
         props.setMenuIndex(6);
-        props.setNavIndex(4);
+        props.setNavIndex(0);
     },[])
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{ background: "#FFFFFF 0% 0% no-repeat padding-box" }}>
+            <div {...bind()} style={{ background: "#FFFFFF 0% 0% no-repeat padding-box" }}>
                 <Scrollbars
                     // This will activate auto hide
                     autoHide
@@ -596,7 +606,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setPlanPayment: (plan) => dispatch(setPlanPayment(plan)),
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
-        setNavIndex: (index) => dispatch(setNavIndex(index))
+        setNavIndex: (index) => dispatch(setNavIndex(index)),
+        setShowNavText: (boolean) => dispatch(setShowNavText(boolean))
     }
 }
 
