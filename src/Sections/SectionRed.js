@@ -126,10 +126,10 @@ const SectionRed = (props) => {
                     <span >SEE DEMO</span>
                 </DemoButton>
             </div>
-            <div style={{ display: "flex", marginRight: `${157 / 1920 * props.size[0]}px`, marginTop: `${(239 / 1080) * props.size[1]}px`, float: "right" }}>
+            {/* <div style={{ display: "flex", marginRight: `${157 / 1920 * props.size[0]}px`, marginTop: `${(239 / 1080) * props.size[1]}px`, float: "right" }}>
                 <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker1} alt="right_speakers" style={{ width: `${300 / 1920 * props.size[0]}px`, height: "100%", background: `transparent 0% 0 % no - repeat padding- box` }} src={left_speakers} />
                 <img onMouseEnter={() => props.handleSpeakerHover(true)} onMouseLeave={() => props.handleSpeakerHover(false)} ref={speaker2} alt="left_speakers" style={{ paddingTop: "32%", width: `${300 / 1920 * props.size[0]}px`, height: "100%", background: `transparent 0% 0 % no - repeat padding- box` }} src={right_speakers} />
-            </div>
+            </div> */}
         </div>
     )
 }

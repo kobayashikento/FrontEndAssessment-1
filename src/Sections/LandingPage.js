@@ -14,7 +14,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { useTrail, animated, useSpring } from 'react-spring';
 
-import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
 // Redux
 import { connect } from 'react-redux';
@@ -23,6 +23,10 @@ import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/prop
 import { useWheel } from 'react-use-gesture';
 
 import '../Assets/styles/landingPage.css';
+
+import speaker_r from '../Assets/pictures/Red/left_speakers.png';
+import speaker_l from '../Assets/pictures/Red/right_speakers.png';
+
 
 const LandingPage = (props) => {
     const [speakerHover, setSpeakerHover] = React.useState(false);
@@ -130,17 +134,34 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div className="node-master" style={{ background: "#0B0B0B" }}>
-                    {/* <Parallax pages={6}>
-                        <ParallaxLayer
-                            offset={0}
-                            speed={0.1}
-                        >
-                           
-                        </ParallaxLayer>
-                    </Parallax> */}
-
-                    <Curtains
+                <Parallax pages={6}>
+                    <ParallaxLayer offset={0} speed={0} factor={3} style={{ background: "#D34848 0% 0% no-repeat padding-box" }} />
+                    <ParallaxLayer
+                        offset={0.9}
+                        speed={-0.1}
+                    >
+                        <SectionRed
+                            handleSpeakerHover={(state) => handleSpeakerHover(state)}
+                        />
+                    </ParallaxLayer>
+                    <ParallaxLayer offset={1.3} speed={0.3} >
+                        <img src={speaker_r} alt="right_speakers" style={{ 
+                            width: `${300 / 1920 * props.size[0]}px`, height: "auto", 
+                            background: `transparent 0% 0 % no - repeat padding- box`,
+                            marginLeft: `${1187/1920 * props.size[0]}px` }}  />
+                    </ParallaxLayer>
+                    <ParallaxLayer offset={1.5} speed={-0.3} >
+                        <img src={speaker_l} alt="right_speakers" style={{ 
+                            width: `${300 / 1920 * props.size[0]}px`, height: "auto", 
+                            background: `transparent 0% 0 % no - repeat padding- box`,
+                            marginLeft: `${1509/1920 * props.size[0]}px` }}  />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        offset={0}
+                        speed={0.1}
+                    >
+                        <div className="node-master" style={{ background: "#0B0B0B" }}>
+                            <Curtains
                                 pixelRatio={Math.min(1.5, window.devicePixelRatio)}
                                 autoRender={false}
                             >
@@ -148,15 +169,15 @@ const LandingPage = (props) => {
                                     size={[window.innerWidth, window.innerHeight]}
                                 />
                             </Curtains>
-                            <SectionRed
-                                handleSpeakerHover={(state) => handleSpeakerHover(state)}
-                            />
-                    <SectionYellow />
-                    <Perks />
-                    <Review />
-                    <SectionGet />
-                    <SectionFooter />
-                </div>
+                        </div>
+                    </ParallaxLayer>
+                </Parallax>
+
+                {/* <Perks />
+                 <SectionYellow />
+                <Review />
+                <SectionGet />
+                <SectionFooter /> */}
             </Scrollbars>
         </div >
     )
