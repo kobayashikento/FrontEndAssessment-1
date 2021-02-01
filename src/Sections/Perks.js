@@ -2,10 +2,12 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
+import { connect } from 'react-redux';
+
 const Perks = (props) => {
 
     const marginTopRatio = 327 / 1229;
-    const marginLeftRatio = 172 / 1920;
+    const marginLeftRatio = 174 / 1920;
 
     return (
         <div style={{ background: "#191919 0% 0% no-repeat padding-box", minHeight: `${1229 / 1080 * props.size[1]}px` }}>
@@ -22,9 +24,9 @@ const Perks = (props) => {
                 }}>
                     PERKS
                 </Typography>
-                <div style={{ display: "flex", paddingLeft: "1rem", marginTop: `${83.5 / 1229 * props.size[1]}px` }}>
+                <div style={{ justifyContent: `space-between`, maxWidth: `${1636 / 1920 * props.size[0]}px`, display: "flex", paddingLeft: "1rem", marginTop: `${83.5 / 1229 * props.size[1]}px` }}>
                     <div>
-                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, border: "3px solid #D34848" }} />
+                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#D34848`,  height: `${3/1920*props.size[0]}px`}} />
                         <Typography style={{
                             color: "#D34848", maxWidth: `${383 / 1920 * props.size[0]}px`, maxHeight: "185px", font: `normal normal bold ${51 / 1920 * props.size[0]}px/${62 / 1920 * props.size[0]}px Helvetica Neue`,
                             letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${27.5 / 1229 * props.size[1]}px`
@@ -38,8 +40,8 @@ const Perks = (props) => {
                             No commitment, cancel anytime. Never worry about forgetting a payment again!
                         </Typography>
                     </div>
-                    <div style={{ marginLeft: `${176 / 1920 * props.size[0]}px` }}>
-                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, border: "3px solid #1FE1E9" }} />
+                    <div>
+                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#1FE1E9`,  height: `${3/1920*props.size[0]}px`}} />
                         <Typography style={{
                             color: "#1FE1E9", maxWidth: `${383 / 1920 * props.size[0]}px`, maxHeight: "185px", font: `normal normal bold ${51 / 1920 * props.size[0]}px/${62 / 1920 * props.size[0]}px Helvetica Neue`,
                             letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${27.5 / 1229 * props.size[1]}px`
@@ -53,8 +55,8 @@ const Perks = (props) => {
                             No commitment, cancel anytime. Never worry about forgetting a payment again!
                         </Typography>
                     </div>
-                    <div style={{ marginLeft: `${176 / 1920 * props.size[0]}px` }}>
-                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, border: "3px solid #FFB33F" }} />
+                    <div>
+                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFB33F`,  height: `${3/1920*props.size[0]}px` }} />
                         <Typography style={{
                             color: "#FFB33F", maxWidth: `${383 / 1920 * props.size[0]}px`, maxHeight: "185px", font: `normal normal bold ${51 / 1920 * props.size[0]}px/${62 / 1920 * props.size[0]}px Helvetica Neue`,
                             letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${27.5 / 1229 * props.size[1]}px`
@@ -74,4 +76,12 @@ const Perks = (props) => {
     )
 }
 
-export default React.memo(Perks)
+const mapStateToProps = (state) => {
+    return {
+        size: state.propertyReducer.size,
+        tryPos: state.propertyReducer.tryPos,
+        demoPos: state.propertyReducer.demoPos,
+    }
+}
+
+export default connect(mapStateToProps)(Perks)

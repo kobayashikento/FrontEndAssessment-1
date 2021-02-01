@@ -9,6 +9,8 @@ import Rating from '@material-ui/lab/Rating';
 
 import TryButton from '../Components/TryButton';
 
+import { connect } from 'react-redux';
+
 const SectionReview = (props) => {
     //refs
     const buttonTryRef = React.useRef();
@@ -29,11 +31,15 @@ const SectionReview = (props) => {
                 <span>TRY IT NOW</span>
             </TryButton>
             <div style={{ display: "flex", flexDirection: "column", position: "absolute", left: `${1 / 1080 * props.size[1]}px`, paddingTop: `${200.4 / 1920 * props.size[0]}px` }}>
-                <img alt="right_small_speakers" style={{ position: "absolute", width: `${550 / 1920 * props.size[0]}px`, 
-                height: `auto`, background: `transparent 0% 0 % no - repeat padding- box` }} src={speakers_top} />
-                <img alt="left_small_speakers" style={{ paddingTop: `${260 / 1920 * props.size[0]}px`, 
-                marginLeft: `${(150.7 - 54.85) / 1920 * props.size[0]}px`,  width: `${570 / 1920 * props.size[0]}px`, 
-                height: `auto`, background: `transparent 0% 0 % no - repeat padding- box` }} src={speakers_bot} />
+                <img alt="right_small_speakers" style={{
+                    position: "absolute", width: `${550 / 1920 * props.size[0]}px`,
+                    height: `auto`, background: `transparent 0% 0 % no - repeat padding- box`
+                }} src={speakers_top} />
+                <img alt="left_small_speakers" style={{
+                    paddingTop: `${260 / 1920 * props.size[0]}px`,
+                    marginLeft: `${(150.7 - 54.85) / 1920 * props.size[0]}px`, width: `${570 / 1920 * props.size[0]}px`,
+                    height: `auto`, background: `transparent 0% 0 % no - repeat padding- box`
+                }} src={speakers_bot} />
             </div>
             <div style={{ display: "flex", flexDirection: "column", paddingTop: `${357 / 1080 * props.size[1]}px`, marginLeft: `${659 / 1920 * props.size[0]}px` }}>
                 <Typography style={{
@@ -42,7 +48,7 @@ const SectionReview = (props) => {
                 }}>
                     Reviews
                 </Typography>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", maxWidth: `${1144 / 1920 * props.size[0]}px`, justifyContent: "space-between" }}>
                     <div style={{ display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px` }}>
                         <Rating name="read-only" size="large" value={5} readOnly style={{ color: "#0B0B0B" }} />
                         <Typography style={{
@@ -58,7 +64,7 @@ const SectionReview = (props) => {
                             “Love it, it’s the Best.I can’t live without it!”
                         </Typography>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, paddingLeft: `${117 / 1920 * props.size[0]}px` }}>
+                    <div style={{ display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, }}>
                         <Rating name="read-only" size="large" value={5} readOnly style={{ color: "#0B0B0B" }} />
                         <Typography style={{
                             font: `normal normal bold ${35 / 1920 * props.size[0]}px / ${43 / 1920 * props.size[0]}px Helvetica Neue`,
@@ -73,7 +79,7 @@ const SectionReview = (props) => {
                             “Love it, it’s the Best.I can’t live without it!”
                         </Typography>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, paddingLeft: `${117 / 1920 * props.size[0]}px` }}>
+                    <div style={{ display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, }}>
                         <Rating name="read-only" size="large" value={5} readOnly style={{ color: "#0B0B0B" }} />
                         <Typography style={{
                             font: `normal normal bold ${35 / 1920 * props.size[0]}px / ${43 / 1920 * props.size[0]}px Helvetica Neue`,
@@ -94,4 +100,12 @@ const SectionReview = (props) => {
     )
 }
 
-export default React.memo(SectionReview)
+const mapStateToProps = (state) => {
+    return {
+        size: state.propertyReducer.size,
+        tryPos: state.propertyReducer.tryPos,
+        demoPos: state.propertyReducer.demoPos,
+    }
+}
+
+export default connect(mapStateToProps)(SectionReview)

@@ -4,6 +4,8 @@ import { Typography } from '@material-ui/core';
 
 import MailIcon from '@material-ui/icons/Mail';
 
+import { connect } from 'react-redux';
+
 const SectionFooter = (props) => {
 
     return (
@@ -46,4 +48,10 @@ const SectionFooter = (props) => {
     )
 }
 
-export default React.memo(SectionFooter)
+const mapStateToProps = (state) => {
+    return {
+        size: state.propertyReducer.size,
+    }
+}
+
+export default connect(mapStateToProps)(SectionFooter)

@@ -4,7 +4,6 @@ import { TRY_CTA_WIDTH, TRY_CTA_HEIGHT, TRY_CTA_FONT } from '../Assets/styles/ma
 export default styled.button`
     position: absolute;
     z-index: 5;
-    width: 248px; 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -34,7 +33,7 @@ export default styled.button`
     )};
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        transition: width 0.5s ease, height 0.5s ease;
+        transition: width 0.2s ease, height 0.2s ease;
     }
 
     &:hover::before {

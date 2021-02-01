@@ -11,6 +11,10 @@ import DemoButton from '../Components/DemoButton';
 
 import { TRY_CTA_WIDTH, TRY_CTA_HEIGHT, DEMO_CTA_HEIGHT, DEMO_CTA_WIDTH } from '../Assets/styles/masterStyle';
 
+// Redux
+import { connect } from 'react-redux';
+import { setDemoPos, setTryPos } from '../Redux/actions/propertyAction';
+
 const SectionRed = (props) => {
     //refs
     const buttonRef = React.useRef();
@@ -27,7 +31,6 @@ const SectionRed = (props) => {
             }
         }
     }, [buttonRef]);
-
     React.useEffect(() => {
         if (buttonTryRef.current) {
             buttonTryRef.current.onmousemove = function (e) {
@@ -41,8 +44,8 @@ const SectionRed = (props) => {
     React.useEffect(() => {
         let tryPos = [(TRY_CTA_WIDTH - buttonTryRef.current.getBoundingClientRect().width) / 2, (TRY_CTA_HEIGHT - buttonTryRef.current.getBoundingClientRect().height) / 2];
         let demoPos = [(DEMO_CTA_WIDTH - buttonRef.current.getBoundingClientRect().width) / 2, (DEMO_CTA_HEIGHT - buttonRef.current.getBoundingClientRect().height) / 2];
-        props.handleDemoPosChange(demoPos);
-        props.handleTryMarginChange(tryPos);
+        props.setDemoPos(demoPos);
+        props.setTryPos(tryPos);
     }, [props.size]);
 
     React.useEffect(() => {
@@ -61,7 +64,7 @@ const SectionRed = (props) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [speaker1, props.playing, props]);
+    }, [speaker1, props.playing]);
 
     React.useEffect(() => {
         /**
@@ -79,12 +82,12 @@ const SectionRed = (props) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [speaker2, props.playing, props]);
+    }, [speaker2, props.playing]);
 
     return (
         <div style={{ height: "100vh", background: "#D34848 0% 0% no-repeat padding-box" }}>
             <ReactPlayer
-                url='https://soundcloud.com/taylormusic2019/02-ready-for-it-live-2018'
+                url='https://soundcloud.com/childish-gambino/3005-1#t=1:33'
                 width="0"
                 height="0"
                 playing={props.playing}
@@ -119,4 +122,19 @@ const SectionRed = (props) => {
     )
 }
 
-export default React.memo(SectionRed)
+const mapStateToProps = (state) => {
+    return {
+        size: state.propertyReducer.size,
+        tryPos: state.propertyReducer.tryPos,
+        demoPos: state.propertyReducer.demoPos,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setTryPos: (tryPos) => dispatch(setTryPos(tryPos)),
+        setDemoPos: (demoPos) => dispatch(setDemoPos(demoPos)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SectionRed)

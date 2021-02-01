@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import TryButton from '../Components/TryButton';
 import DemoButton from '../Components/DemoButton';
 
+import { connect } from 'react-redux';
+
 const SectionYellow = (props) => {
 
     //refs
@@ -42,7 +44,7 @@ const SectionYellow = (props) => {
             let ctxCanvas = ctx.getContext('2d');
             ctxCanvas.fillStyle = "#FFB33F"
             ctxCanvas.fillRect(0, 0, props.size[0], props.size[1]);
-            let brushRadius = 90;
+            let brushRadius = (142/1920 * props.size[0]) * 0.9;
 
             ctxCanvas.globalCompositeOperation = 'destination-out';
 
@@ -121,4 +123,12 @@ const SectionYellow = (props) => {
     )
 }
 
-export default React.memo(SectionYellow);
+const mapStateToProps = (state) => {
+    return {
+        size: state.propertyReducer.size,
+        tryPos: state.propertyReducer.tryPos,
+        demoPos: state.propertyReducer.demoPos,
+    }
+}
+
+export default connect(mapStateToProps)(SectionYellow);

@@ -4,10 +4,13 @@ const DEMO_CTA_WIDTH = 338;
 const DEMO_CTA_HEIGHT = 81;
 const REVIEW_CTA_HEIGHT = 250;
 const REVIEW_CTA_WIDTH = 62;
+const PRICING_CTA_WIDTH = 335; 
+const PRICING_CTA_HEIGHT = 84;
 
 const TRY_CTA_FONT = "normal normal bold 18px/23px Helvetica Neue";
 const DEMO_CTA_FONT = "normal normal bold 23px/28px Helvetica Neue";
 const REVIEW_CTA_FONT = "normal normal bold 18px/23px Helvetica Neue";
+const PRICING_CTA_FONT = "normal normal bold 24px/29px Helvetica Neue";
 
 export {
     TRY_CTA_WIDTH,
@@ -18,5 +21,8 @@ export {
     DEMO_CTA_FONT,
     REVIEW_CTA_HEIGHT,
     REVIEW_CTA_WIDTH,
-    REVIEW_CTA_FONT
+    REVIEW_CTA_FONT,
+    PRICING_CTA_FONT,
+    PRICING_CTA_HEIGHT,
+    PRICING_CTA_WIDTH
 };

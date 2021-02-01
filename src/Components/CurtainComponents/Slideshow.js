@@ -120,7 +120,7 @@ const Slideshow = (props) => {
                 default:
             }
 
-        }, 3000);
+        }, 10000);
         return () => {
             window.clearInterval(timer);
         };
