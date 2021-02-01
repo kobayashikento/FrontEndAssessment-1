@@ -7,6 +7,12 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 
 import { PRICING_CTA_WIDTH, PRICING_CTA_HEIGHT } from '../Assets/styles/masterStyle';
 
+import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
+import { setPlanPayment } from '../Redux/actions/propertyAction';
+
 const PricingList = (props) => {
     // props 
     // array of words : words 
@@ -37,6 +43,10 @@ const PricingList = (props) => {
         }
     }, [buttonRef]);
 
+    const handlePricing = () => {
+        props.setPlanPayment(props.plan);
+    }
+
     return (
         <div>
             <Typography style={{
@@ -47,7 +57,7 @@ const PricingList = (props) => {
                 {props.plan}
             </Typography>
             <div style={{
-                width: `${141.49 / 1920 * props.size[0]}px`,  background: props.barColor, height: `${3/1920*props.size[0]}px`,
+                width: `${141.49 / 1920 * props.size[0]}px`, background: props.barColor, height: `${3 / 1920 * props.size[0]}px`,
                 marginTop: `${19.5 / 1920 * props.size[0]}px`, marginLeft: `${10.29 / 1920 * props.size[0]}px`
             }} />
             <Typography style={{
@@ -63,22 +73,31 @@ const PricingList = (props) => {
                 {props.price}
             </Typography>
             {props.words.map((word, index) => {
-                return (<Typography style={{
-                    color: "#FFFFFF",
-                    font: `normal normal normal ${47 / 1920 * props.size[0]}px/${64 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${4.7 / 1920 * props.size[0]}px`, marginTop: index === 0 ? `${42 / 1229 * props.size[1]}px` : `${5 / 1229 * props.size[1]}px`,
-                    marginLeft: `${16 / 1920 * props.size[0]}px`,
-                }}>
-                    <MusicNoteIcon style={{ marginRight: `${18.69 / 1920 * props.size[0]}px` }} />
-                    {word}
-                </Typography>
+                return (
+                    <Typography key={`${props.plan + index}`} style={{
+                        color: "#FFFFFF",
+                        font: `normal normal normal ${47 / 1920 * props.size[0]}px/${64 / 1920 * props.size[0]}px Helvetica Neue`,
+                        letterSpacing: `${4.7 / 1920 * props.size[0]}px`, marginTop: index === 0 ? `${42 / 1229 * props.size[1]}px` : `${5 / 1229 * props.size[1]}px`,
+                        marginLeft: `${16 / 1920 * props.size[0]}px`,
+                    }}>
+                        <MusicNoteIcon style={{ marginRight: `${18.69 / 1920 * props.size[0]}px` }} />
+                        {word}
+                    </Typography>
                 )
             })}
-            <PricingButton ref={buttonRef} size={props.size} type={props.type} pos={pos} >
-                <span>SELECT</span>
-            </PricingButton>
+            <Link to="/payment" style={{ textDecoration: "none" }}>
+                <PricingButton ref={buttonRef} size={props.size} type={props.type} pos={pos} onClick={() => handlePricing()}>
+                    <span>SELECT</span>
+                </PricingButton>
+            </Link>
         </div>
     )
 }
 
-export default React.memo(PricingList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setPlanPayment: (plan) => dispatch(setPlanPayment(plan)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(PricingList);

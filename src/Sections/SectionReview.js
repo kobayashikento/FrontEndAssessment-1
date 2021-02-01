@@ -9,6 +9,8 @@ import Rating from '@material-ui/lab/Rating';
 
 import TryButton from '../Components/TryButton';
 
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 
 const SectionReview = (props) => {
@@ -27,9 +29,11 @@ const SectionReview = (props) => {
 
     return (
         <div style={{ height: "100vh", background: "#1FE1E9 0% 0% no-repeat padding-box" }}>
-            <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="blue" >
-                <span>TRY IT NOW</span>
-            </TryButton>
+            <Link to="/pricing" style={{ textDecoration: "none" }}>
+                <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="blue" >
+                    <span>TRY IT NOW</span>
+                </TryButton>
+            </Link>
             <div style={{ display: "flex", flexDirection: "column", position: "absolute", left: `${1 / 1080 * props.size[1]}px`, paddingTop: `${200.4 / 1920 * props.size[0]}px` }}>
                 <img alt="right_small_speakers" style={{
                     position: "absolute", width: `${550 / 1920 * props.size[0]}px`,

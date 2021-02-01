@@ -104,6 +104,57 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
   }
 }
 
+[class*="btndown"] {
+  outline: 0;
+  cursor: pointer;
+  border-radius: 79px;
+  font: normal normal bold 19px/24px Helvetica Neue;
+  letter-spacing: 1.9px;
+  overflow: hidden;
+  position: relative; //absolute
+  width: 217px;
+  background: $bg-color;
+  height: 60px;
+  margin-top: 69px;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 500ms ease-in-out;
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+  }
+  &:hover,
+  &:focus {
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
+
+[class*="btndown-down"] {
+  &::after {
+    background: $bg-color;
+    border-radius: 79px;
+    content: attr(data-text);
+    color: #fff;
+    top: 18px;
+    left: 45px;
+    -moz-user-select: none;
+    user-select: none;
+    user-drag: none;
+  }
+  &::before {
+    background: transparent;
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 1em 2em 3em rgba(255, 50, 0, 0.5), -4em -2em 2em 2em rgba(255, 0, 150, 0.5),
+      -4em 2em 2em 4em rgba(0, 0, 150, 0.5), 0 -3em 2em 3em rgba(31, 225, 233, 0.8);
+    width: 0;
+    height: 0;
+    animation: mix 4s linear infinite;
+  }
+}
+
 @keyframes mix {
   30% {
     box-shadow: 0 -1em 2em 3em rgba(211, 72, 72, 1), 4em -1em 2em 3em rgba(255, 179, 63, 1),
@@ -182,6 +233,13 @@ $bg-color: transparent linear-gradient(90deg, #1fe1e9 0%, #5e33d1 34%, #d34848 6
 }
 
 .btntryget-try-noborder {
+  &::after {
+    background: transparent !important;
+    color: $bg-color !important;
+  }
+}
+
+.btndown-down-noborder {
   &::after {
     background: transparent !important;
     color: $bg-color !important;

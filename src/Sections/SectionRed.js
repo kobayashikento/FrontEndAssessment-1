@@ -9,6 +9,8 @@ import ReactPlayer from 'react-player/lazy';
 import TryButton from '../Components/TryButton';
 import DemoButton from '../Components/DemoButton';
 
+import { Link } from "react-router-dom";
+
 import { TRY_CTA_WIDTH, TRY_CTA_HEIGHT, DEMO_CTA_HEIGHT, DEMO_CTA_WIDTH } from '../Assets/styles/masterStyle';
 
 // Redux
@@ -16,11 +18,18 @@ import { connect } from 'react-redux';
 import { setDemoPos, setTryPos } from '../Redux/actions/propertyAction';
 
 const SectionRed = (props) => {
+    const [playing, setPlaying] = React.useState(false);
+
     //refs
     const buttonRef = React.useRef();
     const buttonTryRef = React.useRef();
     const speaker1 = React.useRef();
     const speaker2 = React.useRef();
+
+    // handlers for speakers
+    const handlePlay = () => {
+        setPlaying(!playing)
+    }
 
     // listen to button events
     React.useEffect(() => {
@@ -55,7 +64,7 @@ const SectionRed = (props) => {
         const handleClickOutside = (event) => {
             if (speaker1.current && !speaker1.current.contains(event.target)) {
             } else {
-                props.handlePlay();
+                handlePlay();
             }
         }
         // Bind the event listener
@@ -64,7 +73,7 @@ const SectionRed = (props) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [speaker1, props.playing]);
+    }, [speaker1, playing, handlePlay]);
 
     React.useEffect(() => {
         /**
@@ -73,7 +82,7 @@ const SectionRed = (props) => {
         const handleClickOutside = (event) => {
             if (speaker2.current && !speaker2.current.contains(event.target)) {
             } else {
-                props.handlePlay();
+                handlePlay();
             }
         }
         // Bind the event listener
@@ -82,20 +91,23 @@ const SectionRed = (props) => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [speaker2, props.playing]);
+    }, [speaker2, playing, handlePlay]);
 
     return (
         <div style={{ height: "100vh", background: "#D34848 0% 0% no-repeat padding-box" }}>
             <ReactPlayer
+                style={{ position: "absolute", display: "none" }}
                 url='https://soundcloud.com/childish-gambino/3005-1#t=1:33'
-                width="0"
-                height="0"
-                playing={props.playing}
+                width="1"
+                height="1"
+                playing={playing}
                 loop={true}
             />
-            <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="red" >
-                <span>TRY IT NOW</span>
-            </TryButton>
+            <Link to="/pricing" style={{ textDecoration: "none" }}>
+                <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="red" >
+                    <span>TRY IT NOW</span>
+                </TryButton>
+            </Link>
             <div style={{ marginLeft: `${184 / 1920 * props.size[0]}px`, marginTop: `${431 / 1080 * props.size[1]}px`, position: "absolute" }}>
                 <Typography style={{
                     font: `normal normal bold ${(74 / 1920) * props.size[0]}px/${(90 / 1920) * props.size[0]}px Helvetica Neue`,

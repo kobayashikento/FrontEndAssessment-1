@@ -4,8 +4,9 @@ import Typography from '@material-ui/core/Typography';
 
 import '../../Assets/styles/landingPage.scss';
 
-const LandingPageContent = (props) => {
+import { Link } from "react-router-dom";
 
+const LandingPageContent = (props) => {
     //ref
     const btnRef = React.useRef();
 
@@ -33,7 +34,10 @@ const LandingPageContent = (props) => {
                     before and from the comfort of your own home.
                             </Typography>
             </div>
-            <a ref={btnRef} style={{ marginTop: `${43 / 1080 * props.size[1]}px`, transform: `scale(${props.size[0] / 1920}) translateY(-${btn1[1]}px)` }} className="btn-mix-noborder" data-text="TRY IT NOW" />
+            <Link to="/pricing" style={{textDecoration: "none", display: "flex"}}>
+                <a ref={btnRef} 
+                    style={{ marginTop: `${43 / 1080 * props.size[1]}px`, transform: `scale(${props.size[0] / 1920}) translateY(-${btn1[1]}px)` }} className="btn-mix-noborder" data-text="TRY IT NOW" />
+            </Link>
         </div>
     )
 }

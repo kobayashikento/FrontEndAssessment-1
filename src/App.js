@@ -2,6 +2,8 @@ import React from 'react';
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import { PageTransition } from '@steveeeie/react-page-transition';
+
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -20,17 +22,29 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/pricing" component={Pricing} />
-            <Route path="/payment" component={Payment} />
-          </Switch>
-        </div>
+        <Header />
+        <Route
+          render={({ location }) => {
+            return (
+              <PageTransition
+                style={{ height: "100vh" }}
+                preset="scaleDownFromBottom"
+                transitionKey={location.pathname}
+              >
+                <Switch location={location}>
+                  <Route exact path="/" component={Landing} />
+                  <Route path="/pricing" component={Pricing} />
+                  <Route path="/payment" component={Payment} />
+                </Switch>
+              </PageTransition>
+            );
+          }}
+        />
       </Router>
     </Provider>
   );
 }
 
 export default App;
+
+// 

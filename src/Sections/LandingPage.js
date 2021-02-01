@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Curtains } from 'react-curtains';
 
-import Header from '../Components/Header';
 import CurtainContent from '../Sections/CurtainContent';
 import SectionRed from '../Sections/SectionRed';
 import SectionYellow from '../Sections/SectionYellow';
@@ -17,23 +16,17 @@ import { useTrail, animated, useSpring } from 'react-spring';
 
 // Redux
 import { connect } from 'react-redux';
-import { setMenuIndex } from '../Redux/actions/propertyAction';
+import { setMenuIndex, setNavIndex} from '../Redux/actions/propertyAction';
 
 import '../Assets/styles/landingPage.css';
 
 const LandingPage = (props) => {
-    const [playing, setPlaying] = React.useState(false);
     const [speakerHover, setSpeakerHover] = React.useState(false);
     const [text, setText] = React.useState("");
 
     //refs
     const cursorRef = React.useRef();
     const scrollRef = React.useRef();
-
-    // handlers for speakers
-    const handlePlay = () => {
-        setPlaying(!playing)
-    }
 
     const handleSpeakerHover = (state) => {
         if (state) {
@@ -61,12 +54,14 @@ const LandingPage = (props) => {
 
 
     const mouseMove = (e) => {
-        if (props.size[1] < e.pageY + scrollRef.current.getScrollTop() && e.pageY + scrollRef.current.getScrollTop() < props.size[1] * 2) {
-            setText("CLICK");
-        } else if (props.size[1] * 2 < e.pageY + scrollRef.current.getScrollTop() && e.pageY + scrollRef.current.getScrollTop() < props.size[1] * 3) {
-            setText("REVEAL");
-        } else {
-            setText("");
+        if (scrollRef.current !== null) {
+            if (props.size[1] < e.pageY + scrollRef.current.getScrollTop() && e.pageY + scrollRef.current.getScrollTop() < props.size[1] * 2) {
+                setText("CLICK");
+            } else if (props.size[1] * 2 < e.pageY + scrollRef.current.getScrollTop() && e.pageY + scrollRef.current.getScrollTop() < props.size[1] * 3) {
+                setText("REVEAL");
+            } else {
+                setText("");
+            }
         }
     }
 
@@ -75,7 +70,7 @@ const LandingPage = (props) => {
             window.addEventListener('mousemove', mouseMove);
         }
         return () => window.removeEventListener('mousemove', mouseMove);
-    }, [cursorRef]);
+    }, [cursorRef, mouseMove]);
 
     // cursor config
     const stiff = { mass: 1, tension: 170, friction: 26 }
@@ -102,7 +97,7 @@ const LandingPage = (props) => {
         } else if (props.navIndex === 4) {
             scrollRef.current.view.scroll({ top: props.size[1] * 4.15, behavior: 'smooth' });
         }
-    }, [props.navIndex])
+    }, [props.navIndex, props.size])
 
     return (
         <div onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
@@ -124,18 +119,16 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div className="node-master" style={{ background: "black" }}>
+                <div className="node-master" style={{background: "#0B0B0B"}}>
                     <Curtains
                         pixelRatio={Math.min(1.5, window.devicePixelRatio)}
                         autoRender={false}
                     >
                         <CurtainContent
-                            size={props.size}
+                            size={[window.innerWidth, window.innerHeight]}
                         />
                     </Curtains>
                     <SectionRed
-                        playing={playing}
-                        handlePlay={() => handlePlay()}
                         handleSpeakerHover={(state) => handleSpeakerHover(state)}
                     />
                     <SectionYellow />
@@ -160,6 +153,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
+        setNavIndex: (index) => dispatch(setNavIndex(index)),
     }
 }
 

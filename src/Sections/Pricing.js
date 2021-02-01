@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
-import Header from '../Components/Header';
 import PricingList from '../Components/PricingList';
 import PricingPerks from './PricingPerks';
 import SectionFooter from './SectionFooter';
@@ -11,14 +10,17 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { connect } from 'react-redux';
 
+import { setMenuIndex, setNavIndex } from '../Redux/actions/propertyAction';
+
 const Pricing = (props) => {
+
+    React.useEffect(() => {
+        props.setNavIndex(3);
+        props.setMenuIndex(5);
+    }, [])
 
     return (
         <div style={{ background: "#191919 0% 0% no-repeat padding-box" }}>
-            <Header
-                index={4}
-                size={props.size}
-            />
             <Scrollbars
                 // This will activate auto hide
                 autoHide
@@ -41,7 +43,7 @@ const Pricing = (props) => {
                 </Typography>
                     <div style={{
                         maxWidth: `${1605 / 1920 * props.size[0]}px`, display: "flex", justifyContent: "space-between",
-                    marginTop: `${204 / 1920 * props.size[0]}px`, paddingBottom: `${256 / 1920 * props.size[0]}px`
+                        marginTop: `${204 / 1920 * props.size[0]}px`, paddingBottom: `${256 / 1920 * props.size[0]}px`
                     }}>
                         <PricingList
                             words={["Very good", "Amazing", "Perfect job", "Love this", "It's so good", "Features"]}
@@ -92,4 +94,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Pricing)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setMenuIndex: (index) => dispatch(setMenuIndex(index)),
+        setNavIndex: (index) => dispatch(setNavIndex(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pricing)

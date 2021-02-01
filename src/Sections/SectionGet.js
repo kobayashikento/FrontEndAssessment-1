@@ -4,16 +4,20 @@ import { Typography } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router-dom';
+
 const SectionGet = (props) => {
 
     return (
         <div style={{ background: "#191919 0% 0% no-repeat padding-box", height: `${814 / 1080 * props.size[1]}px` }}>
-            <div style={{ display: "flex", position: "absolute", right: `${189 / 1920 * props.size[0]}px` }}>
-                <a style={{
-                    marginTop: `${379 / 1080 * props.size[1]}px`,
-                    transform: `scale(${props.size[0] / 1920}) translate(${props.tryPos[0]}px, ${-props.tryPos[1]}px)`,
-                }} className="btntryget-try-noborder" data-text="TRY IT NOW" />
-            </div>
+            <Link to="/pricing" style={{ textDecoration: "none" }}>
+                <div style={{ display: "flex", position: "absolute", right: `${189 / 1920 * props.size[0]}px` }}>
+                    <a style={{
+                        marginTop: `${379 / 1080 * props.size[1]}px`,
+                        transform: `scale(${props.size[0] / 1920}) translate(${props.tryPos[0]}px, ${-props.tryPos[1]}px)`,
+                    }} className="btntryget-try-noborder" data-text="TRY IT NOW" />
+                </div>
+            </Link>
             <div style={{ position: "absolute", marginLeft: `${172 / 1920 * props.size[0]}px`, marginTop: `${349 / 1080 * props.size[1]}px`, }}>
                 <Typography style={{
                     color: "#D34848", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,

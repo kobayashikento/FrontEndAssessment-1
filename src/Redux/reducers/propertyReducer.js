@@ -3,7 +3,7 @@ import {
     SET_SIZE, SET_TRY_POS, SET_DEMO_POS, SET_MENU_INDEX, SET_NAV_INDEX, SET_PLAN_PAYMENT
 } from '../actions/propertyAction';
 
-export function propertyReducer(state = { size: [window.innerWidth, window.innerHeight], tryPos: [0, 0], demoPos: [0, 0], menuIndex: 0, navIndex: 0, plan: "basic" }, action) {
+export function propertyReducer(state = { size: [window.innerWidth, window.innerHeight], tryPos: [0, 0], demoPos: [0, 0], menuIndex: 0, navIndex: 0, plan: "BASIC" }, action) {
     switch (action.type) {
         case SET_SIZE:
             return { ...state, size: action.payload }

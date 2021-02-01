@@ -8,7 +8,7 @@ import { Trail } from 'react-spring/renderprops'
 
 import { useSpring, animated } from 'react-spring'
 
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Redux
 import { connect } from 'react-redux';
@@ -47,6 +47,7 @@ const Header = (props) => {
     const [thirdColor, setThirdColor] = React.useState("#FFFFFF");
     const [headIconsColor, setHeadIconsColor] = React.useState("#FFFFFF");
     const [highlight, setHighlight] = React.useState("#FFFFFF");
+    const [defaultColor, setDefaultColor] = React.useState("#FFFFFF");
     const [showWhat, setShowWhat] = React.useState(false);
     const [showPerks, setShowPerks] = React.useState(false);
     const [showPricing, setShowPricing] = React.useState(false);
@@ -73,7 +74,8 @@ const Header = (props) => {
         {
             key: 1, content: <Button style={{ padding: "0px", backgroundColor: "transparent" }} onClick={() => handleNavItemClick(0)}>
                 <Typography onMouseEnter={() => setShowWhat(true)} onMouseLeave={() => setShowWhat(false)} style={{
-                    textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showWhat ? highlight : firstColor,
+                    textAlign: "left", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
+                    color: showWhat ? highlight : props.navIndex === 1 ? highlight : defaultColor,
                     letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
                 }}>
                     WHAT IS IT
@@ -85,7 +87,8 @@ const Header = (props) => {
             content: <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px`, backgroundColor: "transparent" }} onClick={() => handleNavItemClick(1)}>
                 <Typography onMouseEnter={() => setShowPerks(true)} onMouseLeave={() => setShowPerks(false)} style={{
                     textAlign: "left",
-                    font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showPerks ? highlight : secondColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
+                    font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
+                    color: showPerks ? highlight : props.navIndex === 2 ? highlight : defaultColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
                 }}>
                     PERKS
                         </Typography>
@@ -94,34 +97,46 @@ const Header = (props) => {
         {
             key: 3,
             content: <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px`, backgroundColor: "transparent" }} onClick={() => handlePricingClick()}>
-                <Typography onMouseEnter={() => setShowPricing(true)} onMouseLeave={() => setShowPricing(false)} style={{
-                    textAlign: "left",
-                    font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: showPricing ? highlight : thirdColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
-                }}>
-                    PRICING
+                <Link to="/pricing" style={{ textDecoration: "none" }}>
+                    <Typography onMouseEnter={() => setShowPricing(true)} onMouseLeave={() => setShowPricing(false)} style={{
+                        textAlign: "left",
+                        font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
+                        color: showPricing ? highlight : props.navIndex === 3 ? highlight : defaultColor, letterSpacing: `${4.7 / 1920 * props.size[0]}px`,
+                    }}>
+                        PRICING
                     </Typography>
+                </Link>
             </Button>
         }]
 
     // handle click event for menu item clicks
     const handleNavItemClick = (index) => {
-        if (index === 0) {
-            if (props.menuIndex === 1) {
-                props.setMenuIndex(2);
+        if (props.navIndex === 3) {
+            if (index === 0) {
+                props.setMenuIndex(0);
+                props.setNavIndex(0);
+                history.push("/");
+            } else if (index === 1) {
+                props.setMenuIndex(3);
                 props.setNavIndex(2);
-                setShowPerks(false);
-            } else if (props.menuIndex === 2) {
-                props.setMenuIndex(4);
-                props.setNavIndex(4);
-                setShowPerks(false);
-            } else {
-                props.setMenuIndex(1);
-                props.setNavIndex(1);
-                setShowPerks(false);
+                history.push("/");
             }
-        } else if (index === 1) {
-            props.setMenuIndex(3);
-            props.setNavIndex(3);
+        } else {
+            if (index === 0) {
+                if (props.menuIndex === 1) {
+                    props.setMenuIndex(2);
+                    props.setNavIndex(1);
+                } else if (props.menuIndex === 2) {
+                    props.setMenuIndex(4);
+                    props.setNavIndex(1);
+                } else {
+                    props.setMenuIndex(1);
+                    props.setNavIndex(1);
+                }
+            } else if (index === 1) {
+                props.setMenuIndex(3);
+                props.setNavIndex(2);
+            }
         }
         handleNavClick();
     }
@@ -129,12 +144,14 @@ const Header = (props) => {
     // handle color change from scroll offset change 
     React.useEffect(() => {
         switch (props.menuIndex) {
+            // 0 - default, 1 - red, 2 - yellow, 3 - perk, 4 - blue, 5 - pricing, 6 - payments
             case 0:
                 setFirstColor("#FFFFFF");
                 setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFFFFF");
-                setHighlight("#FFFFFF");
+                setHighlight("#D34848");
+                setDefaultColor("#FFFFFF");
                 break;
             case 1:
                 setFirstColor("#D34848");
@@ -142,6 +159,7 @@ const Header = (props) => {
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#D34848");
                 setHighlight("#D34848");
+                setDefaultColor("#FFFFFF");
                 break;
             case 2:
                 setFirstColor("#FFB33F");
@@ -149,6 +167,7 @@ const Header = (props) => {
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFB33F");
                 setHighlight("#FFB33F");
+                setDefaultColor("#FFFFFF");
                 break;
             case 3:
                 setFirstColor("#FFFFFF");
@@ -156,6 +175,7 @@ const Header = (props) => {
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#FFFFFF");
                 setHighlight("#000000");
+                setDefaultColor("#FFFFFF");
                 break;
             case 4:
                 setFirstColor("#1FE1E9");
@@ -163,13 +183,24 @@ const Header = (props) => {
                 setThirdColor("#FFFFFF");
                 setHeadIconsColor("#1FE1E9");
                 setHighlight("#1FE1E9");
+                setDefaultColor("#FFFFFF");
                 break;
             case 5:
-                setFirstColor("#1FE1E9");
+                setFirstColor("#FFFFFF");
+                setSecondColor("#FFFFFF");
+                setThirdColor("#D34848");
+                setHeadIconsColor("#D34848");
+                setHighlight("#D34848");
+                setDefaultColor("#FFFFFF");
+                break;
+            case 6:
+                setFirstColor("#FFFFFF");
                 setSecondColor("#FFFFFF");
                 setThirdColor("#FFFFFF");
-                setHeadIconsColor("#1FE1E9");
-                setHighlight("#1FE1E9");
+                setHeadIconsColor("#FFFFFF");
+                setHighlight("#D34848");
+                setDefaultColor("#000000");
+                break;
             default:
         }
     }, [props.menuIndex]);
@@ -189,13 +220,10 @@ const Header = (props) => {
         if (navOpen && !pricingOpen) {
             setItemsOpen(true);
         } else if (pricingOpen) {
-            history.push("/pricing");
             setPricingOpen(false);
             setNavOpen(false);
         }
     }
-
-    //calc(240px + (592 - 240) * ((100vw - 300px) / (1600 - 300)))
 
     // animation the circle expansion
     let expandCircle = useSpring({
@@ -203,27 +231,28 @@ const Header = (props) => {
             transform: pricingOpen ? "scale(5.5)" : navOpen ? "scale(1) " : "scale(0) ", left: navOpen ? `${-84 / 1920 * props.size[0]}px` : `${-682 / 1920 * props.size[0]}px`,
             top: navOpen ? `${-142 / 1920 * props.size[0]}` : `${-682 / 1920 * props.size[0]}`
         },
-        from: { width: `${682/1920 * props.size[0]}px`, height: `${682/1920 * props.size[0]}px`, transform: "scale(0)", left: "-235px", top: "-235px", },
+        from: { width: `${682 / 1920 * props.size[0]}px`, height: `${682 / 1920 * props.size[0]}px`, transform: "scale(0)", left: "-235px", top: "-235px", },
         onRest: () => springCallback()
     });
 
     // handle pricing click 
     const handlePricingClick = () => {
+        setShowPerks(false);
         setItemsOpen(false);
         setPricingOpen(true);
     }
 
     return (
         <div style={{ position: "fixed", zIndex: 2020 }}>
-            <animated.div ref={wrapperRef} style={{ ...expandCircle, background: props.menuIndex === 3 ? "#1FE1E9" : "#0B0B0B", borderRadius: "50% 55% 48%", position: "absolute", boxShadow: "0px 3px 6px #00000029" }} />
-            <div style={{ display: "flex", display: "flex", flexDirection: "column", position: "fixed", left: `${83/1920 * props.size[0]}px`, top: `${86.32/1080 * props.size[1]}px`, }}>
+            <animated.div ref={wrapperRef} style={{ ...expandCircle, background: props.navIndex === 2 ? "#1FE1E9" : "#0B0B0B", borderRadius: "50% 55% 48%", position: "absolute", boxShadow: "0px 3px 6px #00000029" }} />
+            <div style={{ display: "flex", display: "flex", flexDirection: "column", position: "fixed", left: `${83 / 1920 * props.size[0]}px`, top: `${86.32 / 1080 * props.size[1]}px`, }}>
                 <div style={{ display: "flex" }}>
                     <IconButton style={{ padding: "0px", borderRadius: "4px", backgroundColor: "transparent" }} onClick={() => handleNavClick()} >
-                        <DehazeIcon style={{ color: navOpen ? headIconsColor : "#FFFFFF", fontSize: `${56 / 1920 * props.size[0]}px` }} />
+                        <DehazeIcon style={{ color: navOpen ? headIconsColor : defaultColor, fontSize: `${56 / 1920 * props.size[0]}px` }} />
                     </IconButton>
                     <Typography style={{
-                        textAlign: "left", font: `normal normal normal ${48 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, color: navOpen ? headIconsColor : "#FFFFFF",
-                        letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${37.87/1920 * props.size[0]}px`
+                        textAlign: "left", font: `normal normal normal ${48 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`, 
+                        color: navOpen ? headIconsColor : defaultColor, letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${37.87 / 1920 * props.size[0]}px`
                     }}>
                         EXP|CON
                     </Typography>
@@ -242,6 +271,7 @@ const mapStateToProps = (state) => {
     return {
         menuIndex: state.propertyReducer.menuIndex,
         size: state.propertyReducer.size,
+        navIndex: state.propertyReducer.navIndex,
     }
 }
 

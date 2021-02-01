@@ -9,6 +9,8 @@ import DemoButton from '../Components/DemoButton';
 
 import { connect } from 'react-redux';
 
+import { Link } from "react-router-dom";
+
 const SectionYellow = (props) => {
 
     //refs
@@ -44,7 +46,7 @@ const SectionYellow = (props) => {
             let ctxCanvas = ctx.getContext('2d');
             ctxCanvas.fillStyle = "#FFB33F"
             ctxCanvas.fillRect(0, 0, props.size[0], props.size[1]);
-            let brushRadius = (142/1920 * props.size[0]) * 0.9;
+            let brushRadius = (142 / 1920 * props.size[0]) * 0.9;
 
             ctxCanvas.globalCompositeOperation = 'destination-out';
 
@@ -96,9 +98,11 @@ const SectionYellow = (props) => {
 
     return (
         <div style={{ height: "100vh", backgroundImage: `url(${gambino})`, display: "flex", backgroundSize: "cover", }}>
-            <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="yellow" >
-                <span>TRY IT NOW</span>
-            </TryButton>
+            <Link to="/pricing" style={{ textDecoration: "none" }}>
+                <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="yellow" >
+                    <span>TRY IT NOW</span>
+                </TryButton>
+            </Link>
             <DemoButton ref={buttonYellowRef} size={props.size} pos={props.demoPos} type="yellow">
                 <span >SEE DEMO</span>
             </DemoButton>
