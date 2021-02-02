@@ -5,6 +5,7 @@ export const SET_MENU_INDEX = 'SET_MENU_INDEX';
 export const SET_NAV_INDEX = 'SET_NAV_INDEX';
 export const SET_PLAN_PAYMENT = 'SET_PLAN_PAYMENT';
 export const SET_SHOW_NAV_TEXT = 'SET_SHOW_NAV_TEXT';
+export const SET_CLICK_INDEX = 'SET_CLICK_INDEX';
 
 export function setSize(object) {
     return { type: SET_SIZE, payload: object }
@@ -32,4 +33,8 @@ export function setPlanPayment(plan) {
 
 export function setShowNavText(boolean) {
     return { type: SET_SHOW_NAV_TEXT, payload: boolean }
+}
+
+export function setClickIndex(index) {
+    return { type: SET_CLICK_INDEX, payload: index }
 }

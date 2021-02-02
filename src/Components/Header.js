@@ -12,7 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 
 // Redux
 import { connect } from 'react-redux';
-import { setMenuIndex, setSize, setNavIndex } from '../Redux/actions/propertyAction';
+import { setMenuIndex, setSize, setNavIndex, setClickIndex } from '../Redux/actions/propertyAction';
 
 function useOnClickOutside(ref, handler) {
     React.useEffect(() => {
@@ -83,7 +83,8 @@ const Header = (props) => {
         },
         {
             key: 2,
-            content: <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px`, backgroundColor: "transparent" }} onClick={() => handleNavItemClick(1)}>
+            content: <Button style={{ padding: "0px", marginTop: `${12 / 1920 * props.size[0]}px`, backgroundColor: "transparent" }}
+                onClick={() => handleNavItemClick(1)}>
                 <Typography onMouseEnter={() => setShowPerks(true)} onMouseLeave={() => setShowPerks(false)} style={{
                     textAlign: "left",
                     font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
@@ -112,12 +113,14 @@ const Header = (props) => {
     const handleNavItemClick = (index) => {
         if (props.navIndex === 3 || props.menuIndex === 6) {
             if (index === 0) {
+                history.push("/");
+                history.go(0);
                 props.setMenuIndex(0);
                 props.setNavIndex(0);
-                history.push("/");
             } else if (index === 1) {
                 props.setMenuIndex(3);
                 props.setNavIndex(2);
+                props.setClickIndex(3);
                 history.push("/");
             }
         } else {
@@ -125,16 +128,21 @@ const Header = (props) => {
                 if (props.menuIndex === 1) {
                     props.setMenuIndex(2);
                     props.setNavIndex(1);
+                    props.setClickIndex(2);
                 } else if (props.menuIndex === 2) {
                     props.setMenuIndex(4);
                     props.setNavIndex(1);
+                    props.setClickIndex(4);
                 } else {
                     props.setMenuIndex(1);
                     props.setNavIndex(1);
+                    props.setClickIndex(1);
                 }
             } else if (index === 1) {
                 props.setMenuIndex(3);
                 props.setNavIndex(2);
+                props.setClickIndex(3);
+                setShowPerks(false);
             }
         }
         handleNavClick();
@@ -195,10 +203,10 @@ const Header = (props) => {
             case 6:
                 setFirstColor("#FFFFFF");
                 setSecondColor("#FFFFFF");
-                setThirdColor("#FFFFFF");
-                setHeadIconsColor("#FFFFFF");
+                setThirdColor("#D34848");
+                setHeadIconsColor("#D34848");
                 setHighlight("#D34848");
-                setDefaultColor("#000000");
+                setDefaultColor("#FFFFFF");
                 break;
             default:
         }
@@ -252,12 +260,12 @@ const Header = (props) => {
             <div style={{ display: "flex", display: "flex", flexDirection: "column", position: "fixed", left: `${83 / 1920 * props.size[0]}px`, top: `${86.32 / 1080 * props.size[1]}px`, }}>
                 <div style={{ display: "flex" }}>
                     <IconButton style={{ padding: "0px", borderRadius: "4px", backgroundColor: "transparent" }} onClick={() => handleNavClick()} >
-                        <DehazeIcon style={{ color: navOpen ? headIconsColor : defaultColor, fontSize: `${56 / 1920 * props.size[0]}px` }} />
+                        <DehazeIcon style={{ color: navOpen ? headIconsColor : props.menuIndex === 6 ? "#0B0B0B" : defaultColor, fontSize: `${56 / 1920 * props.size[0]}px` }} />
                     </IconButton>
                     <animated.div style={headerTextSpring}>
                         <Typography style={{
                             textAlign: "left", font: `normal normal normal ${48 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
-                            color: navOpen ? headIconsColor : defaultColor, letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${37.87 / 1920 * props.size[0]}px`
+                            color: navOpen ? headIconsColor : props.menuIndex === 6 ? "#0B0B0B" : defaultColor, letterSpacing: `${4.8 / 1920 * props.size[0]}px`, marginLeft: `${37.87 / 1920 * props.size[0]}px`
                         }}>
                             EXP|CON
                     </Typography>
@@ -286,7 +294,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
         setNavIndex: (index) => dispatch(setNavIndex(index)),
-        setSize: (size) => dispatch(setSize(size))
+        setSize: (size) => dispatch(setSize(size)),
+        setClickIndex: (index) => dispatch(setClickIndex(index))
     }
 }
 

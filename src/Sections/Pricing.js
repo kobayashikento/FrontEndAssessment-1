@@ -19,6 +19,7 @@ const Pricing = (props) => {
     React.useEffect(() => {
         props.setNavIndex(3);
         props.setMenuIndex(5);
+        props.setShowNavText(true);
     }, [])
 
     const bind = useWheel(({ wheeling, direction }) => {

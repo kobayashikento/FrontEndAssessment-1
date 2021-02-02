@@ -14,13 +14,15 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { useTrail, animated, useSpring } from 'react-spring';
 
-import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
 // Redux
 import { connect } from 'react-redux';
 import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
 
 import { useWheel } from 'react-use-gesture';
+
+import Rockpic from '../Assets/pictures/LandingPage/landing_image_1.png';
 
 import '../Assets/styles/landingPage.css';
 
@@ -31,6 +33,10 @@ const LandingPage = (props) => {
     //refs
     const cursorRef = React.useRef();
     const scrollRef = React.useRef();
+
+    React.useEffect(() => {
+        props.setShowNavText(true);
+    }, [])
 
     const handleSpeakerHover = (state) => {
         if (state) {
@@ -51,16 +57,22 @@ const LandingPage = (props) => {
     const handleScroll = (e) => {
         if (props.size[1] * 0.51 < e.scrollTop && e.scrollTop < props.size[1] * 1.5 && props.setMenuIndex !== 1) {
             props.setMenuIndex(1);
+            props.setNavIndex(1);
         } else if (props.size[1] * 1.5 < e.scrollTop && e.scrollTop < props.size[1] * 2.5 && props.setMenuIndex !== 2) {
             props.setMenuIndex(2);
+            props.setNavIndex(1);
         } else if (props.size[1] * 2.5 < e.scrollTop && e.scrollTop < props.size[1] * 3.5 && props.setMenuIndex !== 3) {
             props.setMenuIndex(3);
+            props.setNavIndex(2);
         } else if (props.size[1] * 3.5 < e.scrollTop && e.scrollTop < props.size[1] * 5 && props.setMenuIndex !== 4) {
             props.setMenuIndex(4);
+            props.setNavIndex(1);
         } else if (props.size[1] * 5 < e.scrollTop && e.scrollTop < props.size[1] * 6.5) {
             props.setMenuIndex(0);
+            props.setNavIndex(0);
         } else if (e.scrollTop < props.size[1] * 0.51) {
             props.setMenuIndex(0);
+            props.setNavIndex(0);
         }
     }
 
@@ -99,16 +111,16 @@ const LandingPage = (props) => {
     });
 
     React.useEffect(() => {
-        if (props.navIndex === 1) {
+        if (props.clickIndex === 1) {
             scrollRef.current.view.scroll({ top: props.size[1], behavior: 'smooth' });
-        } else if (props.navIndex === 2) {
+        } else if (props.clickIndex === 2) {
             scrollRef.current.view.scroll({ top: props.size[1] * 2, behavior: 'smooth' });
-        } else if (props.navIndex === 3) {
+        } else if (props.clickIndex === 3) {
             scrollRef.current.view.scroll({ top: props.size[1] * 3, behavior: 'smooth' });
-        } else if (props.navIndex === 4) {
+        } else if (props.clickIndex === 4) {
             scrollRef.current.view.scroll({ top: props.size[1] * 4.15, behavior: 'smooth' });
         }
-    }, [props.navIndex, props.size])
+    }, [props.clickIndex])
 
     return (
         <div {...bind()} onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
@@ -130,33 +142,24 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div className="node-master" style={{ background: "#0B0B0B" }}>
-                    {/* <Parallax pages={6}>
-                        <ParallaxLayer
-                            offset={0}
-                            speed={0.1}
-                        >
-                           
-                        </ParallaxLayer>
-                    </Parallax> */}
-
+                <div style={{ background: "black" }}>
                     <Curtains
-                                pixelRatio={Math.min(1.5, window.devicePixelRatio)}
-                                autoRender={false}
-                            >
-                                <CurtainContent
-                                    size={[window.innerWidth, window.innerHeight]}
-                                />
-                            </Curtains>
-                            <SectionRed
-                                handleSpeakerHover={(state) => handleSpeakerHover(state)}
-                            />
-                    <SectionYellow />
-                    <Perks />
-                    <Review />
-                    <SectionGet />
-                    <SectionFooter />
+                        pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+                        autoRender={false}
+                    >
+                        <CurtainContent
+                            size={[window.innerWidth, window.innerHeight]}
+                        />
+                    </Curtains>
                 </div>
+                <SectionRed
+                    handleSpeakerHover={(state) => handleSpeakerHover(state)}
+                />
+                <SectionYellow />
+                <Perks />
+                <Review />
+                <SectionGet />
+                <SectionFooter />
             </Scrollbars>
         </div >
     )
@@ -166,7 +169,8 @@ const mapStateToProps = (state) => {
     return {
         menuIndex: state.propertyReducer.menuIndex,
         size: state.propertyReducer.size,
-        navIndex: state.propertyReducer.navIndex
+        navIndex: state.propertyReducer.navIndex,
+        clickIndex: state.propertyReducer.clickIndex,
     }
 }
 

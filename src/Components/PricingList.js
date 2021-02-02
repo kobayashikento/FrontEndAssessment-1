@@ -29,11 +29,13 @@ const PricingList = (props) => {
 
     const [pos, setPos] = React.useState([0, 0]);
 
+    // listen for responsive button size
     React.useEffect(() => {
         let pos = [(PRICING_CTA_WIDTH - buttonRef.current.getBoundingClientRect().width) / 2, (PRICING_CTA_HEIGHT - buttonRef.current.getBoundingClientRect().height) / 2];
         setPos(pos);
     }, [props.size]);
 
+    // listen for CTA animation 
     React.useEffect(() => {
         if (buttonRef.current) {
             buttonRef.current.onmousemove = function (e) {
@@ -43,6 +45,7 @@ const PricingList = (props) => {
         }
     }, [buttonRef]);
 
+    //handle price click
     const handlePricing = () => {
         props.setPlanPayment(props.plan);
     }

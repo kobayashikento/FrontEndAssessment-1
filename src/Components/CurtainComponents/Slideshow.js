@@ -36,6 +36,7 @@ const Slideshow = (props) => {
     // handle initial load
     React.useEffect(() => {
         if (slideshowInner.current) {
+            console.log(slideshowInner.current)
             setMaxTextures(slideshowInner.current.childElementCount);
         }
         let currentTween = tween.current;
@@ -191,11 +192,10 @@ const Slideshow = (props) => {
                 <img
                     src="https://www.curtainsjs.com/examples/medias/displacement.jpg"
                     data-sampler="displacement"
-                    alt=""
                 />
-                <img src={landing_image_1} alt="" />
-                <img src={landing_image_2} alt="" />
-                <img src={landing_image_3} alt="" />
+                <img src={landing_image_1} alt="rock_pic" />
+                <img src={landing_image_2} alt="taylor_pic" />
+                <img src={landing_image_3} alt="singer_pic" />
             </div>
         </Plane>
     );

@@ -1,10 +1,10 @@
 import {
-    SET_SIZE, SET_TRY_POS, SET_DEMO_POS, SET_MENU_INDEX, SET_NAV_INDEX, SET_PLAN_PAYMENT, SET_SHOW_NAV_TEXT
+    SET_SIZE, SET_TRY_POS, SET_DEMO_POS, SET_MENU_INDEX, SET_NAV_INDEX, SET_PLAN_PAYMENT, SET_SHOW_NAV_TEXT, SET_CLICK_INDEX
 } from '../actions/propertyAction';
 
 export function propertyReducer(state = {
     size: [window.innerWidth, window.innerHeight], tryPos: [0, 0],
-    demoPos: [0, 0], menuIndex: 0, navIndex: 0, plan: "BASIC", showNavText: true
+    demoPos: [0, 0], menuIndex: 0, navIndex: 0, plan: "BASIC", showNavText: true, clickIndex: 0
 }, action) {
     switch (action.type) {
         case SET_SIZE:
@@ -21,6 +21,9 @@ export function propertyReducer(state = {
             return { ...state, plan: action.payload }
         case SET_SHOW_NAV_TEXT:
             return { ...state, showNavText: action.payload }
+        case SET_CLICK_INDEX: {
+            return { ...state, clickIndex: action.payload }
+        }
         default:
             return { ...state }
     }
