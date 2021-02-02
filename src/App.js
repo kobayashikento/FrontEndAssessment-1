@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Header from './Components/Header';
-import Preloader from './Sections/Preloader';
 import Landing from './Sections/LandingPage';
 import Pricing from './Sections/Pricing';
 import Payment from './Sections/Payment';
@@ -24,6 +23,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Header />
+        <Route exact path="/" component={Landing} />
         <Route
           render={({ location }) => {
             return (
@@ -33,7 +33,6 @@ function App() {
                 transitionKey={location.pathname}
               >
                 <Switch location={location}>
-                  <Route exact path="/" component={Landing} />
                   <Route path="/pricing" component={Pricing} />
                   <Route path="/payment" component={Payment} />
                 </Switch>
@@ -46,6 +45,13 @@ function App() {
   );
 }
 
+// <Route
+// render={({ location }) => {
+//   return (
+//     <PageTransition
+//       style={{ height: "100vh" }}
+//       preset="scaleDownFromBottom"
+//       transitionKey={location.pathname}
+//     >
+//   
 export default App;
-
-// 

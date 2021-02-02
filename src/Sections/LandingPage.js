@@ -23,8 +23,10 @@ import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/prop
 import { useWheel } from 'react-use-gesture';
 
 import '../Assets/styles/landingPage.css';
+import { useHistory } from 'react-router-dom';
 
 const LandingPage = (props) => {
+    const history = useHistory();
     const [speakerHover, setSpeakerHover] = React.useState(false);
     const [text, setText] = React.useState("");
 
@@ -34,9 +36,10 @@ const LandingPage = (props) => {
 
     React.useEffect(() => {
         props.setShowNavText(true);
-        setTimeout(() => {
-
-        }, 200)
+        // const unlisten = history.listen((location, action) => {
+        //     console.log(location, action)
+        // })
+        // return () => { unlisten() }
     }, [])
 
     const handleSpeakerHover = (state) => {
@@ -143,14 +146,16 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <Curtains
-                    pixelRatio={Math.min(1.5, window.devicePixelRatio)}
-                    autoRender={false}
-                >
-                    <CurtainContent
-                        size={[window.innerWidth, window.innerHeight]}
-                    />
-                </Curtains>
+                <div style={{height: "100vh", width: "100vw"}}>
+                    <Curtains
+                        pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+                        autoRender={false}
+                    >
+                        <CurtainContent
+                            size={[window.innerWidth, window.innerHeight]}
+                        />
+                    </Curtains>
+                </div>
                 <SectionRed
                     handleSpeakerHover={(state) => handleSpeakerHover(state)}
                 />

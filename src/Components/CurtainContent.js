@@ -22,12 +22,12 @@ const CurtainContent = (props) => {
   }
 
   const backgroundSpring = useSpring({
-    to: { background: curtainReady ? "rgba(0,0,0, 0)" : "rgba(0,0,0, 1)" },
-    from: { background: "rgba(0,0,0, 1)" }
+    to: { background: curtainReady ? "rgba(25, 25, 25, 0)" : "rgba(25, 25, 25, 1)" },
+    from: { background: "rgba(25, 25, 25, 1)" }
   })
 
   return (
-    <animated.div style={{ ...backgroundSpring, height: "100vh", width: "100vw" }}>
+    <animated.div style={{ ...backgroundSpring, height: "100vh", width: "100vw", zIndex: 50, position: "absolute" }}>
       <Slideshow
         size={props.size}
         handleCurtainReady={() => handleCurtainReady()}
