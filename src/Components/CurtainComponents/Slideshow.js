@@ -36,7 +36,6 @@ const Slideshow = (props) => {
     // handle initial load
     React.useEffect(() => {
         if (slideshowInner.current) {
-            console.log(slideshowInner.current)
             setMaxTextures(slideshowInner.current.childElementCount);
         }
         let currentTween = tween.current;
@@ -65,6 +64,9 @@ const Slideshow = (props) => {
     // callback when slideshow is ready
     const onReady = (plane) => {
         setPlane(plane);
+        setTimeout(() => {
+            props.handleCurtainReady();
+        }, 200);
     };
 
     // event triggered when radio buttons are clicked
@@ -163,6 +165,12 @@ const Slideshow = (props) => {
         from: { transform: `scale(0)`, background: "#FFF", margin: "0px", border: "1px", boxShadow: "none" },
     })
 
+    const radioSpring = useSpring({
+        to: { opacity: props.curtainReady ? 1 : 0, transform: props.curtainReady ? `translateY(0px)` : `translateY(100px)` },
+        from: { opacity: 0, transform: `translateY(100px)` },
+        delay: 100
+    })
+
     return (
         <Plane
             className="Slideshow"
@@ -176,8 +184,9 @@ const Slideshow = (props) => {
         >
             <LandingPageContent
                 size={props.size}
+                curtainReady={props.curtainReady}
             />
-            <div style={{ position: "absolute", bottom: `${37 / 1080 * props.size[1]}px`, height: "17px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <animated.div style={{ ...radioSpring, position: "absolute", bottom: `${37 / 1080 * props.size[1]}px`, height: "17px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <div className="radio-btn" style={{ width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} onClick={() => handleRadioClick(1)}>
                     <animated.div style={{ ...springFirst, width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} className="radio-btn" />
                 </div>
@@ -187,7 +196,7 @@ const Slideshow = (props) => {
                 <div className="radio-btn" style={{ width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} onClick={() => handleRadioClick(3)}>
                     <animated.div style={{ ...springThird, width: `${17 / 1920 * props.size[0]}px`, height: `${17 / 1920 * props.size[0]}px` }} className="radio-btn" />
                 </div>
-            </div>
+            </animated.div>
             <div ref={slideshowInner}>
                 <img
                     src="https://www.curtainsjs.com/examples/medias/displacement.jpg"

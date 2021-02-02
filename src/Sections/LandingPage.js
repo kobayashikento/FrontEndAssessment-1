@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Curtains } from 'react-curtains';
 
-import CurtainContent from '../Sections/CurtainContent';
+import CurtainContent from '../Components/CurtainContent';
 import SectionRed from '../Sections/SectionRed';
 import SectionYellow from '../Sections/SectionYellow';
 import Perks from '../Sections/Perks';
@@ -14,7 +14,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { useTrail, animated, useSpring } from 'react-spring';
 
-import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
+//import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
 // Redux
 import { connect } from 'react-redux';
@@ -22,11 +22,11 @@ import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/prop
 
 import { useWheel } from 'react-use-gesture';
 
-import Rockpic from '../Assets/pictures/LandingPage/landing_image_1.png';
-
 import '../Assets/styles/landingPage.css';
+import { useHistory } from 'react-router-dom';
 
 const LandingPage = (props) => {
+    const history = useHistory();
     const [speakerHover, setSpeakerHover] = React.useState(false);
     const [text, setText] = React.useState("");
 
@@ -36,6 +36,10 @@ const LandingPage = (props) => {
 
     React.useEffect(() => {
         props.setShowNavText(true);
+        // const unlisten = history.listen((location, action) => {
+        //     console.log(location, action)
+        // })
+        // return () => { unlisten() }
     }, [])
 
     const handleSpeakerHover = (state) => {
@@ -142,7 +146,7 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div style={{ background: "black" }}>
+                <div style={{height: "100vh", width: "100vw"}}>
                     <Curtains
                         pixelRatio={Math.min(1.5, window.devicePixelRatio)}
                         autoRender={false}

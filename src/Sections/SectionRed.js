@@ -94,7 +94,7 @@ const SectionRed = (props) => {
     }, [speaker2, playing, handlePlay]);
 
     return (
-        <div style={{ height: "100vh", background: "#D34848 0% 0% no-repeat padding-box" }}>
+        <div style={{  height: "100vh", background: "#D34848 0% 0% no-repeat padding-box" }}>
             <ReactPlayer
                 style={{ position: "absolute", display: "none" }}
                 url='https://soundcloud.com/childish-gambino/3005-1#t=1:33'

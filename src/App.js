@@ -23,6 +23,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Header />
+        <Route exact path="/" component={Landing} />
         <Route
           render={({ location }) => {
             return (
@@ -32,7 +33,6 @@ function App() {
                 transitionKey={location.pathname}
               >
                 <Switch location={location}>
-                  <Route exact path="/" component={Landing} />
                   <Route path="/pricing" component={Pricing} />
                   <Route path="/payment" component={Payment} />
                 </Switch>
@@ -45,6 +45,13 @@ function App() {
   );
 }
 
+// <Route
+// render={({ location }) => {
+//   return (
+//     <PageTransition
+//       style={{ height: "100vh" }}
+//       preset="scaleDownFromBottom"
+//       transitionKey={location.pathname}
+//     >
+//   
 export default App;
-
-// 
