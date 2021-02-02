@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Header from './Components/Header';
+import Preloader from './Sections/Preloader';
 import Landing from './Sections/LandingPage';
 import Pricing from './Sections/Pricing';
 import Payment from './Sections/Payment';

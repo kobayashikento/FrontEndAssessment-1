@@ -114,7 +114,6 @@ const Header = (props) => {
         if (props.navIndex === 3 || props.menuIndex === 6) {
             if (index === 0) {
                 history.push("/");
-                history.go(0);
                 props.setMenuIndex(0);
                 props.setNavIndex(0);
                 setPricingOpen(false);

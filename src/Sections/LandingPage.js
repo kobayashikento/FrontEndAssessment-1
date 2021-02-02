@@ -23,7 +23,6 @@ import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/prop
 import { useWheel } from 'react-use-gesture';
 
 import '../Assets/styles/landingPage.css';
-//import Preloader from './Preloader';
 
 const LandingPage = (props) => {
     const [speakerHover, setSpeakerHover] = React.useState(false);
@@ -126,7 +125,6 @@ const LandingPage = (props) => {
 
     return (
         <div {...bind()} onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
-            {/* <Preloader /> */}
             {trail.map((prop, index) => (
                 <animated.div key={index} ref={cursorRef} style={{
                     ...cursorSpring, transform: prop.xy.interpolate(trans), position: "absolute",
@@ -145,16 +143,14 @@ const LandingPage = (props) => {
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div style={{ background: "black" }}>
-                    <Curtains
-                        pixelRatio={Math.min(1.5, window.devicePixelRatio)}
-                        autoRender={false}
-                    >
-                        <CurtainContent
-                            size={[window.innerWidth, window.innerHeight]}
-                        />
-                    </Curtains>
-                </div>
+                <Curtains
+                    pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+                    autoRender={false}
+                >
+                    <CurtainContent
+                        size={[window.innerWidth, window.innerHeight]}
+                    />
+                </Curtains>
                 <SectionRed
                     handleSpeakerHover={(state) => handleSpeakerHover(state)}
                 />
