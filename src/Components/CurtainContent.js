@@ -3,7 +3,7 @@ import React from 'react';
 import gsap from 'gsap';
 import { useCurtains } from 'react-curtains';
 
-import Slideshow from '../Components/CurtainComponents/Slideshow';
+import Slideshow from './CurtainComponents/Slideshow';
 
 import '../Assets/styles/curtainStyle.css';
 

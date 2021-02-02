@@ -36,7 +36,6 @@ const Slideshow = (props) => {
     // handle initial load
     React.useEffect(() => {
         if (slideshowInner.current) {
-            console.log(slideshowInner.current)
             setMaxTextures(slideshowInner.current.childElementCount);
         }
         let currentTween = tween.current;
@@ -64,6 +63,7 @@ const Slideshow = (props) => {
 
     // callback when slideshow is ready
     const onReady = (plane) => {
+        console.log("ready")
         setPlane(plane);
     };
 

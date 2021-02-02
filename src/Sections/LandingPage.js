@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Curtains } from 'react-curtains';
 
-import CurtainContent from '../Sections/CurtainContent';
+import CurtainContent from '../Components/CurtainContent';
 import SectionRed from '../Sections/SectionRed';
 import SectionYellow from '../Sections/SectionYellow';
 import Perks from '../Sections/Perks';
@@ -14,7 +14,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import { useTrail, animated, useSpring } from 'react-spring';
 
-import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
+//import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
 // Redux
 import { connect } from 'react-redux';
@@ -22,9 +22,8 @@ import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/prop
 
 import { useWheel } from 'react-use-gesture';
 
-import Rockpic from '../Assets/pictures/LandingPage/landing_image_1.png';
-
 import '../Assets/styles/landingPage.css';
+//import Preloader from './Preloader';
 
 const LandingPage = (props) => {
     const [speakerHover, setSpeakerHover] = React.useState(false);
@@ -36,6 +35,9 @@ const LandingPage = (props) => {
 
     React.useEffect(() => {
         props.setShowNavText(true);
+        setTimeout(() => {
+
+        }, 200)
     }, [])
 
     const handleSpeakerHover = (state) => {
@@ -124,6 +126,7 @@ const LandingPage = (props) => {
 
     return (
         <div {...bind()} onMouseMove={e => set({ xy: [e.pageX, e.pageY] })} style={{ cursor: text === "REVEAL" ? "move" : speakerHover ? "move" : "auto" }}>
+            {/* <Preloader /> */}
             {trail.map((prop, index) => (
                 <animated.div key={index} ref={cursorRef} style={{
                     ...cursorSpring, transform: prop.xy.interpolate(trans), position: "absolute",
