@@ -142,7 +142,7 @@ const LandingPage = (props) => {
                 // This will activate auto hide
                 ref={scrollRef}
                 autoHide
-                style={{ height: `${props.size[1]}px` }}
+                style={{ height: `${props.size[1]}px`, position: "absolute" }}
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
