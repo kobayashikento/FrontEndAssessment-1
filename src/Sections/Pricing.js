@@ -25,17 +25,17 @@ const Pricing = (props) => {
     const bind = useWheel(({ wheeling, direction }) => {
         if (wheeling && direction[1] === 1) {
             props.setShowNavText(false);
-        } else  if (wheeling && direction[1] === -1) {
+        } else if (wheeling && direction[1] === -1) {
             props.setShowNavText(true);
         }
     })
 
     return (
-        <div {...bind()} style={{ background: "#191919 0% 0% no-repeat padding-box" }}>
+        <div {...bind()} style={{ background: "#191919 0% 0% no-repeat padding-box", position: "relative" }}>
             <Scrollbars
                 // This will activate auto hide
                 autoHide
-                style={{ height: `${props.size[1]}px` }}
+                style={{ height: `100vh` }}
                 thumbSize={50}
             >
                 <div style={{ display: "flex", flexDirection: "column", paddingTop: `${308 / 1920 * props.size[0]}px`, marginLeft: `${183 / 1920 * props.size[0]}px` }}>

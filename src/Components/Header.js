@@ -114,9 +114,10 @@ const Header = (props) => {
         if (props.navIndex === 3 || props.menuIndex === 6) {
             if (index === 0) {
                 history.push("/");
-                props.setMenuIndex(0);
-                props.setNavIndex(0);
                 setPricingOpen(false);
+                props.setMenuIndex(1);
+                props.setNavIndex(1);
+                props.setClickIndex(1);
             } else if (index === 1) {
                 setPricingOpen(false);
                 props.setMenuIndex(3);
