@@ -140,13 +140,14 @@ const LandingPage = (props) => {
             ))}
             <Scrollbars
                 // This will activate auto hide
+                className="scrollbar"
                 ref={scrollRef}
                 autoHide
-                style={{ height: `${props.size[1]}px`, position: "absolute" }}
+                style={{ height: `100vh`}}
                 thumbSize={50}
                 onScrollFrame={handleScroll}
             >
-                <div style={{height: "100vh", width: "100vw"}}>
+                <div style={{ height: "100vh", width: "100vw" }}>
                     <Curtains
                         pixelRatio={Math.min(1.5, window.devicePixelRatio)}
                         autoRender={false}
@@ -162,8 +163,10 @@ const LandingPage = (props) => {
                 <SectionYellow />
                 <Perks />
                 <Review />
-                <SectionGet />
-                <SectionFooter />
+                <div>
+                    <SectionGet />
+                    <SectionFooter />
+                </div>
             </Scrollbars>
         </div >
     )

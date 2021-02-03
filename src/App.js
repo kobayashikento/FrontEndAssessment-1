@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 
-import { PageTransition } from '@steveeeie/react-page-transition';
+import { useTransition, animated } from 'react-spring';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -23,35 +23,36 @@ function App() {
     <Provider store={store}>
       <Router>
         <Header />
-        <Route exact path="/" component={Landing} />
-        <Route
-          render={({ location }) => {
-            return (
-              <PageTransition
-                style={{ height: "100vh" }}
-                preset="scaleDownFromBottom"
-                transitionKey={location.pathname}
-              >
-                <Switch location={location}>
-                  <Route path="/pricing" component={Pricing} />
-                  <Route path="/payment" component={Payment} />
-                </Switch>
-              </PageTransition>
-            );
-          }}
-        />
+        <Main />
       </Router>
     </Provider>
   );
 }
 
-// <Route
-// render={({ location }) => {
-//   return (
-//     <PageTransition
-//       style={{ height: "100vh" }}
-//       preset="scaleDownFromBottom"
-//       transitionKey={location.pathname}
-//     >
-//   
+
+const Main = () => {
+  const location = useLocation();
+
+  const transitions = useTransition(location, location => location.key, {
+    from: {
+      opacity: location.pathname === "/" ? 1 : 0,
+      position: 'absolute',
+      width: '100%',
+      transform: location.pathname === "/" ? 'translate3d(0, 0, 0) ' : 'translate3d(0, 100%, 0)'
+    },
+    enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+    leave: { opacity: location.pathname === "/" ? 1 : 0, transform: location.pathname === "/" ? 'translate3d(0, 0, 0) ' : 'translate3d(0, 100%, 0)' }
+  });
+
+  return transitions.map(({ item, props: transition, key }) => (
+    <animated.div key={key} style={transition}>
+      <Switch location={item}>
+        <Route exact path="/" component={Landing} />
+        <Route path="/pricing" component={Pricing} />
+        <Route path="/payment" component={Payment} />
+      </Switch>
+    </animated.div>
+  ));
+};
+
 export default App;
