@@ -6,6 +6,7 @@ export const SET_NAV_INDEX = 'SET_NAV_INDEX';
 export const SET_PLAN_PAYMENT = 'SET_PLAN_PAYMENT';
 export const SET_SHOW_NAV_TEXT = 'SET_SHOW_NAV_TEXT';
 export const SET_CLICK_INDEX = 'SET_CLICK_INDEX';
+export const SET_HERO_LEAVE = 'SET_HERO_LEAVE';
 
 export function setSize(object) {
     return { type: SET_SIZE, payload: object }
@@ -37,4 +38,8 @@ export function setShowNavText(boolean) {
 
 export function setClickIndex(index) {
     return { type: SET_CLICK_INDEX, payload: index }
+}
+
+export function setHeroLeave(boolean) {
+    return { type: SET_HERO_LEAVE, payload: boolean }
 }

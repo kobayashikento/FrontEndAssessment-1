@@ -1,0 +1,7 @@
+.text > p > span {
+    color: #5f5e66;
+}
+
+.text * > span :hover {
+    color: white;
+}

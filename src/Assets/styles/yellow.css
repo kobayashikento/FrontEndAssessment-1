@@ -1,0 +1,72 @@
+@media only screen and (min-width: 800px) {
+    .layer {
+        background-position: bottom center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 130vh;
+        position: fixed;
+        z-index: -1;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .layer {
+        background-position: bottom center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 130vh;
+        position: fixed;
+        z-index: -1;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .layer {
+        background-position: bottom center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 110vh;
+        position: fixed;
+        z-index: -1;
+    }
+}
+
+.layer-bg {
+    background-image: url(../pictures/Yellow/layer-bg.png);
+}
+.layer-1 {
+    background-image: url(../pictures/Yellow/layer_1.png);
+    background-position: left bottom;
+}
+.layer-2 {
+    background-image: url(../pictures/Yellow/layer_2.png);
+    background-position: left bottom;
+}
+.layer-3 {
+    background-image: url(../pictures/Yellow/layer_3.png);
+    background-position: right bottom;
+    margin-top: 5%;
+}
+.layer-4 {
+    background-image: url(../pictures/Yellow/layer_4.png);
+}
+.layer-5 {
+    background-image: url(../pictures/Yellow/layer_5.png);
+    left: -18%;
+    margin-top: 5%;
+}
+/* .layer-6 {
+    background-color: rgb(25,25,25);
+    background-position: bottom;
+} */
+
+.rating { 
+    height: 40px
+}
+
+.rating * > span {
+    width: 40px;
+}

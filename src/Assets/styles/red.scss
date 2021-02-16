@@ -1,0 +1,25 @@
+svg {
+	width: 0;
+	height: 0;
+	position: absolute;
+}
+
+.knockout {
+	width: 100%;
+	display: block;
+	clip-path: url(#clip-00);
+
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		clip-path: url(#clip-00);
+		background-color: rgb(211, 72, 72);
+		mix-blend-mode: screen;
+	}
+}

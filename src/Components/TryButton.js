@@ -17,7 +17,6 @@ export default styled.button`
     height: ${TRY_CTA_HEIGHT}px;
     margin-top: ${(props) => (66 / 1920 * props.size[0] + 'px')};
     right: ${(props) => (79 / 1920 * props.size[0] + `px`)};
-    transform: ${(props) => (`translate(${props.pos[0]}px, ${-props.pos[1]}px) scale(${props.size[0] / 1920})`)};
 
     &::before {
         --size: 0;

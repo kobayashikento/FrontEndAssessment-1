@@ -3,7 +3,7 @@
 }
 
 .scrollbar::after {
-    display: "none"
+    display: "none";
 }
 
 .cursor {
@@ -23,6 +23,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.yellowPic {
+    background-color: rgba(0,0,0,0.1);
 }
 
 @keyframes cursorAnim2 {
