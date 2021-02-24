@@ -1,3 +1,6 @@
+website that i think best represents the service => https://expcon.web.app/ 
+website i followed pixel by pixel per specification => https://expconkento.web.app/
+
 Front-End Assessment where I am tasked to turn the design into a website. Most of the animations will be done using React-Spring. Home page transition (wave motion) will be done using curtains.js. Routing will be done using React-Router-Dom. Might use Material UI for existing buttons to save time.
 
 MAIN LIBRARIES: React, React-Router-Dom, React-Spring, curtains.js, possibly but unlikely Material UI for buttons etc...
