@@ -13,12 +13,40 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { animated, useSpring, useTrail } from 'react-spring';
 
+const Trail = ({ matches, open, textIndex, children, ...props }) => {
+    const items = React.Children.toArray(children)
+    const trail = useTrail(items.length, {
+        config: { mass: 5, tension: 2000, friction: 200 },
+        opacity: open ? 1 : 0,
+        x: open ? 0 : 20,
+        from: { opacity: 0, x: 20 },
+    })
+
+    return (
+        <div {...props}>
+            <div style={{ display: "flex" }}>
+                {trail.map(({ x, height, ...rest }, index) => (
+                    <animated.div
+                        key={items[index].key}
+                        style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
+                        <Typography style={{
+                            textAlign: "left", fontSize: matches ? "calc(110px + (124 - 110) * ((100vw - 1024px) / (1600 - 1024)))"
+                                : "calc(45px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))",
+                            lineHeight: matches ? `calc(90px + (98 - 90) * ((100vw - 1024px) / (1600 - 1024)))` :
+                                `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                            fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0px 11px 10px rgba(81,67,21,0.4)"
+                        }}>{items[index]}</Typography>
+                    </animated.div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
 const SectionYellow = (props) => {
 
     //refs
-    const buttonYellowRef = React.useRef();
-
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
     const items1 = [
         {
@@ -70,52 +98,22 @@ const SectionYellow = (props) => {
         delay: 500
     })
 
-    const Trail = ({ open, textIndex, children, ...props }) => {
-        const items = React.Children.toArray(children)
-        const trail = useTrail(items.length, {
-            config: { mass: 5, tension: 2000, friction: 200 },
-            opacity: open ? 1 : 0,
-            x: open ? 0 : 20,
-            from: { opacity: 0, x: 20 },
-        })
-
-        return (
-            <div {...props}>
-                <div style={{ display: "flex" }}>
-                    {trail.map(({ x, height, ...rest }, index) => (
-                        <animated.div
-                            key={items[index].key}
-                            style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
-                            <Typography style={{
-                                textAlign: "left", fontSize: matches ? "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))"
-                                : "calc(50px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))", 
-                                lineHeight: matches ? `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`: 
-                                `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
-                                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
-                            }}>{items[index]}</Typography>
-                        </animated.div>
-                    ))}
-                </div>
-            </div>
-        )
-    }
-
     return (
-        <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-            <div style={{ position: "absolute", pointerEvents: "none", right: "25%" }}>
-                <Trail open={props.render} textIndex={0}>
+        <div style={{ display: "flex", alignItems: "center", height: "100%", marginTop: "5vmax" }}>
+            <div onMouseEnter={() => props.handleExpandCircle(true)} onMouseLeave={() => props.handleExpandCircle(false)} style={{ position: "absolute", right: "25%" }}>
+                <Trail open={props.render} textIndex={0} matches={matches}>
                     <span>F</span>
                     <span>R</span>
                     <span>O</span>
                     <span>N</span>
                     <span>T</span>
                 </Trail>
-                <Trail open={props.render} textIndex={1}>
+                <Trail open={props.render} textIndex={1} matches={matches}>
                     <span>R</span>
                     <span>O</span>
                     <span>W</span>
                 </Trail>
-                <Trail open={props.render} textIndex={2}>
+                <Trail open={props.render} textIndex={2} matches={matches}>
                     <span>S</span>
                     <span>E</span>
                     <span>A</span>
@@ -127,9 +125,6 @@ const SectionYellow = (props) => {
                         {items1[3].content}
                     </animated.div>
                 </div>
-                <DemoButton style={{ display: "none" }} ref={buttonYellowRef} size={props.size} pos={props.demoPos} type="yellow">
-                    <span >SEE DEMO</span>
-                </DemoButton>
             </div>
         </div >
     )

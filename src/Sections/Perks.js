@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 
 import concert_purple from '../Assets/pictures/Review/concert_purple.jpg';
 
-import { useSpring, animated, useTrail } from 'react-spring';
+import { useSpring, animated, useTrail, interpolate } from 'react-spring';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Perks = (props) => {
 
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
     let enterSpring = useSpring({
         to: { transform: props.render ? `rotate(90deg) translateX(0%)` : `rotate(90deg) translateX(-100%)`, opacity: props.render ? 1 : 0 },
@@ -69,16 +69,16 @@ const Perks = (props) => {
 
         return (
             <div {...props}>
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", paddingLeft: "5%", paddingTop: "4%" }}>
                     {trail.map(({ x, height, ...rest }, index) => (
                         <animated.div
                             key={items[index].key}
                             style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
                             <Typography style={{
-                                fontSize: matches ? "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))" :
-                                "calc(50px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))",
+                                fontSize: matches ? "calc(96px + (110 - 96) * ((100vw - 1024px) / (1600 - 1024)))" :
+                                    "calc(50px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))",
                                 textAlign: "left", fontWeight: "bold", fontStyle: "normal",
-                                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+                                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0px 11px 10px rgba(81,67,21,0.4)"
                             }}>{items[index]}</Typography>
                         </animated.div>
                     ))}
@@ -176,90 +176,86 @@ const Perks = (props) => {
 
     return (
         matches ?
-            <div style={{ height: "120vh", position: "absolute", width: "100vw" }}>
+            <animated.div style={{ height: "100%", width: "100%" }} >
                 <div style={{
-                    height: "140vh", background: "#191919 0% 0% no-repeat padding-box", width: "50%",
-                    display: "flex", flexDirection: "column", top: "14%", position: "absolute", justifyContent: "center",
-                    boxShadow: " rgba(0, 0, 0, 0.56) 0px 22px 70px 4px", zIndex: 5
+                    height: "70%", width: "40%", right: "13%", top: "70%", position: "absolute", boxShadow: " rgba(0, 0, 0, 0.56) 0px 22px 70px 4px", zIndex: 4, overflow: "hidden"
+                }} >
+                    <animated.div style={{ backgroundImage: `url(${concert_purple})`, backgroundSize: "cover", bottom: 0, height: "100%", width: "100%", position: "absolute" }} />
+                </div>
+                <div style={{
+                    display: "flex", flexDirection: "column", background: "rgba(0,0,0,0.6)", position: "absolute", top: "75%", left: "18vmax", zIndex: 5
                 }}>
-                    <div style={{
-                        display: "flex",
-                        paddingLeft: "21.6%", flexDirection: "column"
-                    }}>
-                        <Trail0 open={props.render} textIndex={0}>
-                            <span>P</span>
-                            <span>E</span>
-                            <span>R</span>
-                            <span>K</span>
-                            <span>S</span>
-                        </Trail0>
-                        <div style={{ display: "flex", flexDirection: "column", overflow: "hidden", justifyContent: "space-around", height: "70vh" }}>
-                            <div style={{ display: "flex", marginLeft: "8%" }}>
-                                <animated.div style={{ ...enterSpring, width: "95px", background: `#D34848`, height: "3px", transformOrigin: "left", position: "absolute" }} />
-                                <div style={{ marginLeft: "5%" }}>
-                                    <Trail open={props.render} textIndex={0}>
-                                        <span>Subscription</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Payment</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Model</span>
-                                    </Trail>
-                                    <animated.div style={enterSpringText}>
-                                        <Typography style={{
-                                            fontSize: "calc(14px + (17 - 14) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
-                                            fontFamily: "DINNextLTPro-Medium", color: "white", width: `${500 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            No commitment, cancel anytime. Never worry about forgetting a payment again!
+                    <Trail0 open={props.render} textIndex={0}>
+                        <span>P</span>
+                        <span>E</span>
+                        <span>R</span>
+                        <span>K</span>
+                        <span>S</span>
+                    </Trail0>
+                    <div style={{ display: "flex", flexDirection: "column", overflow: "hidden", height: "fit-content", width: "fit-content", padding: "4rem", paddingTop: "1rem" }}>
+                        <div style={{ display: "flex", }}>
+                            <animated.div style={{ ...enterSpring, width: "95px", background: `#D34848`, height: "3px", transformOrigin: "left", position: "absolute" }} />
+                            <div style={{ marginLeft: "5%" }}>
+                                <Trail open={props.render} textIndex={0}>
+                                    <span>Subscription</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Payment</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Model</span>
+                                </Trail>
+                                <animated.div style={enterSpringText}>
+                                    <Typography style={{
+                                        fontSize: "calc(14px + (17 - 14) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                        fontFamily: "DINNextLTPro-Medium", color: "white", width: `${500 / 1920 * props.size[0]}px`,
+                                    }}>
+                                        No commitment, cancel anytime. Never worry about forgetting a payment again!
                             </Typography>
-                                    </animated.div>
-                                </div>
-                            </div>
-                            <div style={{ display: "flex", marginLeft: "8%" }}>
-                                <animated.div style={{ ...enterSpring1, width: "95px", background: `#1FE1E9`, height: "3px", transformOrigin: "left", position: "absolute" }} />
-                                <div style={{ marginLeft: "5%" }}>
-                                    <Trail1 open={props.render} textIndex={0}>
-                                        <span>No</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Fee</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Cancelation</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Policy</span>
-                                    </Trail1>
-                                    <animated.div style={enterSpringText1}>
-                                        <Typography style={{
-                                            fontSize: "calc(14px + (17 - 14) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
-                                            fontFamily: "DINNextLTPro-Medium", color: "white", width: `${500 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            No commitment, cancel anytime. Never worry about forgetting a payment again!
-                        </Typography>
-                                    </animated.div>
-                                </div>
-                            </div>
-                            <div style={{ display: "flex", marginLeft: "8%" }}>
-                                <animated.div style={{ ...enterSpring2, width: "95px", background: `#FFB33F`, height: "3px", transformOrigin: "left", position: "absolute" }} />
-                                <div style={{ marginLeft: "5%" }}>
-                                    <Trail2 open={props.render} textIndex={0}>
-                                        <span>Subscription</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Payment</span>
-                                        <span> {'\u00A0'}</span>
-                                        <span>Model</span>
-                                    </Trail2>
-                                    <animated.div style={enterSpringText2}>
-                                        <Typography style={{
-                                            fontSize: "calc(14px + (17 - 14) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
-                                            fontFamily: "DINNextLTPro-Medium", color: "white", width: `${500 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            No commitment, cancel anytime. Never worry about forgetting a payment again!
-                        </Typography>
-                                    </animated.div>
-                                </div>
+                                </animated.div>
                             </div>
                         </div>
-                    </div>
-                    <div style={{ overflow: "hidden" }}>
-                        <animated.div style={{ ...enterSpringText3, display: "flex", alignItems: "flex-end", paddingLeft: "30.6%" }}>
+                        <div style={{ display: "flex", marginTop: "2.2vmax" }}>
+                            <animated.div style={{ ...enterSpring1, width: "95px", background: `#1FE1E9`, height: "3px", transformOrigin: "left", position: "absolute" }} />
+                            <div style={{ marginLeft: "5%" }}>
+                                <Trail1 open={props.render} textIndex={0}>
+                                    <span>No</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Fee</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Cancelation</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Policy</span>
+                                </Trail1>
+                                <animated.div style={enterSpringText1}>
+                                    <Typography style={{
+                                        fontSize: "calc(14px + (17 - 14) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                        fontFamily: "DINNextLTPro-Medium", color: "white", width: `${500 / 1920 * props.size[0]}px`,
+                                    }}>
+                                        No commitment, cancel anytime. Never worry about forgetting a payment again!
+                        </Typography>
+                                </animated.div>
+                            </div>
+                        </div>
+                        <div style={{ display: "flex", marginTop: "2.2vmax" }}>
+                            <animated.div style={{ ...enterSpring2, width: "95px", background: `#FFB33F`, height: "3px", transformOrigin: "left", position: "absolute" }} />
+                            <div style={{ marginLeft: "5%" }}>
+                                <Trail2 open={props.render} textIndex={0}>
+                                    <span>Subscription</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Payment</span>
+                                    <span> {'\u00A0'}</span>
+                                    <span>Model</span>
+                                </Trail2>
+                                <animated.div style={enterSpringText2}>
+                                    <Typography style={{
+                                        fontSize: "calc(14px + (17 - 14) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                        fontFamily: "DINNextLTPro-Medium", color: "white", width: `${500 / 1920 * props.size[0]}px`,
+                                    }}>
+                                        No commitment, cancel anytime. Never worry about forgetting a payment again!
+                        </Typography>
+                                </animated.div>
+                            </div>
+                        </div>
+                        <animated.div style={{ ...enterSpringText3, display: "flex", alignItems: "flex-end", marginLeft: "8%" }}>
                             <Link to="/pricing" style={{ textDecoration: "none" }}>
                                 <div style={{ display: "flex" }}>
                                     <a style={{
@@ -270,11 +266,7 @@ const Perks = (props) => {
                         </animated.div>
                     </div>
                 </div>
-                <div style={{
-                    height: "140vh", backgroundImage: `url(${concert_purple})`, backgroundSize: "cover", top: "14%", position: "absolute", width: "50%", right: "0",
-                    boxShadow: " rgba(0, 0, 0, 0.56) 0px 22px 70px 4px", zIndex: 4
-                }} />
-            </div>
+            </animated.div>
             :
             <div style={{ height: "100vh", position: "absolute", width: "100vw" }}>
                 <div style={{

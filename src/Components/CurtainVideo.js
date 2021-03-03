@@ -3,7 +3,7 @@ import { Curtains, Plane } from 'curtainsjs';
 
 import { useSpring, animated } from 'react-spring';
 
-import Radio from '@material-ui/core/Radio';
+import Preloading from './Preloading';
 
 import '../Assets/styles/curtainStyle.css';
 
@@ -14,13 +14,13 @@ import migosVid from '../Assets/pictures/LandingPage/alan_video_1.mp4';
 
 import { connect } from 'react-redux';
 
+import * as easings from 'd3-ease';
+
 const CurtainVideo = (props) => {
     const [curtainReady, setCurtainReady] = React.useState(false);
 
     let multiTexturesRef = React.useRef();
     let canvasRef = React.useRef();
-    let btn1Ref = React.useRef();
-    let btn2Ref = React.useRef();
 
     const [radialIndex, setRadialIndex] = React.useState(0);
 
@@ -165,22 +165,10 @@ const CurtainVideo = (props) => {
     }, [radialIndex, setRadialIndex])
 
     const backgroundSpring = useSpring({
-        to: { background: curtainReady ? "rgba(25, 25, 25, 0)" : "rgba(25, 25, 25, 1)" },
-        from: { background: "rgba(25, 25, 25, 1)", height: "100vh", position: "absolute", width: "100vw", zIndex: 30 }
+        to: { transform: curtainReady ? "translateY(100%)" : "translateY(0%)" },
+        from: { transform: "translateY(0%)", opacity: 1 },
+        config: { duration: 1200, easing: easings.easeCubicOut },
     })
-
-    const radioSpring = useSpring({
-        to: { opacity: curtainReady ? 1 : 0 },
-        from: { opacity: 0 }
-    })
-
-    const handleChange = (event) => {
-        if (event.target.value === 0) {
-            activeTexture = 0
-        }
-        activeTexture = 1
-        setRadialIndex(event.target.value);
-    }
 
     const handleLeave = useSpring({
         to: { transform: props.heroLeave ? "translateX(61.8%)" : "translateX(0%)" },
@@ -195,14 +183,17 @@ const CurtainVideo = (props) => {
         }
     }
 
+    //props.matches !== true -> desktop
     return (
         props.matches ?
             <animated.div style={{
                 ...handleLeave, height: "100vh", width: "100vw", zIndex: 50,
                 position: "absolute", display: "flex", justifyContent: 'center', boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
             }} id="page-wrap">
-                <animated.div style={backgroundSpring} />
-                <LandingPageContent curtainReady={curtainReady} matches={props.matches} />
+                <animated.div style={{ ...backgroundSpring, height: "100vh", width: "100vw", position: "absolute", zIndex: 1000 }}>
+                    <Preloading />
+                </animated.div>
+                <LandingPageContent curtainReady={curtainReady} matches={props.matches} handleExpandCircle={(state) => props.handleExpandCircle(state)}/>
                 <div ref={canvasRef} id="canvas"></div>
                 <div className="multi-textures-wrapper">
                     <div ref={multiTexturesRef} className="flex-wrapper multi-textures">
@@ -218,10 +209,12 @@ const CurtainVideo = (props) => {
             :
             <animated.div style={{
                 ...handleLeave, height: "100vh", width: "100vw", zIndex: 50,
-                position: "absolute", display: "flex", justifyContent: 'center', boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+                position: "fixed", display: "flex", justifyContent: 'center', boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
             }} id="page-wrap">
-                <animated.div style={backgroundSpring} />
-                <LandingPageContent curtainReady={curtainReady} />
+                <animated.div style={{ ...backgroundSpring, height: "100vh", width: "100vw", position: "absolute", zIndex: 1000 }}>
+                    <Preloading />
+                </animated.div>
+                <LandingPageContent curtainReady={curtainReady} handleExpandCircle={(state) => props.handleExpandCircle(state)} />
                 <div ref={canvasRef} id="canvas"></div>
                 <div className="multi-textures-wrapper">
                     <div ref={multiTexturesRef} className="flex-wrapper multi-textures">

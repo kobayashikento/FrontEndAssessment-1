@@ -291,18 +291,8 @@ const Payment = (props) => {
     }
 
     const handleChange = (event) => {
-        console.log(event)
         props.setPlanPayment(event.target.value);
     };
-
-    //bind wheel
-    const bind = useWheel(({ wheeling, direction }) => {
-        if (wheeling && direction[1] === 1) {
-            props.setShowNavText(false);
-        } else if (wheeling && direction[1] === -1) {
-            props.setShowNavText(true);
-        }
-    })
 
     const theme = createMuiTheme({
         overrides: {
@@ -402,7 +392,7 @@ const Payment = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div {...bind()} style={{ background: "#FFFFFF 0% 0% no-repeat padding-box" }}>
+            <div style={{ background: "#FFFFFF 0% 0% no-repeat padding-box" }}>
                 <Scrollbars
                     // This will activate auto hide
                     autoHide
@@ -429,7 +419,7 @@ const Payment = (props) => {
                                         checked={props.plan === 'BASIC'}
                                         onChange={handleChange}
                                         value="BASIC"
-                                        style={{ color: "#D24848", height: "20px", width: "20px" }}
+                                        style={{ color: "#D24848"}}
                                     />
                                     <Typography style={{
                                         marginLeft: `${25 / 1920 * props.size[0]}px`, paddingTop: "10%",
@@ -444,7 +434,7 @@ const Payment = (props) => {
                                         checked={props.plan === 'ADVANCED'}
                                         onChange={handleChange}
                                         value="ADVANCED"
-                                        style={{ color: "#FFB33F", padding: "0px" }}
+                                        style={{ color: "#FFB33F"}}
                                     />
                                     <Typography style={{
                                         marginLeft: `${36 / 1920 * props.size[0]}px`, paddingTop: "7%",
@@ -459,7 +449,7 @@ const Payment = (props) => {
                                         checked={props.plan === 'PRO'}
                                         onClick={handleChange}
                                         value="PRO"
-                                        style={{ color: "#1FE1E9", padding: "0px" }}
+                                        style={{ color: "#1FE1E9"}}
                                     />
                                     <Typography style={{
                                         marginLeft: `${35 / 1920 * props.size[0]}px`, paddingTop: "17%",
@@ -661,14 +651,16 @@ const Payment = (props) => {
                                     {'\u00A0'}Privacy Policy.
                 </Typography>
                             </div>
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: "flex", transform: "scale(1.3)", marginLeft: "13%" }}>
                                 <a ref={buttonRef} style={{
                                     width: "217", height: "60px", marginTop: `${31 / 1920 * props.size[0]}px`,
                                 }} className="btndown-down-noborder" data-text="DOWNLOAD" />
                             </div>
                         </div>
                     </div>
-                    <SectionFooter />
+                    <div style={{ background: "black" }}>
+                        <SectionFooter />
+                    </div>
                 </Scrollbars>
             </div>
         </ThemeProvider >

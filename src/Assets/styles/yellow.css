@@ -1,4 +1,11 @@
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1024px) {
+    .layer-5 {
+        background-image: url(../pictures/Yellow/layer_5.png);
+        width: 30vw !important;
+        height: 113vh !important;
+        margin-top: 17%;
+        margin-left: 19%;
+    }
     .layer {
         background-position: bottom center;
         background-size: auto;
@@ -10,7 +17,52 @@
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1280px) {
+    .layer-5 {
+        background-image: url(../pictures/Yellow/layer_5.png);
+        width: 26vw !important;
+        height: 113vh !important;
+        margin-top: 17%;
+        margin-left: 19%;
+    }
+    .layer {
+        background-position: bottom center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 130vh;
+        position: fixed;
+        z-index: -1;
+    }
+}
+
+@media only screen and (min-width: 1366px) {
+    .layer-5 {
+        background-image: url(../pictures/Yellow/layer_5.png);
+        width: 26vw !important;
+        height: 113vh !important;
+        margin-top: 17%;
+        margin-left: 19%;
+    }
+    .layer {
+        background-position: bottom center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 130vh;
+        position: fixed;
+        z-index: -1;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .layer-5 {
+        background-image: url(../pictures/Yellow/layer_5.png);
+        width: 25vw !important;
+        height: 123vh !important;
+        margin-top: 17%;
+        margin-left: 19%;
+    }
     .layer {
         background-position: bottom center;
         background-size: auto;
@@ -23,14 +75,41 @@
 }
 
 @media only screen and (min-width: 1600px) {
+    .layer-5 {
+        background-image: url(../pictures/Yellow/layer_5.png);
+        width: 17vw !important;
+        height: 110vh !important;
+        margin-top: 17%;
+        margin-left: 24%;
+    }
     .layer {
         background-position: bottom center;
         background-size: auto;
         background-repeat: no-repeat;
         width: 100vw;
-        height: 110vh;
+        height: 130vh;
         position: fixed;
         z-index: -1;
+    }
+}
+
+
+@media only screen and (min-width: 1700px) {
+    .layer {
+        background-position: bottom center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 130vh;
+        position: fixed;
+        z-index: -1;
+    }
+    .layer-5 {
+        background-image: url(../pictures/Yellow/layer_5.png);
+        width: 17vw;
+        height: 90vh;
+        margin-top: 17%;
+        margin-left: 24%;
     }
 }
 
@@ -53,18 +132,9 @@
 .layer-4 {
     background-image: url(../pictures/Yellow/layer_4.png);
 }
-.layer-5 {
-    background-image: url(../pictures/Yellow/layer_5.png);
-    left: -18%;
-    margin-top: 5%;
-}
-/* .layer-6 {
-    background-color: rgb(25,25,25);
-    background-position: bottom;
-} */
 
-.rating { 
-    height: 40px
+.rating {
+    height: 40px;
 }
 
 .rating * > span {

@@ -36,9 +36,7 @@ const Main = () => {
   const transitions = useTransition(location, location => location.key, {
     from: {
       opacity: location.pathname === "/" ? 1 : 0,
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
+      position: 'absolute', width: '100%', height: '100%', 
       transform: location.pathname === "/" ? 'translate3d(0, 0, 0) ' : 'translate3d(0, 100%, 0)'
     },
     enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },

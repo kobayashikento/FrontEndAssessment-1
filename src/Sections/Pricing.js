@@ -77,13 +77,7 @@ const Pricing = (props) => {
         <div {...bind()} ref={scrollRef} style={{ background: "#191919 0% 0% no-repeat padding-box", width: "100vw", height: "100vh", overflow: "auto" }}>
             <div style={{ display: "flex", flexDirection: "column", paddingTop: `12%`, marginLeft: `14%`, overflow: "hidden" }}>
                 <Trail open={true} textIndex={0}>
-                    <span>P</span>
-                    <span>R</span>
-                    <span>I</span>
-                    <span>C</span>
-                    <span>I</span>
-                    <span>N</span>
-                    <span>G</span>
+                    <span>Pricing</span>
                 </Trail>
                 <animated.div style={headSpring}>
                     <Typography style={{

@@ -8,7 +8,7 @@ import SectionFooter from '../Sections/SectionFooter';
 import CurtainVideo from '../Components/CurtainVideo';
 import SectionReview from '../Sections/SectionReview';
 
-import Scrollbar from 'smooth-scrollbar';
+import Scrollbar, { ScrollbarPlugin } from 'smooth-scrollbar';
 
 import { animated, useTrail, useSpring } from 'react-spring';
 
@@ -20,11 +20,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { connect } from 'react-redux';
 import { setClickIndex, setHeroLeave, setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
 
-import { useWheel } from 'react-use-gesture';
+import { useGesture } from 'react-use-gesture';
 
 import '../Assets/styles/landingPage.css';
 import '../Assets/styles/yellow.css';
+
 import gambino from '../Assets/pictures/Yellow/gambino_s.png';
+import empty_set from '../Assets/pictures/Footer/blue_stage.jpeg';
 
 import gsap from 'gsap';
 
@@ -164,6 +166,22 @@ const Trail4 = ({ open, children, ...props }) => {
     )
 }
 
+class DisableScrollPlugin extends ScrollbarPlugin {
+    static pluginName = 'disableScroll';
+
+    static defaultOptions = {
+        direction: null,
+    };
+
+    transformDelta(delta) {
+        if (this.options.direction) {
+            delta[this.options.direction] = 0;
+        }
+
+        return { ...delta };
+    }
+}
+
 const LandingPage = (props) => {
     const [initScroller, setInitScroller] = React.useState(false);
     const [renderYellow, setRenderYellow] = React.useState(false);
@@ -172,26 +190,34 @@ const LandingPage = (props) => {
     const [renderReview, setRenderReview] = React.useState(false);
     const [hover, setHover] = React.useState(0);
 
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
     //refs
     const scrollRef = React.useRef();
     const [scrollBar, setScrollBar] = React.useState(null);
 
+    const [expandCircle, setExpandCircle] = React.useState(false);
+
+    const [cursor, setCursor] = React.useState(null);
+
+    const mouseRef = React.useCallback((cursorNode) => {
+        setCursor(cursorNode);
+    }, []);
+
     React.useEffect(() => {
         if (matches) {
             props.setShowNavText(true);
             gsap.registerPlugin(ScrollTrigger);
-        } else {
-            let bodyScrollBar = Scrollbar.init(scrollRef.current, { damping: 1 });
         }
     }, [])
 
     React.useEffect(() => {
         if (initScroller && scrollRef) {
             props.setClickIndex(true);
-            let bodyScrollBar = Scrollbar.init(scrollRef.current, { damping: 1.0 });
+            Scrollbar.use(DisableScrollPlugin)
+            let bodyScrollBar = Scrollbar.init(scrollRef.current, { damping: 0.2, plugins: { disableScroll: { direction: 'x' } } });
             setScrollBar(bodyScrollBar);
+            bodyScrollBar.track.xAxis.element.remove();
             ScrollTrigger.scrollerProxy(scrollRef.current, {
                 scrollTop(value) {
                     if (arguments.length) {
@@ -200,7 +226,6 @@ const LandingPage = (props) => {
                     return bodyScrollBar.scrollTop;
                 }
             });
-
             bodyScrollBar.addListener(ScrollTrigger.update);
 
             ScrollTrigger.defaults({ scroller: scrollRef.current });
@@ -214,7 +239,6 @@ const LandingPage = (props) => {
                     scrub: true,
                 },
             });
-
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#hero",
@@ -224,34 +248,34 @@ const LandingPage = (props) => {
                     pin: true
                 }
             });
-
             gsap.utils.toArray(".parallax").forEach(layer => {
                 const depth = layer.dataset.depth;
                 const movement = -(layer.offsetHeight * depth)
                 tl.to(layer, { y: movement, ease: "none" }, 0)
             });
-
             const panels = gsap.utils.toArray(".panel");
 
-            panels.forEach((panel, i) => {
+            for (let i = 0; i < 4; i++) {
                 ScrollTrigger.create({
-                    start: i === 0 ? window.innerHeight * 0.8 : panel.offsetTop * 0.8,
-                    end: i === 0 ? panels[2].offsetTop * 0.9 : panel.offsetTop + window.innerHeight,
+                    start: i === 0 ? window.innerHeight : i === 1 ? window.innerHeight * 1.5
+                        : i === 2 ? panels[2].offsetTop : panels[3].offsetTop * 0.9,
+                    end: i === 0 ? window.innerHeight * 1.9 : i === 1 ? window.innerHeight * 2.5
+                        : i === 2 ? panels[3].offsetTop : panels[3].offsetTop * 1.8,
                     onEnter: () => {
                         switch (i) {
                             case 0:
                                 setRenderYellow(true);
                                 props.setMenuIndex(2);
                                 break;
-                            case 2:
+                            case 1:
                                 setRenderPerks(true);
                                 props.setMenuIndex(3);
                                 break;
-                            case 3:
+                            case 2:
                                 setRenderReview(true);
                                 props.setMenuIndex(4);
                                 break;
-                            case 4:
+                            case 3:
                                 setRenderGet(true);
                                 props.setMenuIndex(5);
                                 break;
@@ -264,33 +288,43 @@ const LandingPage = (props) => {
                                 props.setMenuIndex(2);
                                 break;
                             case 1:
-                                props.setMenuIndex(1);
-                                break;
-                            case 2:
                                 props.setMenuIndex(3);
                                 break;
-                            case 3:
+                            case 2:
                                 props.setMenuIndex(4);
-                                break;
-                            case 4:
-                                props.setMenuIndex(5);
                                 break;
                             default:
                         }
                     },
                 })
+            }
+
+            ScrollTrigger.create({
+                end: window.innerHeight,
+                onEnterBack: () => {
+                    props.setMenuIndex(1);
+                },
             })
         }
     }, [initScroller])
 
-    const bind = useWheel(({ wheeling, direction }) => {
-        if (wheeling && direction[1] === 1) {
-            if (!props.heroLeave) {
-                props.setHeroLeave(true);
+    const bind = useGesture({
+        onMove: ({ xy }) => {
+            if (scrollBar === null) {
+                cursor.setAttribute('style', 'transform:translate(' + xy[0] + 'px,' + xy[1] + 'px)');
+            } else {
+                cursor.setAttribute('style', 'transform:translate(' + xy[0] + 'px,' + (xy[1] + scrollBar.scrollTop) + 'px)');
             }
-            props.setShowNavText(false);
-        } else if (wheeling && direction[1] === -1) {
-            props.setShowNavText(true);
+        },
+        onWheel: ({ wheeling, direction }) => {
+            if (wheeling && direction[1] === 1) {
+                if (!props.heroLeave) {
+                    props.setHeroLeave(true);
+                }
+                props.setShowNavText(false);
+            } else if (wheeling && direction[1] === -1) {
+                props.setShowNavText(true);
+            }
         }
     })
 
@@ -315,54 +349,75 @@ const LandingPage = (props) => {
                 props.setNavIndex(false);
                 break;
             case 3:
-                scrollBar.scrollTo(0, panels[2].offsetTop * 1.1, 600);
+                scrollBar.scrollTo(0, window.innerHeight * 1.65, 600);
                 props.setNavIndex(false);
                 break;
             case 4:
-                scrollBar.scrollTo(0, panels[3].offsetTop, 600);
+                scrollBar.scrollTo(0, panels[2].offsetTop, 600);
                 props.setNavIndex(false);
                 break;
             case 5:
-                scrollBar.scrollTo(0, panels[4].offsetTop, 600);
+                scrollBar.scrollTo(0, panels[3].offsetTop, 600);
                 props.setNavIndex(false);
                 break;
             default:
         }
     }
 
+    const handleExpandCircle = (state) => {
+        setExpandCircle(state);
+    }
+
+    const circleSize = useSpring({
+        to: { transform: expandCircle ? "scale(3)" : "scale(1)", backgroundColor: props.menuIndex === 2 ? "rgba(46, 255, 246, 0.8)" : "white" },
+        from: { transform: "scale(1)" }
+    });
+
     return (
         matches ?
-            <div className="body" ref={scrollRef} {...bind()} style={{ width: "100vw", height: "100vh", overflow: "auto" }}>
-                <div className="sec1" style={{ width: "100vw", height: "100vh", overflow: "hidden", position: "absolute", zIndex: 50 }}>
+            <div className="body" ref={scrollRef} {...bind()} style={{ overflow: "auto", background: "black" }}>
+                {/* Initial Video LandingPage */}
+                <div ref={mouseRef} style={circleSize} className="theBall-outer"><animated.div style={circleSize} className="theBall"  ></animated.div></div>
+                <section className="sec1" style={{ height: "100vh", width: "100vw", overflow: "hidden", zIndex: 50 }}>
                     <CurtainVideo
                         handleInitScroller={(state) => handleInitScroller(state)}
+                        handleExpandCircle={(state) => handleExpandCircle(state)}
                     />
-                </div>
-                <div className="panel yellow" id="hero" style={{ position: "absolute", top: "100vh", width: "100vw", height: "100vh" }}>
-                    <div class='layer-bg layer parallax' data-depth='0.10'></div>
-                    <div class='layer-2 layer parallax' data-depth='0.20'></div>
-                    <div class='layer-1 layer parallax' data-depth='0.40'></div>
-                    <div class='layer-3 layer parallax' data-depth='0.60'></div>
-                    <div class='layer-4 layer parallax' data-depth='0.70'></div>
-                    <div class='layer parallax' data-depth='0.75' ><SectionYellow render={renderYellow} /></div>
-                    <div class='layer-5 layer parallax' data-depth='0.80'></div>
-                </div>
-                <div className="pSection" style={{
-                    position: "absolute", top: "0vh", width: "100vw", height: "130vh", backgroundColor: "rgb(25,25,25)",
-                    boxShadow: "0px 10px 44px 0px rgb(0 0 0 / 50%)"
-                }} />
-                <div className="panel red" style={{ height: "100vh" }}>
-                    <SectionRed />
-                </div>
-                <div className="panel perks" style={{ position: "absolute", top: "210vh", width: "100vw" }}>
-                    <Perks render={renderPerks} />
-                </div>
-                <div className="panel review" style={{ position: "absolute", top: "365vh", width: "100vw", zIndex: 3 }}>
-                    <SectionReview render={renderReview} />
-                </div>
-                <div className="panel get" style={{ position: "absolute", top: "455vh", width: "100vw" }}>
-                    <SectionGet render={renderGet} />
-                    <SectionFooter />
+                </section>
+                <section className="pSection" style={{
+                    position: "absolute", top: "0", right: "0", width: "100vw", height: "130vh", backgroundColor: "rgb(25,25,25)",
+                    boxShadow: "0px 10px 44px 0px rgb(0 0 0 / 50%)", zIndex: 5
+                }} >
+                    <SectionRed
+                        cursor={cursor}
+                        handleExpandCircle={(state) => handleExpandCircle(state)}
+                    />
+                </section>
+                <section className="panel yellow" id="hero" style={{ position: "absolute", top: "90vh", width: "100vw", height: "200vh", zIndex: 1 }}>
+                    <div className='layer-bg layer parallax' data-depth='0.10'></div>
+                    <div className='layer-2 layer parallax' data-depth='0.20'></div>
+                    <div className='layer-1 layer parallax' data-depth='0.40'></div>
+                    <div className='layer-3 layer parallax' data-depth='0.60'></div>
+                    <div className='layer-4 layer parallax' data-depth='0.70'></div>
+                    <div className='layer-5 layer parallax' data-depth='0.80' onMouseEnter={() => handleExpandCircle(true)} onMouseLeave={() => handleExpandCircle(false)}></div>
+                    <div className='layer parallax' data-depth='3.0' style={{ marginTop: "10%" }} ><SectionYellow render={renderYellow} handleExpandCircle={() => handleExpandCircle()} /></div>
+                    <section className="panel perks layer parallax" data-depth='2.7' style={{ marginTop: "30%" }}>
+                        <Perks render={renderPerks} />
+                    </section>
+                </section>
+                <section className="panel review" style={{ position: "absolute", top: "290vh", width: "100vw", zIndex: 3 }}>
+                    <SectionReview render={renderReview} handleExpandCircle={(state) => handleExpandCircle(state)}/>
+                </section>
+                <div className="panel get" style={{
+                    backgroundImage: `url(${empty_set})`, backgroundSize: "cover", backgroundColor: "#847c7c", backgroundPosition: "center bottom", backgroundBlendMode: "multiply",
+                    position: "absolute", top: "390vh", width: "100%", height: "110vh", zIndex: 10
+                }}>
+                    <section>
+                        <SectionGet render={renderGet} handleExpandCircle={(state) => handleExpandCircle(state)}/>
+                    </section>
+                    <section style={{ position: "absolute", width: "100vw", backgroundColor: "black" }}>
+                        <SectionFooter />
+                    </section>
                 </div>
                 <Dialog fullScreen open={props.navIndex} PaperProps={{ style: { backgroundColor: 'transparent' } }}>
                     <animated.div style={{ ...modalSpring, height: "100vh", backgroundColor: "rgba(25,25,25, 0.9)", width: "100vw" }}>
@@ -423,7 +478,7 @@ const LandingPage = (props) => {
                         </div>
                     </animated.div>
                 </Dialog>
-            </div >
+            </div>
             :
             <div ref={scrollRef} style={{ width: "100vw", height: "100vh", overflow: "auto" }}>
                 <CurtainVideo

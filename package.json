@@ -13,6 +13,7 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "curtainsjs": "^8.0.3",
+    "d3-ease": "^2.0.0",
     "date-fns": "^2.16.1",
     "gsap": "^3.6.0",
     "lesshat": "^4.1.0",

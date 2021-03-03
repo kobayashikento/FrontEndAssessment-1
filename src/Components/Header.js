@@ -19,7 +19,7 @@ const Header = (props) => {
     const history = useHistory();
     const innerWrapperRef = React.useRef(null);
 
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
     // states
     const [navOpen, setNavOpen] = React.useState(false);
@@ -96,7 +96,7 @@ const Header = (props) => {
         <div style={{ position: "fixed", zIndex: 2020 }}>
             {matches ?
                 <React.Fragment>
-                    <div style={{ right: `8%`, top: `9%`, position: "fixed", display: "flex" }}>
+                    <div style={{ right: `8%`, top: `9%`, position: "fixed", display: props.heroLeave ? "flex" : "none"  }}>
                         <Link to="/pricing" style={{ textDecoration: "none", marginRight: "7rem" }}>
                             <animated.div style={{ ...headerTextSpring, position: "fixed", cursor: "pointer" }}
                                 onMouseEnter={() => setPricingHover(true)} onMouseLeave={() => setPricingHover(false)}>

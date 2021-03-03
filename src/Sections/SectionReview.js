@@ -36,10 +36,10 @@ const Trail0 = ({ open, matches, children, ...props }) => {
                         key={items[index].key}
                         style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
                         <Typography style={{
-                            fontSize: matches ? "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))" :
+                            fontSize: matches ? "calc(96px + (110 - 96) * ((100vw - 1024px) / (1600 - 1024)))" :
                                 "calc(50px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))",
                             textAlign: "left", fontWeight: "bold", fontStyle: "normal",
-                            fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+                            fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0px 11px 10px rgba(81,67,21,0.4)"
                         }}>{items[index]}</Typography>
                     </animated.div>
                 ))}
@@ -52,7 +52,10 @@ const SectionReview = (props) => {
     //refs
     const buttonTryRef = React.useRef();
 
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
+    const mdUp = useMediaQuery('(max-width:1366px)', { noSsr: true });
+    const smUp = useMediaQuery('(max-width:1280px)', { noSsr: true });
+    const xsUp = useMediaQuery('(max-width:1024px)', { noSsr: true });
 
     // listening to button events
     React.useEffect(() => {
@@ -90,10 +93,14 @@ const SectionReview = (props) => {
     return (
         matches ?
             <div style={{
-                height: "100vh", backgroundImage: `url(${stage})`, display: "flex", alignItems: "center", boxShadow: "rgb(0 0 0 / 56%) 0px 22px 70px 4px"
+                height: "100vh",
+                background: "#DC2424",  /* fallback for old browsers */
+                background: "-webkit-linear-gradient(to top, #4A569D, #DC2424)",  /* Chrome 10-25, Safari 5.1-6 */
+                background: "linear-gradient(to bottom, rgb(154,59,21), rgb(10,48,87)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                display: "flex", alignItems: "center", boxShadow: "rgb(0 0 0 / 56%) 0px 22px 70px 4px"
             }}>
-                <div style={{ overflow: "hidden", display: "flex", position: "absolute", top: "8.8%", right: "6.6%" }}>
-                    <animated.div style={{ ...buttonSpring, marginBottom: "25%" }}>
+                <div onMouseEnter={() => props.handleExpandCircle(true)} onMouseLeave={() => props.handleExpandCircle(false)} style={{ overflow: "hidden", display: "flex", position: "absolute", top: "8.8%", right: "6.6%" }}>
+                    <animated.div style={{ ...buttonSpring, marginBottom: "25%", zoom: smUp ? "0.7" : mdUp ? "0.8" : "1.0" }}>
                         <Link to="/pricing" style={{ textDecoration: "none" }}>
                             <div style={{ display: "flex" }}>
                                 <a style={{
@@ -114,8 +121,8 @@ const SectionReview = (props) => {
                         height: `auto`, background: `transparent 0% 0 % no - repeat padding- box`
                     }} src={speakers_bot} />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", marginLeft: `38%`, width: "55vw", marginTop: "2%" }}>
-                    <Trail0 open={props.render} textIndex={0}>
+                <div style={{ display: "flex", flexDirection: "column", marginLeft: `35%`, width: "50vw", marginTop: "2%" }}>
+                    <Trail0 open={props.render} matches={matches} textIndex={0}>
                         <span>R</span>
                         <span>E</span>
                         <span>V</span>
@@ -126,16 +133,16 @@ const SectionReview = (props) => {
                     </Trail0>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <div style={{ overflow: "hidden" }}>
-                            <animated.div style={{ ...textSpring1, display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, padding: "3rem" }}>
+                            <animated.div style={{ ...textSpring1, display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, padding: xsUp ? "0.5rem" : smUp || mdUp ? "1rem" : "3rem", zoom: smUp || mdUp ? "0.85" : "1" }}>
                                 <Rating className="rating" name="read-only" size="large" defaultValue={5} readOnly style={{ color: "white" }} />
                                 <Typography style={{
-                                    fontSize: "calc(24px + (35 - 24) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                    fontSize: "calc(24px + (32 - 24) * ((100vw - 1024px) / (1600 - 1024)))", fontWeight: "normal", fontStyle: "normal",
                                     fontFamily: "DINNextLTPro-Medium", color: "white"
                                 }}>
                                     ARTIST
                         </Typography>
                                 <Typography style={{
-                                    fontSize: "calc(16px + (22 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                    fontSize: "calc(16px + (22 - 16) * ((100vw - 1024px) / (1600 - 1024)))", fontWeight: "normal", fontStyle: "normal",
                                     fontFamily: "DINNextLTPro-Medium", color: "white",
                                 }}>
                                     “Love it, it’s the Best. I can’t live without it!”
@@ -143,16 +150,16 @@ const SectionReview = (props) => {
                             </animated.div>
                         </div>
                         <div style={{ overflow: "hidden" }}>
-                            <animated.div style={{ ...textSpring2, display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, padding: "3rem" }}>
+                            <animated.div style={{ ...textSpring2, display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, padding: xsUp ? "0.5rem" : smUp || mdUp ? "1rem" : "3rem", zoom: smUp || mdUp ? "0.85" : "1" }}>
                                 <Rating className="rating" name="read-only" size="large" value={5} readOnly style={{ color: "white" }} />
                                 <Typography style={{
-                                    fontSize: "calc(24px + (35 - 24) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                    fontSize: "calc(24px + (32 - 24) * ((100vw - 1024px) / (1600 - 1024)))", fontWeight: "normal", fontStyle: "normal",
                                     fontFamily: "DINNextLTPro-Medium", color: "white"
                                 }}>
                                     PRODUCER
                         </Typography>
                                 <Typography style={{
-                                    fontSize: "calc(16px + (22 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                    fontSize: "calc(16px + (22 - 16) * ((100vw - 1024px) / (1600 - 1024)))", fontWeight: "normal", fontStyle: "normal",
                                     fontFamily: "DINNextLTPro-Medium", color: "white",
                                 }}>
                                     “Love it, it’s the Best. I can’t live without it!”
@@ -160,16 +167,16 @@ const SectionReview = (props) => {
                             </animated.div>
                         </div>
                         <div style={{ overflow: "hidden" }}>
-                            <animated.div style={{ ...textSpring3, display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, padding: "3rem" }}>
+                            <animated.div style={{ ...textSpring3, display: "flex", flexDirection: "column", paddingTop: `${66 / 1920 * props.size[0]}px`, padding: xsUp ? "0.5rem" : smUp || mdUp ? "1rem" : "3rem", zoom: smUp || mdUp ? "0.85" : "1" }}>
                                 <Rating className="rating" name="read-only" size="large" value={5} readOnly style={{ color: "white" }} />
                                 <Typography style={{
-                                    fontSize: "calc(24px + (35 - 24) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
-                                    fontFamily: "DINNextLTPro-Medium", color: "white"
+                                    fontSize: "calc(24px + (32 - 24) * ((100vw - 1024px) / (1600 - 1024)))", fontWeight: "normal", fontStyle: "normal",
+                                    fontFamily: "DINNextLTPro-Medium", color: "white", letterSpacing: "0"
                                 }}>
                                     MUSIC FAN
                         </Typography>
                                 <Typography style={{
-                                    fontSize: "calc(16px + (22 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                                    fontSize: "calc(16px + (22 - 16) * ((100vw - 1024px) / (1600 - 1024)))", fontWeight: "normal", fontStyle: "normal",
                                     fontFamily: "DINNextLTPro-Medium", color: "white",
                                 }}>
                                     “Love it, it’s the Best. I can’t live without it!”

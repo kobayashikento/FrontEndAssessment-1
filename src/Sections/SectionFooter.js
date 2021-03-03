@@ -10,22 +10,16 @@ import { connect } from 'react-redux';
 const SectionFooter = (props) => {
 
     return (
-        <div style={{ backgroundImage: `url(${empty_set})`, backgroundSize: "cover", height: `40vh`, 
-        backgroundColor: "#847c7c", backgroundPosition: "center bottom", backgroundBlendMode: "multiply", zIndex: 1 }}>
-            <div style={{
-                position: "absolute", paddingTop: `4%`, marginLeft: `11%`,
-                display: "flex", alignItems: "center", justifyContent: 'center'
-            }}>
+        <div style={{ zIndex: 1, height: "20vh" }}>
+            <div style={{ marginLeft: `11%`, display: "flex", alignItems: "center", paddingTop: "1%" }}>
                 <Typography style={{
-                    color: "#FFFFFF", fontFamily: "'Rajdhani', sans-serif", fontSize: "calc(28px + (32 - 28c) * ((100vw - 300px) / (1600 - 300)))",
-                    letterSpacing: `${3.3 / 1920 * props.size[0]}px`, pointerEvents: "none"
+                    color: "#FFFFFF", fontSize: "calc(20px + (28 - 20) * ((100vw - 300px) / (1600 - 300)))",
+                    letterSpacing: `${3.3 / 1920 * props.size[0]}px`, pointerEvents: "none", padding: "1rem"
                 }}>
                     support@experienceconcerts.co
                     </Typography>
             </div>
-            <div style={{
-                position: "absolute", display: "flex", flexDirection: "column", paddingTop: "11%", width: "100vw", alignItems: "center"
-            }}>
+            <div style={{ display: "flex", flexDirection: "column", width: "100vw", alignItems: "center", bottom: "1.1vmax" }}>
                 <Typography style={{
                     color: "#FFFFFF", maxWidth: `${235 / 1920 * props.size[0]}px`,
                     font: `normal normal normal ${35 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
@@ -36,7 +30,7 @@ const SectionFooter = (props) => {
                     </Typography>
                 <Typography style={{
                     color: "#FFFFFF", fontFamily: `DINNextLTPro-Medium`, fontSize: "calc(16px + (18 - 16) * ((100vw - 300px) / (1600 - 300)))",
-                    letterSpacing: `${2.4 / 1920 * props.size[0]}px`, pointerEvents: "none", marginTop: `${25 / 1080 * props.size[1]}px`
+                    letterSpacing: `${2.4 / 1920 * props.size[0]}px`, pointerEvents: "none", marginTop: "1.1%"
                 }}>
                     2019 © All Rights Reserved | Speer Technologies Incorporated
                     </Typography>

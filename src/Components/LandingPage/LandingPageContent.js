@@ -12,23 +12,24 @@ import { setHeroLeave } from '../../Redux/actions/propertyAction';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import * as easings from 'd3-ease';
+
 const Trail = ({ matches, textIndex, open, children, ...props }) => {
     const items = React.Children.toArray(children)
     const trail = useTrail(items.length, {
-        config: { mass: 5, tension: 2000, friction: 200 },
-        opacity: open ? 1 : 0,
-        x: open ? 0 : 20,
-        from: { opacity: 0, x: 20 },
-        delay: textIndex == 0 ? 500 : textIndex == 1 ? 600 : 700
+        config: { duration: 1000, easing: easings.easeCubicOut },
+        xy: open ? [0, 0] : [-100, 0],
+        from: { xy: [-100, 0] },
+        delay: textIndex == 0 ? 0 : textIndex == 1 ? 200 : 400
     })
 
     return (
         <div {...props}>
-            <div style={{ display: "flex" }}>
-                {trail.map(({ x, height, ...rest }, index) => (
+            <div style={{ display: "flex", overflow: "hidden" }}>
+                {trail.map(({ xy, ...rest }, index) => (
                     <animated.div
                         key={items[index].key}
-                        style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
+                        style={{ ...rest, transform: xy.interpolate((x, y) => `translate3d(${x}%,0px,0)`) }}>
                         <Typography style={{
                             textAlign: "left", fontSize: matches ? "calc(70px + (85 - 70) * ((100vw - 300px) / (1600 - 300)))" :
                                 "calc(46px + (46 - 42) * ((100vw - 300px) / (1600 - 300)))",
@@ -74,7 +75,7 @@ const Trail1 = ({ textIndex, open, children, ...props }) => {
 const LandingPageContent = (props) => {
 
     const [hover, onHover] = React.useState(false);
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
     const items1 = [
         {
@@ -109,7 +110,7 @@ const LandingPageContent = (props) => {
             content: <Typography style={{
                 textAlign: "left", fontSize: matches ? `${20 / 1920 * props.size[0]}px` : "calc(16px + (20 - 16) * ((100vw - 300px) / (1600 - 300)))",
                 lineHeight: matches ? `${25 / 1920 * props.size[0]}px` : `20px`, fontWeight: "normal", fontStyle: "normal",
-                fontFamily: "DINNextLTPro-Medium", color: 'rgba(182, 188, 206, 0.7)', maxWidth: matches ? `${450 / 1920 * props.size[0]}px` : `300px`, marginTop: "8px"
+                fontFamily: "DINNextLTPro-Medium", color: 'rgba(254, 254, 254, 0.7)', maxWidth: matches ? `${450 / 1920 * props.size[0]}px` : `300px`, marginTop: "8px"
             }}>
                 Experience your favourite artists like never before and from the comfort of your own home.
     </Typography>
@@ -120,18 +121,18 @@ const LandingPageContent = (props) => {
         to: { transform: props.curtainReady ? `translateY(0%)` : `translateY(100%)` },
         from: { transform: `translateY(100%)` },
         config: {
-            duration: 600, mass: 1, tension: 280, friction: 60
+            mass: 1, tension: 280, friction: 60
         },
-        delay: 650
+        delay: 800
     })
 
     const springSixth = useSpring({
-        to: { transform: props.curtainReady ? ` translateY(0px)` : ` translateY(150px)`, opacity: props.curtainReady ? 1 : 0 },
-        from: { transform: ` translateY(150px)`, opacity: 0 },
+        to: { transform: props.curtainReady ? ` translateY(0%)` : ` translateY(100%)`, opacity: props.curtainReady ? 1 : 0 },
+        from: { transform: ` translateY(100%)`, opacity: 0 },
         config: {
-            duration: 600, mass: 1, tension: 280, friction: 60
+            mass: 1, tension: 280, friction: 60
         },
-        delay: 650
+        delay: 800
     })
 
     const springThird = useSpring({
@@ -144,7 +145,7 @@ const LandingPageContent = (props) => {
     })
 
     const textSpring = useSpring({
-        to: { bottom: props.heroLeave ? "5.6%" : "19.6%", left: props.heroLeave ? "2.6%" : "11.6%", transform: props.heroLeave ? 'scale(0.9)' : 'scale(1)' },
+        to: { bottom: props.heroLeave ? "5.6%" : "19.6%", left: props.heroLeave ? "2.6%" : "16.6%", transform: props.heroLeave ? 'scale(0.9)' : 'scale(1)' },
         from: { bottom: "19.6%", left: "16.6%", transform: 'scale(1)' }
     })
 
@@ -158,47 +159,30 @@ const LandingPageContent = (props) => {
         from: { transform: "rotate(-90deg) translate(-12px, -3px)", position: "absolute" }
     })
 
+    const [explore, setExplore] = React.useState(false);
+
+    const fillBoxSpring = useSpring({
+        to: { transform: explore ? "translate(-54px, -49px) rotate(42deg) scale(2)" : "translate(-54px, -49px) rotate(42deg) scale(0)" },
+        from: { width: "110.531px", height: "100px", position: "absolute", backgroundColor: "white", transform: "translate(-54px, -49px)  rotate(42deg) scale(0)" }
+    })
+
     return (
         matches ?
             <React.Fragment>
-                <animated.div style={{
-                    height: `fit-content`, display: "flex", flexDirection: "column",
-                    alignItems: "flex-start", justifyContent: "center", position: "absolute",
-                    color: "white", zIndex: 60, ...textSpring
-                }}>
+                <animated.div onMouseEnter={() => props.handleExpandCircle(true)} onMouseLeave={() =>props.handleExpandCircle(false)}
+                    style={{
+                        height: `fit-content`, display: "flex", flexDirection: "column",
+                        alignItems: "flex-start", justifyContent: "center", position: "absolute",
+                        color: "white", zIndex: 60, ...textSpring
+                    }}>
                     <Trail open={props.curtainReady} textIndex={0}>
-                        <span>I</span>
-                        <span>N</span>
-                        <span>T</span>
-                        <span>E</span>
-                        <span>R</span>
-                        <span>A</span>
-                        <span>C</span>
-                        <span>T</span>
-                        <span>I</span>
-                        <span>V</span>
-                        <span>E</span>
+                        <span>INTERACTIVE</span>
                     </Trail>
                     <Trail open={props.curtainReady} textIndex={1}>
-                        <span>C</span>
-                        <span>O</span>
-                        <span>N</span>
-                        <span>C</span>
-                        <span>E</span>
-                        <span>R</span>
-                        <span>T</span>
+                        <span>CONCERT</span>
                     </Trail>
-                    <Trail open={props.curtainReady} textIndex={1}>
-                        <span>E</span>
-                        <span>X</span>
-                        <span>P</span>
-                        <span>E</span>
-                        <span>R</span>
-                        <span>I</span>
-                        <span>E</span>
-                        <span>N</span>
-                        <span>C</span>
-                        <span>E</span>
+                    <Trail open={props.curtainReady} textIndex={2}>
+                        <span>EXPERIENCE</span>
                     </Trail>
                     <div style={{ overflow: "hidden" }}>
                         <animated.div style={{ ...springForth }}>
@@ -206,33 +190,24 @@ const LandingPageContent = (props) => {
                         </animated.div>
                     </div>
                 </animated.div >
-                <animated.div style={{ ...springSixth, right: "16.667%", bottom: "20.667%", position: "absolute", zIndex: 30 }}>
-                    <Button style={{ border: "2px solid white", borderRadius: "2px" }} onClick={() => props.setHeroLeave(true)}>
-                        <Typography style={{
-                            textAlign: "left", fontSize: "calc(20px + (24 - 20) * ((100vw - 300px) / (1600 - 300)))",
-                            lineHeight: "calc(28px + (32 - 28) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "600", fontStyle: "normal",
-                            fontFamily: "'Rajdhani', sans-serif", color: "white"
-                        }} >EXPLORE</Typography>
-                    </Button>
-                    <Trail1 open={props.curtainReady} textIndex={0}>
-                        <span>I</span>
-                        <span>m</span>
-                        <span>m</span>
-                        <span>e</span>
-                        <span>r</span>
-                        <span>s</span>
-                        <span>e</span>
-                        <span>{'\u00A0'}</span>
-                        <span>Y</span>
-                        <span>o</span>
-                        <span>u</span>
-                        <span>r</span>
-                        <span>s</span>
-                        <span>e</span>
-                        <span>l</span>
-                        <span>f</span>
-                    </Trail1>
-                </animated.div>
+                <div onMouseEnter={() => props.handleExpandCircle(true)} onMouseLeave={() =>props.handleExpandCircle(false)} style={{ right: "16.667%", bottom: "20.667%", position: "absolute", zIndex: 30, overflow: "hidden" }}>
+                    <animated.div style={{ ...springSixth }}>
+                        <div style={{ width: "fit-content", overflow: "hidden", position: "relative" }}>
+                            <animated.div style={fillBoxSpring} />
+                            <Button style={{ border: "2px solid white", borderRadius: "2px" }} onClick={() => props.setHeroLeave(true)} onMouseEnter={() => setExplore(true)} onMouseLeave={() => setExplore(false)}>
+                                <Typography style={{
+                                    textAlign: "left", fontSize: "calc(20px + (24 - 20) * ((100vw - 300px) / (1600 - 300)))",
+                                    lineHeight: "calc(28px + (32 - 28) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "600", fontStyle: "normal",
+                                    fontFamily: "'Rajdhani', sans-serif", color: explore ? "black" : "white"
+                                }} >EXPLORE</Typography>
+                                <animated.div />
+                            </Button>
+                        </div>
+                        <Trail1 open={props.curtainReady} textIndex={0}>
+                            <span>Immerse Yourself</span>
+                        </Trail1>
+                    </animated.div>
+                </div>
                 <animated.div onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)} onClick={() => props.setHeroLeave(true)}
                     style={{ position: 'absolute', bottom: "0px", left: "50%", zIndex: 60, ...springThird, cursor: "pointer" }}>
                     <animated.div style={aniSpring}>
@@ -253,7 +228,7 @@ const LandingPageContent = (props) => {
                         <div style={{ height: "65px", background: "#333", width: "2px" }} />
                     </animated.div>
                 </animated.div>
-            </React.Fragment>
+            </React.Fragment >
             :
             <React.Fragment>
                 <animated.div style={{
@@ -302,13 +277,15 @@ const LandingPageContent = (props) => {
                     </div>
                 </animated.div >
                 <animated.div style={{ ...springSixth, left: "16.6%", bottom: "20.667%", position: "absolute", zIndex: 30 }}>
-                    <Button style={{ border: "2px solid white", borderRadius: "2px" }} onClick={() => props.setHeroLeave(true)}>
-                        <Typography style={{
-                            textAlign: "left", fontSize: "calc(20px + (24 - 20) * ((100vw - 300px) / (1600 - 300)))",
-                            lineHeight: "calc(28px + (32 - 28) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "600", fontStyle: "normal",
-                            fontFamily: "'Rajdhani', sans-serif", color: "white"
-                        }} >EXPLORE</Typography>
-                    </Button>
+                    <div>
+                        <Button style={{ border: "2px solid white", borderRadius: "2px" }} onClick={() => props.setHeroLeave(true)}>
+                            <Typography style={{
+                                textAlign: "left", fontSize: "calc(20px + (24 - 20) * ((100vw - 300px) / (1600 - 300)))",
+                                lineHeight: "calc(28px + (32 - 28) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "600", fontStyle: "normal",
+                                fontFamily: "'Rajdhani', sans-serif", color: "white"
+                            }} >EXPLORE</Typography>
+                        </Button>
+                    </div>
                     <Trail1 open={props.curtainReady} textIndex={0}>
                         <span>I</span>
                         <span>m</span>

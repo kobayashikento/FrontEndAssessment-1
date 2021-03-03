@@ -38,18 +38,16 @@ const Trail = ({ open, textIndex, children, ...props }) => {
 
 const PricingPerks = (props) => {
 
-    const matches = useMediaQuery('(min-width:1200px)', { noSsr: true });
+    const matches = useMediaQuery('(min-width:1600px)', { noSsr: true });
 
     const marginTopRatio = 234 / 1229;
 
     return (
-        
         <div style={{
             background: "#D34848 0% 0% no-repeat padding-box", backgroundImage: `url(${bob_pic})`,
             backgroundSize: "cover", minHeight: `${967 / 1920 * props.size[0]}px`, boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px", backgroundBlendMode: "darken"
         }}>
-            <div style={{ maxWidth: `${1580 / 1920 * props.size[0]}px`, display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, 
-           marginLeft: `14%` }}>
+            <div style={{ maxWidth: `70vw`, display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: "auto", marginRight: "auto" }}>
                 <Trail open={true} textIndex={0}>
                     <span>P</span>
                     <span>E</span>
@@ -57,11 +55,11 @@ const PricingPerks = (props) => {
                     <span>K</span>
                     <span>S</span>
                 </Trail>
-                <div style={{ display: "flex", paddingLeft: "1rem", marginTop: `8%`, justifyContent: "space-around",  width: "70vw"}}>
+                <div style={{ display: "flex", paddingLeft: "2%", marginTop: `8%`, justifyContent: "space-between",  width: "100%"}}>
                     <div>
                         <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3 / 1920 * props.size[0]}px` }} />
                         <Typography style={{
-                            textAlign: "left", fontSize: "calc(45px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                            textAlign: "left", fontSize: "calc(33px + (45 - 33) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
                             fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: "white", marginTop: `8%`,
                             maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
@@ -78,7 +76,7 @@ const PricingPerks = (props) => {
                     <div>
                         <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3 / 1920 * props.size[0]}px` }} />
                         <Typography style={{
-                            textAlign: "left", fontSize: "calc(45px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                            textAlign: "left", fontSize: "calc(33px + (45 - 33) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
                             fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: "white",  marginTop: `8%`, maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             No Fee Cancelation Policy
@@ -94,7 +92,7 @@ const PricingPerks = (props) => {
                     <div>
                         <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3 / 1920 * props.size[0]}px` }} />
                         <Typography style={{
-                            textAlign: "left", fontSize: "calc(45px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                            textAlign: "left", fontSize: "calc(33px + (45 - 33) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
                             fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: "white",  marginTop: `8%`, maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             Subscription Payment Model
