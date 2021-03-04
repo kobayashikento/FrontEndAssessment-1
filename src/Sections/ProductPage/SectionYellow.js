@@ -1,16 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import gambino from '../Assets/pictures/Yellow/gambino_s.png';
-
+// Material UI
 import Typography from '@material-ui/core/Typography';
-
-import TryButton from '../Components/TryButton';
-import DemoButton from '../Components/DemoButton';
-
-import { connect } from 'react-redux';
-
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+// Spring
 import { animated, useSpring, useTrail } from 'react-spring';
 
 const Trail = ({ matches, open, textIndex, children, ...props }) => {
@@ -45,49 +39,18 @@ const Trail = ({ matches, open, textIndex, children, ...props }) => {
 
 const SectionYellow = (props) => {
 
-    //refs
     const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
-    const items1 = [
-        {
-            key: 0,
-            content: <Typography style={{
-                fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))",
-                textAlign: "left", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
-                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
-            }}>
-                FRONT
+    const description = {
+        key: 3,
+        content: <Typography style={{
+            fontSize: "calc(18px + (24 - 18) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+            fontFamily: "DINNextLTPro-Medium", color: matches ? "white" : "rgba(182, 188, 206, 0.7)", width: matches ? `${450 / 1920 * window.innerWidth}px` : `${700 / 1200 * window.innerWidth}px`,
+            marginTop: "5%", lineHeight: "1"
+        }}>
+            Experience concerts up close and personal.
     </Typography>
-        },
-        {
-            key: 1,
-            content: <Typography style={{
-                textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
-                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
-            }}>
-                ROW
-    </Typography>
-        },
-        {
-            key: 2,
-            content: <Typography style={{
-                textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
-                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
-            }}>
-                SEATS
-    </Typography>
-        },
-        {
-            key: 3,
-            content: <Typography style={{
-                fontSize: "calc(18px + (24 - 18) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
-                fontFamily: "DINNextLTPro-Medium", color: matches ? "white" : "rgba(182, 188, 206, 0.7)", width: matches ? `${450 / 1920 * props.size[0]}px` : `${700 / 1200 * props.size[0]}px`,
-                marginTop: "5%", lineHeight: "1"
-            }}>
-                Experience concerts up close and personal.
-    </Typography>
-        },
-    ]
+    }
 
     const springThird = useSpring({
         to: { transform: props.render ? `translateY(0%)` : `translateY(100%)` },
@@ -96,7 +59,7 @@ const SectionYellow = (props) => {
             mass: 1, tension: 280, friction: 60
         },
         delay: 500
-    })
+    });
 
     return (
         <div style={{ display: "flex", alignItems: "center", height: "100%", marginTop: "5vmax" }}>
@@ -122,7 +85,7 @@ const SectionYellow = (props) => {
                 </Trail>
                 <div style={{ overflow: "hidden" }}>
                     <animated.div style={{ ...springThird }}>
-                        {items1[3].content}
+                        {description.content}
                     </animated.div>
                 </div>
             </div>
@@ -130,12 +93,4 @@ const SectionYellow = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        size: state.propertyReducer.size,
-        tryPos: state.propertyReducer.tryPos,
-        demoPos: state.propertyReducer.demoPos,
-    }
-}
-
-export default connect(mapStateToProps)(SectionYellow);
+export default (SectionYellow);

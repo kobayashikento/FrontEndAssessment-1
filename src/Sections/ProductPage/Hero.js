@@ -3,20 +3,20 @@ import { Curtains, Plane } from 'curtainsjs';
 
 import { useSpring, animated } from 'react-spring';
 
-import Preloading from './Preloading';
+import Preloading from '../../Components/Preloading';
 
-import '../Assets/styles/curtainStyle.css';
+import '../../Assets/styles/curtainStyle.css';
 
-import LandingPageContent from '../Components/LandingPage/LandingPageContent';
+import LandingPageContent from '../../Components/LandingPage/LandingPageContent';
 
-import gambinoVid from '../Assets/pictures/LandingPage/gambino_video_1.mp4';
-import migosVid from '../Assets/pictures/LandingPage/alan_video_1.mp4';
+import gambinoVid from '../../Assets/pictures/LandingPage/gambino_video_1.mp4';
+import migosVid from '../../Assets/pictures/LandingPage/alan_video_1.mp4';
 
 import { connect } from 'react-redux';
 
 import * as easings from 'd3-ease';
 
-const CurtainVideo = (props) => {
+const Hero = (props) => {
     const [curtainReady, setCurtainReady] = React.useState(false);
 
     let multiTexturesRef = React.useRef();
@@ -236,4 +236,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CurtainVideo);
+export default connect(mapStateToProps)(Hero);

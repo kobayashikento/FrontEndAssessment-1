@@ -1,7 +1,6 @@
 {
   "hosting": {
     "public": "build",
-    "site": "expconkento-test",
     "rewrites": [
       {
         "source": "**",

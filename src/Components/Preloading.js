@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { animated, useSpring } from 'react-spring';
-
 import '../Assets/styles/preload.css';
 
 const Preloading = () => {

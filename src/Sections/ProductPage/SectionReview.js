@@ -1,23 +1,21 @@
 import React from 'react';
 
+// Material UI
 import { Typography } from '@material-ui/core';
-
-import speakers_top from '../Assets/pictures/Review/small_speakers_top.png';
-import speakers_bot from '../Assets/pictures/Review/small_speakers_bot.png';
-
 import Rating from '@material-ui/lab/Rating';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import speakers_top from '../../Assets/pictures/Review/small_speakers_top.png';
+import speakers_bot from '../../Assets/pictures/Review/small_speakers_bot.png';
+import stage from '../../Assets/pictures/Yellow/layer-bg.png';
 
 import { Link } from 'react-router-dom';
 
 import { animated, useTrail, useSpring } from 'react-spring';
 
-import '../Assets/styles/yellow.css';
+import '../../Assets/styles/yellow.css';
 
 import { connect } from 'react-redux';
-
-import stage from '../Assets/pictures/Yellow/layer-bg.png'
-
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Trail0 = ({ open, matches, children, ...props }) => {
     const items = React.Children.toArray(children)

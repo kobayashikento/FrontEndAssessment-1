@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TRY_CTA_WIDTH, TRY_CTA_HEIGHT, TRY_CTA_FONT } from '../Assets/styles/masterStyle';
+import { TRY_CTA_WIDTH, TRY_CTA_HEIGHT, TRY_CTA_FONT } from '../../Assets/styles/masterStyle';
 
 export default styled.button`
     position: absolute;

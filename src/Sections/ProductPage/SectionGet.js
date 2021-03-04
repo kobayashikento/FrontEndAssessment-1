@@ -2,11 +2,7 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
-import { connect } from 'react-redux';
-
 import { Link } from 'react-router-dom';
-
-import stage from '../Assets/pictures/Yellow/layer-bg.png'
 
 import { animated, useTrail, useSpring } from 'react-spring';
 
@@ -52,31 +48,41 @@ const SectionGet = (props) => {
         delay: 650,
     })
 
+    let enterHeaderText = useSpring({
+        to: { transform: props.render ? `translateY(0%)` : `translateY(-100%)`, opacity: props.render ? 1 : 0 },
+        from: { transform: `translateY(-100%)`, opacity: 0 },
+        delay: 250,
+    })
+
     return (
         <div style={{
             backgroundColor: "rgba(25,25,25, 0.2)", height: `90vh`, display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center",
             boxShadow: "rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px"
         }}>
-            <Trail open={true}>
-                <span>G</span>
-                <span>E</span>
-                <span>T</span>
-                <span>{'\u00A0'}</span>
-                <span>E</span>
-                <span>X</span>
-                <span>P</span>
-                <span>|</span>
-                <span>C</span>
-                <span>O</span>
-                <span>N</span>
-                <span>{'\u00A0'}</span>
-                <span>N</span>
-                <span>O</span>
-                <span>W</span>
-            </Trail>
+            <div style={{overflow: "hidden"}}>
+                <animated.div style={enterHeaderText}>
+                    <Trail open={true}>
+                        <span>G</span>
+                        <span>E</span>
+                        <span>T</span>
+                        <span>{'\u00A0'}</span>
+                        <span>E</span>
+                        <span>X</span>
+                        <span>P</span>
+                        <span>|</span>
+                        <span>C</span>
+                        <span>O</span>
+                        <span>N</span>
+                        <span>{'\u00A0'}</span>
+                        <span>N</span>
+                        <span>O</span>
+                        <span>W</span>
+                    </Trail>
+                </animated.div>
+            </div>
             <animated.div style={{ ...enterSpringText, display: "flex", justifyContent: "center" }}>
                 <Typography style={{
-                    textAlign: "left", fontSize: `calc(16px + (19 - 16) * ((100vw - 300px) / (1600 - 300)))`, lineHeight: `${25 / 1920 * props.size[0]}px`, fontWeight: "normal", fontStyle: "normal",
+                    textAlign: "left", fontSize: `calc(16px + (19 - 16) * ((100vw - 300px) / (1600 - 300)))`, lineHeight: `${25 / 1920 * window.innerWidth}px`, fontWeight: "normal", fontStyle: "normal",
                     fontFamily: "DINNextLTPro-Medium", color: 'white', marginTop: "24px"
                 }}>
                     Purchase and download the app.
@@ -97,12 +103,4 @@ const SectionGet = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        size: state.propertyReducer.size,
-        tryPos: state.propertyReducer.tryPos,
-        demoPos: state.propertyReducer.demoPos,
-    }
-}
-
-export default connect(mapStateToProps)(SectionGet)
+export default SectionGet;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DEMO_CTA_WIDTH, DEMO_CTA_HEIGHT, DEMO_CTA_FONT } from '../Assets/styles/masterStyle';
+import { DEMO_CTA_WIDTH, DEMO_CTA_HEIGHT, DEMO_CTA_FONT } from '../../Assets/styles/masterStyle';
 
 export default styled.button`
     z-index: 5;

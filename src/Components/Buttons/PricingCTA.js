@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRICING_CTA_WIDTH, PRICING_CTA_HEIGHT, PRICING_CTA_FONT } from '../Assets/styles/masterStyle';
+import { PRICING_CTA_WIDTH, PRICING_CTA_HEIGHT, PRICING_CTA_FONT } from '../../Assets/styles/masterStyle';
 
 export default styled.button`
     z-index: 5;

@@ -13,7 +13,7 @@ const SectionFooter = (props) => {
         <div style={{ zIndex: 1, height: "20vh" }}>
             <div style={{ marginLeft: `11%`, display: "flex", alignItems: "center", paddingTop: "1%" }}>
                 <Typography style={{
-                    color: "#FFFFFF", fontSize: "calc(20px + (28 - 20) * ((100vw - 300px) / (1600 - 300)))",
+                    color: "#FFFFFF", fontSize: "calc(18px + (24 - 18) * ((100vw - 300px) / (1600 - 300)))",
                     letterSpacing: `${3.3 / 1920 * props.size[0]}px`, pointerEvents: "none", padding: "1rem"
                 }}>
                     support@experienceconcerts.co
@@ -30,7 +30,7 @@ const SectionFooter = (props) => {
                     </Typography>
                 <Typography style={{
                     color: "#FFFFFF", fontFamily: `DINNextLTPro-Medium`, fontSize: "calc(16px + (18 - 16) * ((100vw - 300px) / (1600 - 300)))",
-                    letterSpacing: `${2.4 / 1920 * props.size[0]}px`, pointerEvents: "none", marginTop: "1.1%"
+                    letterSpacing: `${2.4 / 1920 * props.size[0]}px`, pointerEvents: "none", marginTop: "1.1%", paddingBottom: "1%"
                 }}>
                     2019 © All Rights Reserved | Speer Technologies Incorporated
                     </Typography>

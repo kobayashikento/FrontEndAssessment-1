@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PricingButton from '../Components/PricingCTA';
+import PricingButton from './Buttons/PricingCTA';
 
 import Typography from '@material-ui/core/Typography';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
