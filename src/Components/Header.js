@@ -9,7 +9,7 @@ import { Link, useHistory } from "react-router-dom";
 
 // Redux
 import { connect } from 'react-redux';
-import { setMenuIndex, setSize, setNavIndex, setClickIndex } from '../Redux/actions/propertyAction';
+import { setMenuIndex, setHoverNav, setNavIndex, setClickIndex } from '../Redux/actions/propertyAction';
 
 import '../Assets/styles/header.css';
 
@@ -24,17 +24,11 @@ const Header = (props) => {
     // states
     const [navOpen, setNavOpen] = React.useState(false);
 
-    //listen to size change 
-    React.useLayoutEffect(() => {
-        const updateSize = () => {
-            props.setSize([window.innerWidth, window.innerHeight]);
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => {
-            window.removeEventListener('resize', updateSize);
-        }
-    }, []);
+    const [barHover, setBarHover] = React.useState(false);
+    const [closeHover, setCloseHover] = React.useState(false);
+
+    // listen to hover of items 0: none, 1: about, 2: pricing, 3: subscribe
+    const [hoverIndex, setHoverIndex] = React.useState(0);
 
     const handleNavTextClick = () => {
         history.push("/");
@@ -45,10 +39,6 @@ const Header = (props) => {
         to: { opacity: navOpen ? 1 : props.showNavText ? 1 : 0, zIndex: navOpen ? 2020 : props.showNavText ? 2020 : -1 },
         from: { opacity: 0 }
     })
-
-    const [barHover, setBarHover] = React.useState(false);
-    const [pricingHover, setPricingHover] = React.useState(false);
-    const [subHover, setSubHover] = React.useState(false);
 
     let barSpring = useSpring({
         to: { height: barHover ? "41px" : "32px" },
@@ -70,17 +60,20 @@ const Header = (props) => {
         from: { transform: "translateY(90%)", opacity: 0 }
     })
 
-    let lineSpring = useSpring({
-        to: { width: pricingHover ? "100%" : "0%", opacity: pricingHover ? 1 : 0 },
+    let lineAboutSpring = useSpring({
+        to: { width: hoverIndex === 1 || window.location.pathname === "/" ? "100%" : "0%", opacity: hoverIndex === 1 || window.location.pathname === "/" ? 1 : 0 },
         from: { width: "0%", opacity: 0 }
     })
 
-    let lineSpring1 = useSpring({
-        to: { width: subHover ? "100%" : "0%", opacity: subHover ? 1 : 0 },
+    let linePricingSpring = useSpring({
+        to: { width: hoverIndex === 2 || window.location.pathname === "/pricing" ? "100%" : "0%", opacity: hoverIndex === 2 || window.location.pathname === "/pricing" ? 1 : 0 },
         from: { width: "0%", opacity: 0 }
     })
 
-    const [closeHover, setCloseHover] = React.useState(false);
+    let lineSubscribeSpring = useSpring({
+        to: { width: hoverIndex === 3 || window.location.pathname === "/payment" ? "100%" : "0%", opacity: hoverIndex === 3 || window.location.pathname === "/payment" ? 1 : 0 },
+        from: { width: "0%", opacity: 0 }
+    })
 
     let closeSpring1 = useSpring({
         to: { transform: closeHover ? 'rotate(45deg)' : 'rotate(0deg)' },
@@ -96,29 +89,43 @@ const Header = (props) => {
         <div style={{ position: "fixed", zIndex: 2020 }}>
             {matches ?
                 <React.Fragment>
-                    <div style={{ right: `8%`, top: `9%`, position: "fixed", display: props.heroLeave ? "flex" : "none" }}>
-                        <Link to="/pricing" style={{ textDecoration: "none", marginRight: "7rem" }}>
+                    <div style={{ right: `8%`, top: `9%`, position: "fixed", display: props.heroLeave || window.location.pathname === "/pricing" || window.location.pathname === "/payment" ? "flex" : "none" }}
+                        onMouseEnter={() => props.setHoverNav(true)} onMouseLeave={() => props.setHoverNav(false)}
+                    >
+                        <Link to="/" style={{ textDecoration: "none", marginRight: "5rem" }}>
                             <animated.div style={{ ...headerTextSpring, position: "fixed", cursor: "pointer" }}
-                                onMouseEnter={() => setPricingHover(true)} onMouseLeave={() => setPricingHover(false)}>
+                                onMouseEnter={() => setHoverIndex(1)} onMouseLeave={() => setHoverIndex(0)}>
+                                <Typography style={{
+                                    textAlign: "left", fontSize: `20px`, fontWeight: "600", fontStyle: "normal",
+                                    fontFamily: "'Rajdhani', sans-serif", color: "white", transformOrigin: "bottom",
+                                }}>
+                                    About
+                </Typography>
+                                <animated.div style={{ ...lineAboutSpring, height: "2px", background: "white" }} />
+                            </animated.div>
+                        </Link>
+                        <Link to="/pricing" style={{ textDecoration: "none", marginRight: "5rem" }}>
+                            <animated.div style={{ ...headerTextSpring, position: "fixed", cursor: "pointer" }}
+                                onMouseEnter={() => setHoverIndex(2)} onMouseLeave={() => setHoverIndex(0)}>
                                 <Typography style={{
                                     textAlign: "left", fontSize: `20px`, fontWeight: "600", fontStyle: "normal",
                                     fontFamily: "'Rajdhani', sans-serif", color: "white", transformOrigin: "bottom",
                                 }}>
                                     Pricing
                 </Typography>
-                                <animated.div style={{ ...lineSpring, height: "2px", background: "white" }} />
+                                <animated.div style={{ ...linePricingSpring, height: "2px", background: "white" }} />
                             </animated.div>
                         </Link>
                         <Link to="/payment" style={{ textDecoration: "none" }}>
                             <animated.div style={{ ...headerTextSpring, cursor: "pointer" }}
-                                onMouseEnter={() => setSubHover(true)} onMouseLeave={() => setSubHover(false)}>
+                                onMouseEnter={() => setHoverIndex(3)} onMouseLeave={() => setHoverIndex(0)}>
                                 <Typography style={{
                                     textAlign: "left", fontSize: `20px`, fontWeight: "600", fontStyle: "normal",
                                     fontFamily: "'Rajdhani', sans-serif", color: "white", transformOrigin: "bottom",
                                 }}>
                                     Subscribe
                 </Typography>
-                                <animated.div style={{ ...lineSpring1, height: "2px", background: "white" }} />
+                                <animated.div style={{ ...lineSubscribeSpring, height: "2px", background: "white" }} />
                             </animated.div>
                         </Link>
                     </div>
@@ -132,7 +139,7 @@ const Header = (props) => {
                         }}>
                             {props.menuIndex}
                         </Typography>
-                        <animated.div style={{ ...allBars, display: "flex" }}>
+                        <animated.div style={{ ...allBars, display: "flex" }} onMouseEnter={() => props.setHoverNav(true)} onMouseLeave={() => props.setHoverNav(false)}>
                             <div style={{ overflow: "hidden", transform: "translate(100%,-100%)", height: "25px" }}>
                                 <animated.div style={menuSpring}>
                                     <Typography style={{
@@ -155,12 +162,12 @@ const Header = (props) => {
                 </Typography>
                     </animated.div>
                     <div ref={innerWrapperRef} style={{ display: "flex", flexDirection: "column", position: "fixed", left: `6%`, top: matches ? `8%` : "5%", }}>
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex" }} onMouseEnter={() => props.setHoverNav(true)} onMouseLeave={() => props.setHoverNav(false)}>
                             <animated.div style={headerTextSpring} onClick={() => handleNavTextClick()}>
                                 <Typography style={{
-                                    textAlign: "left", font: matches ? `normal normal normal ${29 / 1920 * props.size[0]}px/${47 / 1920 * props.size[0]}px DINNextLTPro-Medium`
+                                    textAlign: "left", font: matches ? `normal normal normal ${29 / 1920 * window.innerWidth}px/${47 / 1920 * window.innerWidth}px DINNextLTPro-Medium`
                                         : `normal normal normal 20px/40px DINNextLTPro-Medium`, cursor: "pointer",
-                                    color: "white", letterSpacing: `${1.2 / 1920 * props.size[0]}px`,
+                                    color: "white", letterSpacing: `${1.2 / 1920 * window.innerWidth}px`,
                                 }}>
                                     EXP|CON
                         </Typography>
@@ -217,7 +224,6 @@ const Header = (props) => {
 const mapStateToProps = (state) => {
     return {
         menuIndex: state.propertyReducer.menuIndex,
-        size: state.propertyReducer.size,
         navIndex: state.propertyReducer.navIndex,
         showNavText: state.propertyReducer.showNavText,
         heroLeave: state.propertyReducer.heroLeave,
@@ -229,7 +235,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
         setNavIndex: (index) => dispatch(setNavIndex(index)),
-        setSize: (size) => dispatch(setSize(size)),
+        setHoverNav: (boolean) => dispatch(setHoverNav(boolean)),
         setClickIndex: (index) => dispatch(setClickIndex(index))
     }
 }

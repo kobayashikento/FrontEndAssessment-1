@@ -234,7 +234,7 @@ const Skeleton = (props) => {
     }
 
     const circleSize = useSpring({
-        to: { transform: expandCircle ? "scale(3)" : "scale(1)", backgroundColor: props.menuIndex === 2 ? "rgba(46, 255, 246, 0.8)" : "white" },
+        to: { transform: expandCircle ? "scale(3)" : props.hoverNav ? "scale(0)" : "scale(1)", backgroundColor: props.menuIndex === 2 ? "rgba(46, 255, 246, 0.8)" : "white", },
         from: { transform: "scale(1)" }
     });
 
@@ -300,7 +300,8 @@ const mapStateToProps = (state) => {
         size: state.propertyReducer.size,
         navIndex: state.propertyReducer.navIndex,
         clickIndex: state.propertyReducer.clickIndex,
-        heroLeave: state.propertyReducer.heroLeave
+        heroLeave: state.propertyReducer.heroLeave,
+        hoverNav: state.propertyReducer.hoverNav
     }
 }
 
