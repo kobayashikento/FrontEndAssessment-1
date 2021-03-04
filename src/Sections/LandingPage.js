@@ -481,7 +481,7 @@ const LandingPage = (props) => {
             </div>
             :
             <div ref={scrollRef} style={{ width: "100vw", height: "100vh", overflow: "auto", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <Typography align="center" variant="h5" style={{ color: "white", width: "60%" }}>
+                <Typography align="center" variant="h6" style={{ color: "white", width: "60%" }}>
                     Currently Working on the mobile version, come back later!
                     </Typography>
             </div>
