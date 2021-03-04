@@ -47,7 +47,7 @@ const PricingPerks = (props) => {
             background: "#D34848 0% 0% no-repeat padding-box", backgroundImage: `url(${bob_pic})`,
             backgroundSize: "cover", minHeight: `${967 / 1920 * window.innerWidth}px`, boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px", backgroundBlendMode: "darken"
         }}>
-            <div style={{ maxWidth: `1024px`, display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: "auto", marginRight: "auto" }}>
+            <div style={{ maxWidth: `1280px`, display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: "auto", marginRight: "auto" }}>
                 <Trail open={true} textIndex={0}>
                     <span>P</span>
                     <span>E</span>
