@@ -406,14 +406,14 @@ const LandingPage = (props) => {
                     </section>
                 </section>
                 <section className="panel review" style={{ position: "absolute", top: "290vh", width: "100vw", zIndex: 3 }}>
-                    <SectionReview render={renderReview} handleExpandCircle={(state) => handleExpandCircle(state)}/>
+                    <SectionReview render={renderReview} handleExpandCircle={(state) => handleExpandCircle(state)} />
                 </section>
                 <div className="panel get" style={{
                     backgroundImage: `url(${empty_set})`, backgroundSize: "cover", backgroundColor: "#847c7c", backgroundPosition: "center bottom", backgroundBlendMode: "multiply",
                     position: "absolute", top: "390vh", width: "100%", height: "110vh", zIndex: 10
                 }}>
                     <section>
-                        <SectionGet render={renderGet} handleExpandCircle={(state) => handleExpandCircle(state)}/>
+                        <SectionGet render={renderGet} handleExpandCircle={(state) => handleExpandCircle(state)} />
                     </section>
                     <section style={{ position: "absolute", width: "100vw", backgroundColor: "black" }}>
                         <SectionFooter />
@@ -480,26 +480,10 @@ const LandingPage = (props) => {
                 </Dialog>
             </div>
             :
-            <div ref={scrollRef} style={{ width: "100vw", height: "100vh", overflow: "auto" }}>
-                <CurtainVideo
-                    handleInitScroller={(state) => handleInitScroller(state)}
-                    matches={matches}
-                />
-                <div className="panel red" style={{ height: "50vh", top: "90vh", position: "absolute", width: "100vw", overflow: "hidden" }}>
-                    <SectionRed />
-                </div>
-                <div style={{
-                    backgroundImage: `url(${gambino})`, backgroundSize: "cover", height: "100vh", position: "absolute", top: "140vh", width: "100vw"
-                }} />
-                <div className="panel yellow" style={{ position: "absolute", top: "140vh", width: "100vw", height: "100vh" }}>
-                    <SectionYellow render={true} />
-                </div>
-                <div className="panel perks" style={{ position: "absolute", top: "240vh", width: "100vw" }}>
-                    <Perks render={true} />
-                </div>
-                <div className="panel review" style={{ position: "absolute", top: "340vh", width: "100vw" }}>
-                    <SectionReview render={true} />
-                </div>
+            <div ref={scrollRef} style={{ width: "100vw", height: "100vh", overflow: "auto", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Typography align="center" variant="h5" style={{ color: "white", width: "60%" }}>
+                    Currently Working on the mobile version, come back later!
+                    </Typography>
             </div>
     )
 }

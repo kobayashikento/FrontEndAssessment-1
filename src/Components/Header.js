@@ -96,7 +96,7 @@ const Header = (props) => {
         <div style={{ position: "fixed", zIndex: 2020 }}>
             {matches ?
                 <React.Fragment>
-                    <div style={{ right: `8%`, top: `9%`, position: "fixed", display: props.heroLeave ? "flex" : "none"  }}>
+                    <div style={{ right: `8%`, top: `9%`, position: "fixed", display: props.heroLeave ? "flex" : "none" }}>
                         <Link to="/pricing" style={{ textDecoration: "none", marginRight: "7rem" }}>
                             <animated.div style={{ ...headerTextSpring, position: "fixed", cursor: "pointer" }}
                                 onMouseEnter={() => setPricingHover(true)} onMouseLeave={() => setPricingHover(false)}>
@@ -156,59 +156,61 @@ const Header = (props) => {
                     </animated.div>
                 </React.Fragment>
                 :
-                <animated.div style={{
-                    justifyContent: "space-between", display: "flex",
-                    position: "fixed", right: `3.3%`, top: `5%`, cursor: "pointer"
-                }} onMouseEnter={() => setBarHover(true)} onMouseLeave={() => setBarHover(false)} onClick={() => props.setNavIndex(true)}>
-                    <animated.div style={{ display: "flex", transform: "translateY(18px) rotate(90deg)", transformOrigin: "top" }}>
-                        <animated.div style={{ ...barSpring, background: "white", width: "2px", marginLeft: "8px" }} />
-                        <div style={{ height: "41px", background: "white", width: "2px", marginLeft: "8px" }} />
-                        <animated.div style={{ ...barSpring1, background: "white", width: "2px", marginLeft: "8px" }} />
-                    </animated.div>
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <Typography style={{
-                            textAlign: "left", fontSize: `16px`, fontWeight: "normal", fontStyle: "normal",
-                            fontFamily: "DINNextLTPro-Medium", color: "white",
-                        }}>
-                            {props.menuIndex}
-                        </Typography>
-                        <div style={{ width: "15px", height: "2px", background: "rgba(182, 188, 206, 0.7)" }} />
-                        <Typography style={{
-                            textAlign: "left", fontSize: `16px`, fontWeight: "normal", fontStyle: "normal",
-                            fontFamily: "DINNextLTPro-Medium", color: "rgba(182, 188, 206, 0.7)",
-                        }}>
-                            5
-            </Typography>
-                    </div>
-                </animated.div>
+                null
+                //     <animated.div style={{
+                //         justifyContent: "space-between", display: "flex",
+                //         position: "fixed", right: `3.3%`, top: `5%`, cursor: "pointer"
+                //     }} onMouseEnter={() => setBarHover(true)} onMouseLeave={() => setBarHover(false)} onClick={() => props.setNavIndex(true)}>
+                //         <animated.div style={{ display: "flex", transform: "translateY(18px) rotate(90deg)", transformOrigin: "top" }}>
+                //             <animated.div style={{ ...barSpring, background: "white", width: "2px", marginLeft: "8px" }} />
+                //             <div style={{ height: "41px", background: "white", width: "2px", marginLeft: "8px" }} />
+                //             <animated.div style={{ ...barSpring1, background: "white", width: "2px", marginLeft: "8px" }} />
+                //         </animated.div>
+                //         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                //             <Typography style={{
+                //                 textAlign: "left", fontSize: `16px`, fontWeight: "normal", fontStyle: "normal",
+                //                 fontFamily: "DINNextLTPro-Medium", color: "white",
+                //             }}>
+                //                 {props.menuIndex}
+                //             </Typography>
+                //             <div style={{ width: "15px", height: "2px", background: "rgba(182, 188, 206, 0.7)" }} />
+                //             <Typography style={{
+                //                 textAlign: "left", fontSize: `16px`, fontWeight: "normal", fontStyle: "normal",
+                //                 fontFamily: "DINNextLTPro-Medium", color: "rgba(182, 188, 206, 0.7)",
+                //             }}>
+                //                 5
+                // </Typography>
+                //         </div>
+                //     </animated.div>
+                // }
+                // <div ref={innerWrapperRef} style={{ display: "flex", flexDirection: "column", position: "fixed", left: `6%`, top: matches ? `8%` : "5%", }}>
+                //     <div style={{ display: "flex" }}>
+                //         <animated.div style={headerTextSpring} onClick={() => handleNavTextClick()}>
+                //             <Typography style={{
+                //                 textAlign: "left", font: matches ? `normal normal normal ${29 / 1920 * props.size[0]}px/${47 / 1920 * props.size[0]}px DINNextLTPro-Medium`
+                //                     : `normal normal normal 20px/40px DINNextLTPro-Medium`, cursor: "pointer",
+                //                 color: "white", letterSpacing: `${1.2 / 1920 * props.size[0]}px`,
+                //             }}>
+                //                 EXP|CON
+                //         </Typography>
+                //         </animated.div>
+                //     </div>
+                // </div>
+                // <animated.div style={{ left: `3.3%`, top: `47%`, position: "fixed", display: props.navIndex ? "flex" : "none", cursor: "pointer", alignItems: "center" }}
+                //     onMouseEnter={() => setCloseHover(true)} onMouseLeave={() => setCloseHover(false)} onClick={() => props.setNavIndex(false)}>
+                //     <div style={{ backgroundColor: "white", width: "44px", height: "44px", borderRadius: "22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                //         <animated.div style={{ ...closeSpring1, position: "absolute", width: "18px", height: "3px", background: "black" }} />
+                //         <animated.div style={{ ...closeSpring2, position: "absolute", width: "18px", height: "3px", background: "black" }} />
+                //     </div>
+                //     <Typography style={{
+                //         fontSize: "calc(16px + (18 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                //         fontFamily: "DINNextLTPro-Medium", color: "white", marginLeft: "1rem"
+                //     }}>
+                //         Close
+                //     </Typography>
+                // </animated.div>
             }
-            <div ref={innerWrapperRef} style={{ display: "flex", flexDirection: "column", position: "fixed", left: `6%`, top: matches ? `8%` : "5%", }}>
-                <div style={{ display: "flex" }}>
-                    <animated.div style={headerTextSpring} onClick={() => handleNavTextClick()}>
-                        <Typography style={{
-                            textAlign: "left", font: matches ? `normal normal normal ${29 / 1920 * props.size[0]}px/${47 / 1920 * props.size[0]}px DINNextLTPro-Medium`
-                                : `normal normal normal 20px/40px DINNextLTPro-Medium`, cursor: "pointer",
-                            color: "white", letterSpacing: `${1.2 / 1920 * props.size[0]}px`,
-                        }}>
-                            EXP|CON
-                    </Typography>
-                    </animated.div>
-                </div>
-            </div>
-            <animated.div style={{ left: `3.3%`, top: `47%`, position: "fixed", display: props.navIndex ? "flex" : "none", cursor: "pointer", alignItems: "center" }}
-                onMouseEnter={() => setCloseHover(true)} onMouseLeave={() => setCloseHover(false)} onClick={() => props.setNavIndex(false)}>
-                <div style={{ backgroundColor: "white", width: "44px", height: "44px", borderRadius: "22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <animated.div style={{ ...closeSpring1, position: "absolute", width: "18px", height: "3px", background: "black" }} />
-                    <animated.div style={{ ...closeSpring2, position: "absolute", width: "18px", height: "3px", background: "black" }} />
-                </div>
-                <Typography style={{
-                    fontSize: "calc(16px + (18 - 16) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
-                    fontFamily: "DINNextLTPro-Medium", color: "white", marginLeft: "1rem"
-                }}>
-                    Close
-                </Typography>
-            </animated.div>
-        </div >
+        </div>
     )
 }
 
