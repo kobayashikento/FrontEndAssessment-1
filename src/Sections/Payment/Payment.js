@@ -11,7 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { connect } from 'react-redux';
-import SectionFooter from './SectionFooter';
+import SectionFooter from '../SectionFooter';
 
 import { Scrollbars } from 'react-custom-scrollbars';
 
@@ -19,7 +19,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { useWheel } from 'react-use-gesture';
 
-import { setPlanPayment, setMenuIndex, setNavIndex, setShowNavText, setClickIndex } from '../Redux/actions/propertyAction';
+import { setPlanPayment, setMenuIndex, setNavIndex, setShowNavText, setClickIndex } from '../../Redux/actions/propertyAction';
 
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -658,7 +658,7 @@ const Payment = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{ background: "black" }}>
+                    <div style={{ background: "black", height: "22vh" }}>
                         <SectionFooter />
                     </div>
                 </Scrollbars>

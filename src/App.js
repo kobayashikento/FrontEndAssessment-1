@@ -9,8 +9,8 @@ import { createStore } from 'redux';
 
 import Header from './Components/Header';
 import Skeleton from './Sections/Skeleton';
-import Pricing from './Sections/Pricing';
-import Payment from './Sections/Payment';
+import Pricing from './Sections/Pricing/Pricing';
+import Payment from './Sections/Payment/Payment';
 
 import reducer from './Redux/reducer';
 import './App.css';

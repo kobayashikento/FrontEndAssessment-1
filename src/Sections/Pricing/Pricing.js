@@ -2,11 +2,10 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
-import PricingList from '../Components/PricingList';
+import PricingList from '../../Components/PricingList';
 import PricingPerks from './PricingPerks';
-import SectionFooter from './SectionFooter';
-
-import { Scrollbars } from 'react-custom-scrollbars';
+import SectionFooter from '../SectionFooter';
+import CanvasTemplate from '../../Components/CanvasTemplate';
 
 import { connect } from 'react-redux';
 
@@ -14,7 +13,7 @@ import { useWheel } from 'react-use-gesture';
 
 import { animated, useTrail, useSpring } from 'react-spring';
 
-import { setMenuIndex, setNavIndex, setShowNavText, setClickIndex } from '../Redux/actions/propertyAction';
+import { setMenuIndex, setNavIndex, setShowNavText, setClickIndex } from '../../Redux/actions/propertyAction';
 
 import Scrollbar from 'smooth-scrollbar';
 
@@ -30,13 +29,13 @@ const Trail = ({ open, textIndex, children, ...props }) => {
 
     return (
         <div {...props}>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
                 {trail.map(({ x, height, ...rest }, index) => (
                     <animated.div
                         key={items[index].key}
                         style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
                         <Typography style={{
-                            textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                            textAlign: "left", fontSize: "calc(60px + (78 - 60) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
                             fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
                         }}>{items[index]}</Typography>
                     </animated.div>
@@ -75,9 +74,9 @@ const Pricing = (props) => {
 
     return (
         <div {...bind()} ref={scrollRef} style={{ background: "#191919 0% 0% no-repeat padding-box", width: "100vw", height: "100vh", overflow: "auto" }}>
-            <div style={{ display: "flex", flexDirection: "column", paddingTop: `12%`, marginLeft: `14%`, overflow: "hidden" }}>
+            <div style={{ display: "flex", flexDirection: "column", paddingTop: `12%`, overflow: "hidden", justifyContent: "center", alignItems: "center" }}>
                 <Trail open={true} textIndex={0}>
-                    <span>Pricing</span>
+                    <span>Pick the plan that's right for you</span>
                 </Trail>
                 <animated.div style={headSpring}>
                     <Typography style={{

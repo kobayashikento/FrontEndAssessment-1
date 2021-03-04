@@ -194,7 +194,7 @@ const Hero = (props) => {
                     <Preloading />
                 </animated.div>
                 <LandingPageContent curtainReady={curtainReady} matches={props.matches} handleExpandCircle={(state) => props.handleExpandCircle(state)}/>
-                <div ref={canvasRef} id="canvas"></div>
+                <div ref={canvasRef} id="curtainCanvas"></div>
                 <div className="multi-textures-wrapper">
                     <div ref={multiTexturesRef} className="flex-wrapper multi-textures">
                         <img
@@ -215,7 +215,7 @@ const Hero = (props) => {
                     <Preloading />
                 </animated.div>
                 <LandingPageContent curtainReady={curtainReady} handleExpandCircle={(state) => props.handleExpandCircle(state)} />
-                <div ref={canvasRef} id="canvas"></div>
+                <div ref={canvasRef} id="curtainCanvas"></div>
                 <div className="multi-textures-wrapper">
                     <div ref={multiTexturesRef} className="flex-wrapper multi-textures">
                         <img
