@@ -257,7 +257,7 @@ const LandingPage = (props) => {
 
             for (let i = 0; i < 4; i++) {
                 ScrollTrigger.create({
-                    start: i === 0 ? window.innerHeight : i === 1 ? window.innerHeight * 1.5
+                    start: i === 0 ? window.innerHeight * 0.9 : i === 1 ? window.innerHeight * 1.5
                         : i === 2 ? panels[2].offsetTop : panels[3].offsetTop * 0.9,
                     end: i === 0 ? window.innerHeight * 1.9 : i === 1 ? window.innerHeight * 2.5
                         : i === 2 ? panels[3].offsetTop : panels[3].offsetTop * 1.8,
