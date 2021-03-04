@@ -19,7 +19,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { useWheel } from 'react-use-gesture';
 
-import { setPlanPayment, setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
+import { setPlanPayment, setMenuIndex, setNavIndex, setShowNavText, setClickIndex } from '../Redux/actions/propertyAction';
 
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -294,15 +294,6 @@ const Payment = (props) => {
         props.setPlanPayment(event.target.value);
     };
 
-    //bind wheel
-    const bind = useWheel(({ wheeling, direction }) => {
-        if (wheeling && direction[1] === 1) {
-            props.setShowNavText(false);
-        } else if (wheeling && direction[1] === -1) {
-            props.setShowNavText(true);
-        }
-    })
-
     const theme = createMuiTheme({
         overrides: {
             MuiInput: {
@@ -341,22 +332,10 @@ const Payment = (props) => {
                 },
                 endAdornment: {
                     display: "flex",
-                    paddingRight: `${35 / 1920 * props.size[0]}px`
+                    paddingRight: `${35 / 1920 * props.size[0]}px`,
+                    paddingTop: `${15 / 1920 * props.size[0]}px`
                 }
             },
-            MuiButtonBase: {
-                root: {
-                    "& span": {
-                        "& div": {
-                            "& :nth-child(2)": {
-                                "& :contains(checked)": {
-                                    transform: `scale(2) !important`
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
     });
 
@@ -402,298 +381,289 @@ const Payment = (props) => {
                     paddingRight: `${35 / 1920 * props.size[0]}px`
                 }
             },
-            MuiButtonBase: {
-                root: {
-                    "& span": {
-                        "& div": {
-                            "& :nth-child(2)": {
-                                "& :contains(checked)": {
-                                    transform: `scale(2) !important`
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
     });
 
     React.useEffect(() => {
-        props.setNavIndex(3);
-        props.setMenuIndex(6);
         props.setShowNavText(true);
+        props.setNavIndex(false);
+        props.setClickIndex(false);
     }, [])
 
     return (
         <ThemeProvider theme={theme}>
-            <div {...bind()} style={{ background: "#FFFFFF 0% 0% no-repeat padding-box" }}>
+            <div style={{ background: "#FFFFFF 0% 0% no-repeat padding-box" }}>
                 <Scrollbars
                     // This will activate auto hide
                     autoHide
                     style={{ height: `${props.size[1]}px` }}
                     thumbSize={50}
                 >
-                    <Typography style={{
-                        textAlign: "left", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                        letterSpacing: `${7.4 / 1920 * props.size[0]}px`, color: " #000000", marginLeft: `${183 / 1920 * props.size[0]}px`, paddingTop: `${308 / 1920 * props.size[0]}px`
-                    }}>
-                        PAYMENT
-                </Typography>
-                    <div style={{ display: "flex", flexDirection: "column", marginLeft: `${185 / 1920 * props.size[0]}px`, }}>
+                    <div style={{ transform: "scale(0.8)" }}>
                         <Typography style={{
-                            textAlign: "left", font: `normal normal normal ${45 / 1920 * props.size[0]}px/${71 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${4.5 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${121 / 1920 * props.size[0]}px`
+                            textAlign: "left", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
+                            letterSpacing: `${7.4 / 1920 * props.size[0]}px`, color: " #000000", marginLeft: `${183 / 1920 * props.size[0]}px`, paddingTop: `${50 / 1920 * props.size[0]}px`
                         }}>
-                            1. Select your plan
+                            PAYMENT
                 </Typography>
-                        <div style={{ display: "flex", marginTop: `${32 / 1920 * props.size[0]}px`, maxWidth: `${745 / 1920 * props.size[0]}px`, justifyContent: "space-between" }}>
-                            <div style={{ display: "flex", alignItems: "center" }}>
-                                <Radio
-                                    checked={props.plan === 'BASIC'}
-                                    onChange={handleChange}
-                                    value="BASIC"
-                                    style={{ color: "#D24848", padding: "0px" }}
-                                />
-                                <Typography style={{
-                                    marginLeft: `${13 / 1920 * props.size[0]}px`,
-                                    textAlign: "left", font: `normal normal bold ${37 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
-                                    letterSpacing: `${3.7 / 1920 * props.size[0]}px`, color: "#D24848"
-                                }}>
-                                    BASIC
-                </Typography>
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center" }}>
-                                <Radio
-                                    checked={props.plan === 'ADVANCED'}
-                                    onChange={handleChange}
-                                    value="ADVANCED"
-                                    style={{ color: "#FFB33F", padding: "0px" }}
-                                />
-                                <Typography style={{
-                                    marginLeft: `${13 / 1920 * props.size[0]}px`,
-                                    textAlign: "left", font: `normal normal bold ${37 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
-                                    letterSpacing: `${3.7 / 1920 * props.size[0]}px`, color: "#FFB33F"
-                                }}>
-                                    ADVANCED
-                </Typography>
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center" }}>
-                                <Radio
-                                    checked={props.plan === 'PRO'}
-                                    onChange={handleChange}
-                                    value="PRO"
-                                    style={{ color: "#1FE1E9", padding: "0px" }}
-                                />
-                                <Typography style={{
-                                    marginLeft: `${13 / 1920 * props.size[0]}px`,
-                                    textAlign: "left", font: `normal normal bold ${37 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
-                                    letterSpacing: `${3.7 / 1920 * props.size[0]}px`, color: "#1FE1E9"
-                                }}>
-                                    PRO
-                </Typography>
-                            </div>
-                        </div>
-                    </div>
-                    <div style={{
-                        display: "flex", marginTop: `${148 / 1947 * props.size[1]}px`, marginLeft: `${189 / 1920 * props.size[0]}px`,
-                        maxWidth: `${1547 / 1920 * props.size[0]}px`, justifyContent: "space-between"
-                    }}>
-                        <div>
+                        <div style={{ display: "flex", flexDirection: "column", marginLeft: `${185 / 1920 * props.size[0]}px`, }}>
                             <Typography style={{
                                 textAlign: "left", font: `normal normal normal ${45 / 1920 * props.size[0]}px/${71 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${4.5 / 1920 * props.size[0]}px`, color: " #000000",
+                                letterSpacing: `${4.5 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${121 / 1920 * props.size[0]}px`
                             }}>
-                                2. Billing Information
+                                1. Select your plan
+                </Typography>
+                            <div style={{ display: "flex", marginTop: `${32 / 1920 * props.size[0]}px`, maxWidth: `${745 / 1920 * props.size[0]}px`, justifyContent: "space-between" }}>
+                                <div style={{ display: "flex", alignItems: "center" }}>
+                                    <Radio
+                                        checked={props.plan === 'BASIC'}
+                                        onChange={handleChange}
+                                        value="BASIC"
+                                        style={{ color: "#D24848"}}
+                                    />
+                                    <Typography style={{
+                                        marginLeft: `${25 / 1920 * props.size[0]}px`, paddingTop: "10%",
+                                        textAlign: "left", font: `normal normal bold ${37 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
+                                        letterSpacing: `${3.7 / 1920 * props.size[0]}px`, color: "#D24848"
+                                    }}>
+                                        BASIC
+                                    </Typography>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center" }}>
+                                    <Radio
+                                        checked={props.plan === 'ADVANCED'}
+                                        onChange={handleChange}
+                                        value="ADVANCED"
+                                        style={{ color: "#FFB33F"}}
+                                    />
+                                    <Typography style={{
+                                        marginLeft: `${36 / 1920 * props.size[0]}px`, paddingTop: "7%",
+                                        textAlign: "left", font: `normal normal bold ${37 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
+                                        letterSpacing: `${3.7 / 1920 * props.size[0]}px`, color: "#FFB33F"
+                                    }}>
+                                        ADVANCED
+                </Typography>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center" }}>
+                                    <Radio
+                                        checked={props.plan === 'PRO'}
+                                        onClick={handleChange}
+                                        value="PRO"
+                                        style={{ color: "#1FE1E9"}}
+                                    />
+                                    <Typography style={{
+                                        marginLeft: `${35 / 1920 * props.size[0]}px`, paddingTop: "17%",
+                                        textAlign: "left", font: `normal normal bold ${37 / 1920 * props.size[0]}px/${45 / 1920 * props.size[0]}px Helvetica Neue`,
+                                        letterSpacing: `${3.7 / 1920 * props.size[0]}px`, color: "#1FE1E9"
+                                    }}>
+                                        PRO
+                </Typography>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{
+                            display: "flex", marginTop: `${148 / 1947 * props.size[1]}px`, marginLeft: `${189 / 1920 * props.size[0]}px`,
+                            maxWidth: `${1547 / 1920 * props.size[0]}px`, justifyContent: "space-between"
+                        }}>
+                            <div>
+                                <Typography style={{
+                                    textAlign: "left", font: `normal normal normal ${45 / 1920 * props.size[0]}px/${71 / 1920 * props.size[0]}px Helvetica Neue`,
+                                    letterSpacing: `${4.5 / 1920 * props.size[0]}px`, color: " #000000",
+                                }}>
+                                    2. Billing Information
                         </Typography>
-                            <div style={{ marginTop: `${49 / 1920 * props.size[0]}px`, marginLeft: `${65 / 1920 * props.size[0]}px` }}>
+                                <div style={{ marginTop: `${49 / 1920 * props.size[0]}px`, marginLeft: `${65 / 1920 * props.size[0]}px` }}>
+                                    <Typography style={{
+                                        textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                        letterSpacing: `${2.2 / 1920 * props.size[0]}px`,
+                                    }}>
+                                        FULL NAME
+                        </Typography>
+                                    <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
+                                    <Typography style={{
+                                        textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                        letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                    }}>
+                                        BILLING ADDRESS
+                        </Typography>
+                                    <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <div>
+                                            <Typography style={{
+                                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                            }}>
+                                                CITY
+                        </Typography>
+                                            <Input defaultValue="" style={{
+                                                width: `${321 / 1920 * props.size[0]}px`,
+                                            }} />
+                                        </div>
+                                        <div>
+                                            <Typography style={{
+                                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                            }}>
+                                                POSTAL CODE
+                        </Typography>
+                                            <Input defaultValue="" style={{
+                                                width: `${323 / 1920 * props.size[0]}px`,
+                                            }} />
+                                        </div>
+                                    </div>
+                                    <Typography style={{
+                                        textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                        letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                        width: `${681 / 1920 * props.size[0]}px`
+                                    }}>
+                                        COUNTRY
+                        </Typography>
+                                    <Autocomplete
+                                        options={countries}
+                                        autoHighlight
+                                        getOptionLabel={(option) => option.label}
+                                        renderOption={(option) => (
+                                            <React.Fragment>
+                                                <span>{countryToFlag(option.code)}</span>
+                                                {option.label} ({option.code}) +{option.phone}
+                                            </React.Fragment>
+                                        )}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                inputProps={{
+                                                    ...params.inputProps,
+                                                    autoComplete: 'new-password', // disable autocomplete and autofill
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                            <div style={{ marginLeft: `${65 / 1920 * props.size[0]}px` }}>
+                                <Typography style={{
+                                    textAlign: "left", font: `normal normal normal ${45 / 1920 * props.size[0]}px/${71 / 1920 * props.size[0]}px Helvetica Neue`,
+                                    letterSpacing: `${4.5 / 1920 * props.size[0]}px`, color: " #000000",
+                                }}>
+                                    3. Credit Card Information
+                        </Typography>
                                 <Typography style={{
                                     textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                    letterSpacing: `${2.2 / 1920 * props.size[0]}px`,
+                                    letterSpacing: `${2.2 / 1920 * props.size[0]}px`, marginTop: `${49 / 1920 * props.size[0]}px`,
                                 }}>
-                                    FULL NAME
+                                    CARDHOLDER’S NAME
                         </Typography>
                                 <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
                                 <Typography style={{
                                     textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
                                     letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
                                 }}>
-                                    BILLING ADDRESS
+                                    CARD NUMBER
                         </Typography>
                                 <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
-                                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>
-                                        <Typography style={{
-                                            textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                            letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            CITY
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <div>
+                                            <Typography style={{
+                                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                            }}>
+                                                EXPIRY MONTH
                         </Typography>
-                                        <Input defaultValue="" style={{
-                                            width: `${321 / 1920 * props.size[0]}px`,
-                                        }} />
-                                    </div>
-                                    <div>
-                                        <Typography style={{
-                                            textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                            letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            POSTAL CODE
+                                            <ThemeProvider theme={dateTheme}>
+                                                <DatePicker
+                                                    views={["month"]}
+                                                    value={selectedDate}
+                                                    onChange={handleDateChange}
+                                                    format="MMMM"
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position='end'>
+                                                                <ExpandMoreIcon
+                                                                    style={{ cursor: "pointer", paddingRight: `${30.53 / 1920 * props.size[0]}px` }}
+                                                                />
+                                                            </InputAdornment>
+                                                        )
+                                                    }}
+                                                />
+                                            </ThemeProvider>
+                                        </div>
+                                        <div>
+                                            <Typography style={{
+                                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                            }}>
+                                                EXPIRY YEAR
                         </Typography>
-                                        <Input defaultValue="" style={{
-                                            width: `${323 / 1920 * props.size[0]}px`,
-                                        }} />
+                                            <ThemeProvider theme={dateTheme}>
+                                                <DatePicker
+                                                    fullWidth
+                                                    views={["year"]}
+                                                    value={selectedDate}
+                                                    onChange={handleDateChange}
+                                                    InputProps={{
+                                                        endAdornment: (
+                                                            <InputAdornment position='end'>
+                                                                <ExpandMoreIcon
+                                                                    style={{ cursor: "pointer", paddingRight: `${30.53 / 1920 * props.size[0]}px` }}
+                                                                />
+                                                            </InputAdornment>
+                                                        )
+                                                    }}
+                                                />
+                                            </ThemeProvider>
+                                        </div>
                                     </div>
-                                </div>
+                                </MuiPickersUtilsProvider>
                                 <Typography style={{
                                     textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
                                     letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                                    width: `${681 / 1920 * props.size[0]}px`
                                 }}>
-                                    COUNTRY
+                                    CVV
                         </Typography>
-                                <Autocomplete
-                                    options={countries}
-                                    autoHighlight
-                                    getOptionLabel={(option) => option.label}
-                                    renderOption={(option) => (
-                                        <React.Fragment>
-                                            <span>{countryToFlag(option.code)}</span>
-                                            {option.label} ({option.code}) +{option.phone}
-                                        </React.Fragment>
-                                    )}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            {...params}
-                                            inputProps={{
-                                                ...params.inputProps,
-                                                autoComplete: 'new-password', // disable autocomplete and autofill
-                                            }}
-                                        />
-                                    )}
-                                />
+                                <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
                             </div>
                         </div>
-                        <div style={{ marginLeft: `${65 / 1920 * props.size[0]}px` }}>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal normal ${45 / 1920 * props.size[0]}px/${71 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${4.5 / 1920 * props.size[0]}px`, color: " #000000",
-                            }}>
-                                3. Credit Card Information
-                        </Typography>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, marginTop: `${49 / 1920 * props.size[0]}px`,
-                            }}>
-                                CARDHOLDER’S NAME
-                        </Typography>
-                            <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                            }}>
-                                CARD NUMBER
-                        </Typography>
-                            <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>
-                                        <Typography style={{
-                                            textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                            letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            EXPIRY MONTH
-                        </Typography>
-                                        <ThemeProvider theme={dateTheme}>
-                                            <DatePicker
-                                                views={["month"]}
-                                                value={selectedDate}
-                                                onChange={handleDateChange}
-                                                format="MMMM"
-                                                InputProps={{
-                                                    endAdornment: (
-                                                        <InputAdornment position='end'>
-                                                            <ExpandMoreIcon
-                                                                style={{ cursor: "pointer", paddingRight: `${30.53 / 1920 * props.size[0]}px` }}
-                                                            />
-                                                        </InputAdornment>
-                                                    )
-                                                }}
-                                            />
-                                        </ThemeProvider>
-                                    </div>
-                                    <div>
-                                        <Typography style={{
-                                            textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                            letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                                        }}>
-                                            EXPIRY YEAR
-                        </Typography>
-                                        <ThemeProvider theme={dateTheme}>
-                                            <DatePicker
-                                                fullWidth
-                                                views={["year"]}
-                                                value={selectedDate}
-                                                onChange={handleDateChange}
-                                                InputProps={{
-                                                    endAdornment: (
-                                                        <InputAdornment position='end'>
-                                                            <ExpandMoreIcon
-                                                                style={{ cursor: "pointer", paddingRight: `${30.53 / 1920 * props.size[0]}px` }}
-                                                            />
-                                                        </InputAdornment>
-                                                    )
-                                                }}
-                                            />
-                                        </ThemeProvider>
-                                    </div>
-                                </div>
-                            </MuiPickersUtilsProvider>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal bold ${22 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", marginTop: `${31 / 1920 * props.size[0]}px`,
-                            }}>
-                                CVV
-                        </Typography>
-                            <Input defaultValue="" style={{ width: `${681 / 1920 * props.size[0]}px` }} />
+                        <div style={{ marginLeft: `${254 / 1920 * props.size[0]}px`, marginTop: `${125 / 1920 * props.size[0]}px`, paddingBottom: `${10 / 1920 * props.size[0]}px` }}>
+                            <div style={{ maxWidth: `${670 / 1920 * props.size[0]}px` }}>
+                                <Typography style={{
+                                    textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                    letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", display: "inline"
+                                }}>
+                                    By continuing, I acknowledge that I’ve read and agree to the
+                </Typography>
+                                <Typography style={{
+                                    textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                    letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #2F1FE9", display: "inline", cursor: "pointer"
+                                }}>
+                                    {'\u00A0'}Terms of Service
+                </Typography>
+                                <Typography style={{
+                                    textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                    letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", display: "inline"
+                                }}>
+                                    {'\u00A0'}&
+                </Typography>
+                                <Typography style={{
+                                    textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
+                                    letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #2F1FE9", display: "inline", cursor: "pointer"
+                                }}>
+                                    {'\u00A0'}Privacy Policy.
+                </Typography>
+                            </div>
+                            <div style={{ display: "flex", transform: "scale(1.3)", marginLeft: "13%" }}>
+                                <a ref={buttonRef} style={{
+                                    width: "217", height: "60px", marginTop: `${31 / 1920 * props.size[0]}px`,
+                                }} className="btndown-down-noborder" data-text="DOWNLOAD" />
+                            </div>
                         </div>
                     </div>
-                    <div style={{ marginLeft: `${254 / 1920 * props.size[0]}px`, marginTop: `${125 / 1920 * props.size[0]}px`, paddingBottom: `${233 / 1920 * props.size[0]}px` }}>
-                        <div style={{ maxWidth: `${670 / 1920 * props.size[0]}px` }}>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", display: "inline"
-                            }}>
-                                By continuing, I acknowledge that I’ve read and agree to the
-                </Typography>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #2F1FE9", display: "inline", cursor: "pointer"
-                            }}>
-                                {'\u00A0'}Terms of Service
-                </Typography>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #000000", display: "inline"
-                            }}>
-                                {'\u00A0'}&
-                </Typography>
-                            <Typography style={{
-                                textAlign: "left", font: `normal normal normal ${23 / 1920 * props.size[0]}px/${34 / 1920 * props.size[0]}px Helvetica Neue`,
-                                letterSpacing: `${2.2 / 1920 * props.size[0]}px`, color: " #2F1FE9", display: "inline", cursor: "pointer"
-                            }}>
-                                {'\u00A0'}Privacy Policy.
-                </Typography>
-                        </div>
-                        <div style={{ display: "flex" }}>
-                            <a ref={buttonRef} style={{
-                                width: "217", height: "60px", marginTop: `${31 / 1920 * props.size[0]}px`,
-                            }} className="btndown-down-noborder" data-text="DOWNLOAD" />
-                        </div>
+                    <div style={{ background: "black" }}>
+                        <SectionFooter />
                     </div>
-                    <SectionFooter />
                 </Scrollbars>
             </div>
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
 
@@ -709,7 +679,8 @@ const mapDispatchToProps = (dispatch) => {
         setPlanPayment: (plan) => dispatch(setPlanPayment(plan)),
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
         setNavIndex: (index) => dispatch(setNavIndex(index)),
-        setShowNavText: (boolean) => dispatch(setShowNavText(boolean))
+        setShowNavText: (boolean) => dispatch(setShowNavText(boolean)),
+        setClickIndex: (boolean) => dispatch(setClickIndex(boolean))
     }
 }
 

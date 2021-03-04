@@ -9,119 +9,122 @@ import DemoButton from '../Components/DemoButton';
 
 import { connect } from 'react-redux';
 
-import { Link } from "react-router-dom";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+import { animated, useSpring, useTrail } from 'react-spring';
+
+const Trail = ({ matches, open, textIndex, children, ...props }) => {
+    const items = React.Children.toArray(children)
+    const trail = useTrail(items.length, {
+        config: { mass: 5, tension: 2000, friction: 200 },
+        opacity: open ? 1 : 0,
+        x: open ? 0 : 20,
+        from: { opacity: 0, x: 20 },
+    })
+
+    return (
+        <div {...props}>
+            <div style={{ display: "flex" }}>
+                {trail.map(({ x, height, ...rest }, index) => (
+                    <animated.div
+                        key={items[index].key}
+                        style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
+                        <Typography style={{
+                            textAlign: "left", fontSize: matches ? "calc(110px + (124 - 110) * ((100vw - 1024px) / (1600 - 1024)))"
+                                : "calc(45px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))",
+                            lineHeight: matches ? `calc(90px + (98 - 90) * ((100vw - 1024px) / (1600 - 1024)))` :
+                                `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                            fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0px 11px 10px rgba(81,67,21,0.4)"
+                        }}>{items[index]}</Typography>
+                    </animated.div>
+                ))}
+            </div>
+        </div>
+    )
+}
 
 const SectionYellow = (props) => {
 
     //refs
-    const buttonYellowRef = React.useRef();
-    const buttonTryRef = React.useRef();
-    const canvasRef = React.useRef();
-    const innerTextRef = React.useRef();
-    const innerTextRef1 = React.useRef();
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
-    // handle hover radial-gradient change event
-    React.useEffect(() => {
-        if (buttonYellowRef.current) {
-            buttonYellowRef.current.onmousemove = function (e) {
-                e.target.style.setProperty('--x', e.offsetX + 'px');
-                e.target.style.setProperty('--y', e.offsetY + 'px');
-            }
-        }
-    }, [buttonYellowRef])
+    const items1 = [
+        {
+            key: 0,
+            content: <Typography style={{
+                fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))",
+                textAlign: "left", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+            }}>
+                FRONT
+    </Typography>
+        },
+        {
+            key: 1,
+            content: <Typography style={{
+                textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+            }}>
+                ROW
+    </Typography>
+        },
+        {
+            key: 2,
+            content: <Typography style={{
+                textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+            }}>
+                SEATS
+    </Typography>
+        },
+        {
+            key: 3,
+            content: <Typography style={{
+                fontSize: "calc(18px + (24 - 18) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                fontFamily: "DINNextLTPro-Medium", color: matches ? "white" : "rgba(182, 188, 206, 0.7)", width: matches ? `${450 / 1920 * props.size[0]}px` : `${700 / 1200 * props.size[0]}px`,
+                marginTop: "5%", lineHeight: "1"
+            }}>
+                Experience concerts up close and personal.
+    </Typography>
+        },
+    ]
 
-    React.useEffect(() => {
-        if (buttonTryRef.current) {
-            buttonTryRef.current.onmousemove = function (e) {
-                e.target.style.setProperty('--x', e.offsetX + 'px');
-                e.target.style.setProperty('--y', e.offsetY + 'px');
-            }
-        }
-    }, [buttonTryRef])
-
-    // painting interaction
-    React.useEffect(() => {
-        if (canvasRef) {
-            let ctx = canvasRef.current;
-            let ctxCanvas = ctx.getContext('2d');
-            ctxCanvas.fillStyle = "#FFB33F"
-            ctxCanvas.fillRect(0, 0, props.size[0], props.size[1]);
-            let brushRadius = (142 / 1920 * props.size[0]) * 0.9;
-
-            ctxCanvas.globalCompositeOperation = 'destination-out';
-
-            const getBrushPos = (xRef, yRef) => {
-                var ctxRect = ctx.getBoundingClientRect();
-                return {
-                    x: Math.floor((xRef - ctxRect.left) / (ctxRect.right - ctxRect.left) * ctx.width),
-                    y: Math.floor((yRef - ctxRect.top) / (ctxRect.bottom - ctxRect.top) * ctx.height)
-                };
-            }
-
-            const drawDot = (mouseX, mouseY) => {
-                ctxCanvas.beginPath();
-                ctxCanvas.arc(mouseX, mouseY, brushRadius, 0, 2 * Math.PI, true);
-                ctxCanvas.fill();
-            }
-
-            ctx.addEventListener("mousemove", function (e) {
-                var brushPos = getBrushPos(e.clientX, e.clientY);
-                drawDot(brushPos.x, brushPos.y);
-            }, false);
-
-            const initialDraw1 = () => {
-                ctxCanvas.beginPath();
-                ctxCanvas.arc(props.size[0] - ((200 / 1920 * props.size[0]) / 2), props.size[1] - ((200 / 1920 * props.size[0]) / 2.6), (250 / 1920 * props.size[0]), 0, 2 * Math.PI, true);
-                ctxCanvas.globalCompositeOperation = "destination-out";
-                ctxCanvas.fill();
-            }
-
-            const initialDraw2 = () => {
-                ctxCanvas.beginPath();
-                ctxCanvas.arc(655 / 1920 * props.size[0], 360 / 1080 * props.size[1], (150 / 1920 * props.size[0]), 0, 2 * Math.PI, true);
-                ctxCanvas.globalCompositeOperation = "destination-out";
-                ctxCanvas.fill();
-            }
-
-            const initialDraw3 = () => {
-                ctxCanvas.beginPath();
-                ctxCanvas.arc(472 / 1920 * props.size[0], 636 / 1080 * props.size[1], (200 / 1920 * props.size[0]), 0, 2 * Math.PI, true);
-                ctxCanvas.globalCompositeOperation = "destination-out";
-                ctxCanvas.fill();
-            }
-
-            initialDraw1();
-            initialDraw2();
-            initialDraw3();
-        }
-    }, [canvasRef])
+    const springThird = useSpring({
+        to: { transform: props.render ? `translateY(0%)` : `translateY(100%)` },
+        from: { transform: `translateY(100%)` },
+        config: {
+            mass: 1, tension: 280, friction: 60
+        },
+        delay: 500
+    })
 
     return (
-        <div style={{ height: "100vh", backgroundImage: `url(${gambino})`, display: "flex", backgroundSize: "cover", }}>
-            <Link to="/pricing" style={{ textDecoration: "none" }}>
-                <TryButton ref={buttonTryRef} size={props.size} pos={props.tryPos} type="yellow" >
-                    <span>TRY IT NOW</span>
-                </TryButton>
-            </Link>
-            <DemoButton ref={buttonYellowRef} size={props.size} pos={props.demoPos} type="yellow">
-                <span >SEE DEMO</span>
-            </DemoButton>
-            <canvas ref={canvasRef} width={props.size[0]} height={props.size[1]} style={{ position: "absolute" }} />
-            <div style={{
-                position: "absolute", pointerEvents: "none", marginTop: `${357 / 1080 * props.size[1]}px`,
-                marginLeft: `${900 / 1920 * props.size[0]}px`,
-            }}>
-                <Typography style={{
-                    color: "white", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`, height: `${88 / 1080 * props.size[1]}px`, display: "flex", alignItems: "center"
-                }}>FRONT ROW SEATS</Typography>
-                <Typography style={{
-                    color: "#191919", maxWidth: `${831 / 1920 * props.size[0]}px`, font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${23 / 1920 * props.size[0]}px`,
-                    height: `${121 / 1080 * props.size[1]}px`,
-                }}>
-                    Experience concerts up close and personal.
-                    </Typography>
+        <div style={{ display: "flex", alignItems: "center", height: "100%", marginTop: "5vmax" }}>
+            <div onMouseEnter={() => props.handleExpandCircle(true)} onMouseLeave={() => props.handleExpandCircle(false)} style={{ position: "absolute", right: "25%" }}>
+                <Trail open={props.render} textIndex={0} matches={matches}>
+                    <span>F</span>
+                    <span>R</span>
+                    <span>O</span>
+                    <span>N</span>
+                    <span>T</span>
+                </Trail>
+                <Trail open={props.render} textIndex={1} matches={matches}>
+                    <span>R</span>
+                    <span>O</span>
+                    <span>W</span>
+                </Trail>
+                <Trail open={props.render} textIndex={2} matches={matches}>
+                    <span>S</span>
+                    <span>E</span>
+                    <span>A</span>
+                    <span>T</span>
+                    <span>S</span>
+                </Trail>
+                <div style={{ overflow: "hidden" }}>
+                    <animated.div style={{ ...springThird }}>
+                        {items1[3].content}
+                    </animated.div>
+                </div>
             </div>
         </div >
     )

@@ -51,43 +51,44 @@ const PricingList = (props) => {
     }
 
     return (
-        <div>
+        <div style={{  }}>
             <Typography style={{
-                color: props.txtColor, maxHeight: "185px",
-                font: `normal normal bold ${42 / 1920 * props.size[0]}px/${51 / 1920 * props.size[0]}px Helvetica Neue`,
-                letterSpacing: `${4.2 / 1920 * props.size[0]}px`, marginLeft: `${5 / 1920 * props.size[0]}px`
+                textAlign: "left", fontSize: "calc(40px + (45 - 40) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: props.txtColor,
             }}>
                 {props.plan}
             </Typography>
             <div style={{
                 width: `${141.49 / 1920 * props.size[0]}px`, background: props.barColor, height: `${3 / 1920 * props.size[0]}px`,
-                marginTop: `${19.5 / 1920 * props.size[0]}px`, marginLeft: `${10.29 / 1920 * props.size[0]}px`
+                marginTop: `${4.4 / 1920 * props.size[0]}px`, marginLeft: `${4.29 / 1920 * props.size[0]}px`
             }} />
             <Typography style={{
-                color: props.txtColor, maxHeight: "185px", font: `normal normal bold ${47 / 1920 * props.size[0]}px/${57 / 1920 * props.size[0]}px Helvetica Neue`,
-                letterSpacing: `${4.7 / 1920 * props.size[0]}px`, marginTop: `${20.5 / 1229 * props.size[1]}px`, marginLeft: `${11 / 1920 * props.size[0]}px`
+                textAlign: "left", fontSize: "calc(45px + (50 - 45) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: props.txtColor, marginTop: `${5.5 / 1920 * props.size[0]}px`
             }}>
                 {props.time}
             </Typography>
             <Typography style={{
-                color: props.txtColor, maxHeight: "185px", font: `normal normal bold ${134 / 1920 * props.size[0]}px/${164 / 1920 * props.size[0]}px Helvetica Neue`,
-                letterSpacing: `${13.4 / 1920 * props.size[0]}px`, marginTop: `${11 / 1229 * props.size[1]}px`, marginLeft: `${16 / 1920 * props.size[0]}px`
+                textAlign: "left", fontSize: "calc(110px + (110 - 104) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                fontWeight: "normal", fontStyle: "normal", fontFamily: "DINNextLTPro-Medium", color: props.txtColor, marginTop: `${50.5 / 1920 * props.size[0]}px`
             }}>
                 {props.price}
             </Typography>
-            {props.words.map((word, index) => {
-                return (
-                    <Typography key={`${props.plan + index}`} style={{
-                        color: "#FFFFFF",
-                        font: `normal normal normal ${47 / 1920 * props.size[0]}px/${64 / 1920 * props.size[0]}px Helvetica Neue`,
-                        letterSpacing: `${4.7 / 1920 * props.size[0]}px`, marginTop: index === 0 ? `${42 / 1229 * props.size[1]}px` : `${5 / 1229 * props.size[1]}px`,
-                        marginLeft: `${16 / 1920 * props.size[0]}px`,
-                    }}>
-                        <MusicNoteIcon style={{ marginRight: `${18.69 / 1920 * props.size[0]}px` }} />
-                        {word}
-                    </Typography>
-                )
-            })}
+            <div style={{ marginTop: "10%" }}>
+                {props.words.map((word, index) => {
+                    return (
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <MusicNoteIcon fontSize="large" style={{ marginRight: `${18.69 / 1920 * props.size[0]}px`, color: "white", position: "inherit" }} />
+                            <Typography style={{
+                                textAlign: "left", fontSize: "calc(26px + (30 - 26) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(40px + (45 - 40) * ((100vw - 300px) / (1600 - 300)))`,
+                                fontWeight: "normal", fontStyle: "normal", fontFamily: "DINNextLTPro-Medium", color: "white", marginTop: `${10 / 1920 * props.size[0]}px`
+                            }}>
+                                {word}
+                            </Typography>
+                        </div>
+                    )
+                })}
+            </div>
             <Link to="/payment" style={{ textDecoration: "none" }}>
                 <PricingButton ref={buttonRef} size={props.size} type={props.type} pos={pos} onClick={() => handlePricing()}>
                     <span>SELECT</span>

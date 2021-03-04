@@ -12,14 +12,48 @@ import { connect } from 'react-redux';
 
 import { useWheel } from 'react-use-gesture';
 
-import { setMenuIndex, setNavIndex, setShowNavText } from '../Redux/actions/propertyAction';
+import { animated, useTrail, useSpring } from 'react-spring';
+
+import { setMenuIndex, setNavIndex, setShowNavText, setClickIndex } from '../Redux/actions/propertyAction';
+
+import Scrollbar from 'smooth-scrollbar';
+
+const Trail = ({ open, textIndex, children, ...props }) => {
+    const items = React.Children.toArray(children)
+    const trail = useTrail(items.length, {
+        config: { mass: 5, tension: 2000, friction: 200 },
+        opacity: open ? 1 : 0,
+        x: open ? 0 : 20,
+        from: { opacity: 0, x: 20 },
+        delay: 300
+    })
+
+    return (
+        <div {...props}>
+            <div style={{ display: "flex" }}>
+                {trail.map(({ x, height, ...rest }, index) => (
+                    <animated.div
+                        key={items[index].key}
+                        style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
+                        <Typography style={{
+                            textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                            fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+                        }}>{items[index]}</Typography>
+                    </animated.div>
+                ))}
+            </div>
+        </div>
+    )
+}
 
 const Pricing = (props) => {
 
+    const scrollRef = React.useRef();
+
     React.useEffect(() => {
-        props.setNavIndex(3);
-        props.setMenuIndex(5);
-        props.setShowNavText(true);
+        const bodyScrollBar = Scrollbar.init(scrollRef.current, { damping: 0.30 });
+        props.setNavIndex(false);
+        props.setClickIndex(false);
     }, [])
 
     const bind = useWheel(({ wheeling, direction }) => {
@@ -30,71 +64,70 @@ const Pricing = (props) => {
         }
     })
 
+    const headSpring = useSpring({
+        to: { transform: true ? `translateY(0%)` : `translateY(100%)` },
+        from: { transform: `translateY(100%)` },
+        config: {
+            mass: 1, tension: 280, friction: 60
+        },
+        delay: 500
+    })
+
     return (
-        <div {...bind()} style={{ background: "#191919 0% 0% no-repeat padding-box", position: "relative" }}>
-            <Scrollbars
-                // This will activate auto hide
-                autoHide
-                style={{ height: `100vh` }}
-                thumbSize={50}
-            >
-                <div style={{ display: "flex", flexDirection: "column", paddingTop: `${308 / 1920 * props.size[0]}px`, marginLeft: `${183 / 1920 * props.size[0]}px` }}>
+        <div {...bind()} ref={scrollRef} style={{ background: "#191919 0% 0% no-repeat padding-box", width: "100vw", height: "100vh", overflow: "auto" }}>
+            <div style={{ display: "flex", flexDirection: "column", paddingTop: `12%`, marginLeft: `14%`, overflow: "hidden" }}>
+                <Trail open={true} textIndex={0}>
+                    <span>Pricing</span>
+                </Trail>
+                <animated.div style={headSpring}>
                     <Typography style={{
-                        textAlign: "left", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                        letterSpacing: `${7.4 / 1920 * props.size[0]}px`, color: " #FFFFFF", height: `${88 / 1080 * props.size[1]}px`
-                    }}>
-                        PRICING
-                </Typography>
-                    <Typography style={{
-                        textAlign: "left", font: `normal normal normal ${51 / 1920 * props.size[0]}px/${80 / 1920 * props.size[0]}px Helvetica Neue`,
-                        marginRight: `${38 / 1920 * props.size[0]}px`, letterSpacing: `${5.1 / 1920 * props.size[0]}px`, color: " #FFFFFF",
-                        marginTop: `${38 / 1920 * props.size[0]}px`
+                        fontSize: "calc(18px + (24 - 18) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "normal", fontStyle: "normal",
+                        fontFamily: "DINNextLTPro-Medium", color: "white", marginTop: "4%", lineHeight: "1"
                     }}>
                         Test out our app today! Choose from three subscription Based payment models.
                 </Typography>
-                    <div style={{
-                        maxWidth: `${1605 / 1920 * props.size[0]}px`, display: "flex", justifyContent: "space-between",
-                        marginTop: `${204 / 1920 * props.size[0]}px`, paddingBottom: `${256 / 1920 * props.size[0]}px`
-                    }}>
-                        <PricingList
-                            words={["Very good", "Amazing", "Perfect job", "Love this", "It's so good", "Features"]}
-                            price="$9"
-                            plan="BASIC"
-                            time="MONTHLY"
-                            txtColor="#D24848"
-                            barColor="#D14747"
-                            type="red"
-                            size={props.size}
-                        />
-                        <PricingList
-                            words={["Very very good", "Even Amazing", "Perfect job", "Love this more", "It's so good", "More Features"]}
-                            price="$99"
-                            plan="ADVANCED"
-                            time="YEARLY"
-                            txtColor="#FFB33F"
-                            barColor="#FFB33F"
-                            type="yellow"
-                            size={props.size}
-                        />
-                        <PricingList
-                            words={["Very very good", "Even more", "Perfect job", "Love this more", "It's so so good", "More Features"]}
-                            price="$120"
-                            plan="PRO"
-                            time="YEARLY"
-                            txtColor="#1FE1E9"
-                            barColor="#1FE1E9"
-                            type="blue"
-                            size={props.size}
-                        />
-                    </div>
+                </animated.div>
+                <div style={{
+                    display: "flex", justifyContent: "space-around", marginTop: `${96 / 1920 * props.size[0]}px`, width: "70vw", paddingBottom: `${150 / 1920 * props.size[0]}px`
+                }}>
+                    <PricingList
+                        words={["Very good", "Amazing", "Perfect job", "Love this", "It's so good", "Features"]}
+                        price="$9"
+                        plan="BASIC"
+                        time="MONTHLY"
+                        txtColor="#D24848"
+                        barColor="#D14747"
+                        type="red"
+                        size={props.size}
+                    />
+                    <PricingList
+                        words={["Very very good", "Even Amazing", "Perfect job", "Love this more", "It's so good", "More Features"]}
+                        price="$99"
+                        plan="ADVANCED"
+                        time="YEARLY"
+                        txtColor="#FFB33F"
+                        barColor="#FFB33F"
+                        type="yellow"
+                        size={props.size}
+                    />
+                    <PricingList
+                        words={["Very very good", "Even more", "Perfect job", "Love this more", "It's so so good", "More Features"]}
+                        price="$120"
+                        plan="PRO"
+                        time="YEARLY"
+                        txtColor="#1FE1E9"
+                        barColor="#1FE1E9"
+                        type="blue"
+                        size={props.size}
+                    />
                 </div>
-                <PricingPerks
-                    size={props.size}
-                />
-                <SectionFooter
-                    size={props.size}
-                />
-            </Scrollbars>
+            </div>
+            <PricingPerks
+                size={props.size}
+            />
+            <SectionFooter
+                size={props.size}
+            />
         </div>
     )
 }
@@ -110,6 +143,7 @@ const mapDispatchToProps = (dispatch) => {
         setMenuIndex: (index) => dispatch(setMenuIndex(index)),
         setNavIndex: (index) => dispatch(setNavIndex(index)),
         setShowNavText: (boolean) => dispatch(setShowNavText(boolean)),
+        setClickIndex: (boolean) => dispatch(setClickIndex(boolean)),
     }
 }
 

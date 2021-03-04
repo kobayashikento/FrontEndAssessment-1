@@ -14,9 +14,8 @@ export default styled.button`
     border-radius: 79px;
     width: ${DEMO_CTA_WIDTH}px;
     height: ${DEMO_CTA_HEIGHT}px;
-    margin-top: ${(props) => props.type === "red" ? `${41 / 1920 * props.size[0]}px` : `${636 / 1080 * props.size[1] + 10}px`};
+    margin-top: ${(props) => `${41 / 1920 * props.size[0]}px`};
     transform: ${(props) => (`translate(${-props.pos[0]}px, ${-props.pos[1]}px) scale(${props.size[0] / 1920}) `)};
-    margin-left: ${(props) => props.type === "yellow" ? `${900 / 1920 * props.size[0]}px` : ""};
     &::before {
         --size: 0;
         content: "";

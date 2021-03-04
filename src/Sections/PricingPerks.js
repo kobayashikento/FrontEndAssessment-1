@@ -2,62 +2,105 @@ import React from 'react';
 
 import { Typography } from '@material-ui/core';
 
-const PricingPerks = (props) => {
+import { animated, useTrail } from 'react-spring';
 
-    const marginTopRatio = 234 / 1229;
-    const marginLeftRatio = 215 / 1920;
+import bob_pic from '../Assets/pictures/Footer/bob_pic.jpg';
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+ 
+const Trail = ({ open, textIndex, children, ...props }) => {
+    const items = React.Children.toArray(children)
+    const trail = useTrail(items.length, {
+        config: { mass: 5, tension: 2000, friction: 200 },
+        opacity: open ? 1 : 0,
+        x: open ? 0 : 20,
+        from: { opacity: 0, x: 20 },
+        delay: 300
+    })
 
     return (
-        <div style={{ background: "#D34848 0% 0% no-repeat padding-box", minHeight: `${967 / 1920 * props.size[0]}px` }}>
-            <div style={{ maxWidth: `${1580 / 1920 * props.size[0]}px`, display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: `${marginLeftRatio * props.size[0]}px` }}>
-                <Typography style={{
-                    textAlign: "left", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`, color: " #FFFFFF", height: `${88 / 1080 * props.size[1]}px`
-                }}>
-                    PERKS
-                </Typography>
-                <div style={{ display: "flex", paddingLeft: "1rem", marginTop: `${83.5 / 1229 * props.size[1]}px`, justifyContent: "space-between" }}>
-                    <div>
-                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3/1920*props.size[0]}px` }} />
+        <div {...props}>
+            <div style={{ display: "flex" }}>
+                {trail.map(({ x, height, ...rest }, index) => (
+                    <animated.div
+                        key={items[index].key}
+                        style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
                         <Typography style={{
-                            color: "#FFFFFF", maxWidth: `${383 / 1920 * props.size[0]}px`, maxHeight: "185px", font: `normal normal bold ${51 / 1920 * props.size[0]}px/${62 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${27.5 / 1229 * props.size[1]}px`
+                            textAlign: "left", fontSize: "calc(85px + (110 - 85) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(75px + (85 - 75) * ((100vw - 300px) / (1600 - 300)))`, fontWeight: "bold", fontStyle: "normal",
+                            fontFamily: "'Rajdhani', sans-serif", color: "white", textShadow: "0 1px 0 rgba(255, 255, 255, 0.4)"
+                        }}>{items[index]}</Typography>
+                    </animated.div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+const PricingPerks = (props) => {
+
+    const matches = useMediaQuery('(min-width:1600px)', { noSsr: true });
+
+    const marginTopRatio = 234 / 1229;
+
+    return (
+        <div style={{
+            background: "#D34848 0% 0% no-repeat padding-box", backgroundImage: `url(${bob_pic})`,
+            backgroundSize: "cover", minHeight: `${967 / 1920 * props.size[0]}px`, boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px", backgroundBlendMode: "darken"
+        }}>
+            <div style={{ maxWidth: `70vw`, display: "flex", flexDirection: "column", paddingTop: `${marginTopRatio * props.size[1]}px`, marginLeft: "auto", marginRight: "auto" }}>
+                <Trail open={true} textIndex={0}>
+                    <span>P</span>
+                    <span>E</span>
+                    <span>R</span>
+                    <span>K</span>
+                    <span>S</span>
+                </Trail>
+                <div style={{ display: "flex", paddingLeft: "2%", marginTop: `8%`, justifyContent: "space-between",  width: "100%"}}>
+                    <div>
+                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3 / 1920 * props.size[0]}px` }} />
+                        <Typography style={{
+                            textAlign: "left", fontSize: "calc(33px + (45 - 33) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                            fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: "white", marginTop: `8%`,
+                            maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             Subscription Payment Model
                         </Typography>
                         <Typography style={{
-                            color: "#0B0B0B", maxWidth: `${433 / 1920 * props.size[0]}px`, maxHeight: "163px", font: `normal normal normal ${35 / 1920 * props.size[0]}px/${41 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${3.5 / 1920 * props.size[0]}px`, marginTop: `${28 / 1229 * props.size[1]}px`
+                            textAlign: "left", fontSize: "calc(14px + (18 - 14) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(22px + (26 - 22) * ((100vw - 300px) / (1600 - 300)))`,
+                            fontWeight: "bold", fontStyle: "normal", fontFamily: "DINNextLTPro-Medium", color: "white", marginTop: `${5.5 / 1920 * props.size[0]}px`,
+                            maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             No commitment, cancel anytime. Never worry about forgetting a payment again!
                         </Typography>
                     </div>
-                    <div >
-                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`,  background: `#FFFFFF`, height: `${3/1920*props.size[0]}px` }} />
+                    <div>
+                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3 / 1920 * props.size[0]}px` }} />
                         <Typography style={{
-                            color: "#FFFFFF", maxWidth: `${383 / 1920 * props.size[0]}px`, maxHeight: "185px", font: `normal normal bold ${51 / 1920 * props.size[0]}px/${62 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${27.5 / 1229 * props.size[1]}px`
+                            textAlign: "left", fontSize: "calc(33px + (45 - 33) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                            fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: "white",  marginTop: `8%`, maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             No Fee Cancelation Policy
                         </Typography>
                         <Typography style={{
-                            color: "#0B0B0B", maxWidth: `${433 / 1920 * props.size[0]}px`, maxHeight: "163px", font: `normal normal normal ${35 / 1920 * props.size[0]}px/${41 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${3.5 / 1920 * props.size[0]}px`, marginTop: `${28 / 1229 * props.size[1]}px`
+                            textAlign: "left", fontSize: "calc(14px + (18 - 14) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(22px + (26 - 22) * ((100vw - 300px) / (1600 - 300)))`,
+                            fontWeight: "bold", fontStyle: "normal", fontFamily: "DINNextLTPro-Medium", color: "white", marginTop: `${5.5 / 1920 * props.size[0]}px`,
+                            maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             No commitment, cancel anytime. Never worry about forgetting a payment again!
                         </Typography>
                     </div>
                     <div>
-                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`,  background: `#FFFFFF`, height: `${3/1920*props.size[0]}px` }} />
+                        <div style={{ width: `${104.49 / 1920 * props.size[0]}px`, background: `#FFFFFF`, height: `${3 / 1920 * props.size[0]}px` }} />
                         <Typography style={{
-                            color: "#FFFFFF", maxWidth: `${383 / 1920 * props.size[0]}px`, maxHeight: "185px", font: `normal normal bold ${51 / 1920 * props.size[0]}px/${62 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${27.5 / 1229 * props.size[1]}px`
+                            textAlign: "left", fontSize: "calc(33px + (45 - 33) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(50px + (55 - 50) * ((100vw - 300px) / (1600 - 300)))`,
+                            fontWeight: "bold", fontStyle: "normal", fontFamily: "'Rajdhani', sans-serif", color: "white",  marginTop: `8%`, maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             Subscription Payment Model
                         </Typography>
                         <Typography style={{
-                            color: "#0B0B0B", maxWidth: `${433 / 1920 * props.size[0]}px`, maxHeight: "163px", font: `normal normal normal ${35 / 1920 * props.size[0]}px/${41 / 1920 * props.size[0]}px Helvetica Neue`,
-                            letterSpacing: `${3.5 / 1920 * props.size[0]}px`, marginTop: `${28 / 1229 * props.size[1]}px`
+                            textAlign: "left", fontSize: "calc(14px + (18 - 14) * ((100vw - 300px) / (1600 - 300)))", lineHeight: `calc(22px + (26 - 22) * ((100vw - 300px) / (1600 - 300)))`,
+                            fontWeight: "bold", fontStyle: "normal", fontFamily: "DINNextLTPro-Medium", color: "white", marginTop: `${5.5 / 1920 * props.size[0]}px`,
+                            maxWidth: `${383 / 1920 * props.size[0]}px`
                         }}>
                             No commitment, cancel anytime. Never worry about forgetting a payment again!
                         </Typography>

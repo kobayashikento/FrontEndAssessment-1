@@ -6,31 +6,92 @@ import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-const SectionGet = (props) => {
+import stage from '../Assets/pictures/Yellow/layer-bg.png'
+
+import { animated, useTrail, useSpring } from 'react-spring';
+
+const Trail = ({ open, children, ...props }) => {
+    const items = React.Children.toArray(children)
+    const trail = useTrail(items.length, {
+        opacity: open ? 1 : 0,
+        x: open ? 0 : 20,
+        from: { opacity: 0, x: 20 },
+        config: { duration: 350 }
+    })
 
     return (
-        <div style={{ background: "#191919 0% 0% no-repeat padding-box", height: `${814 / 1080 * props.size[1]}px` }}>
-            <Link to="/pricing" style={{ textDecoration: "none" }}>
-                <div style={{ display: "flex", position: "absolute", right: `${189 / 1920 * props.size[0]}px` }}>
-                    <a style={{
-                        marginTop: `${379 / 1080 * props.size[1]}px`,
-                        transform: `scale(${props.size[0] / 1920}) translate(${props.tryPos[0]}px, ${-props.tryPos[1]}px)`,
-                    }} className="btntryget-try-noborder" data-text="TRY IT NOW" />
-                </div>
-            </Link>
-            <div style={{ position: "absolute", marginLeft: `${172 / 1920 * props.size[0]}px`, marginTop: `${349 / 1080 * props.size[1]}px`, }}>
+        <div {...props}>
+            <div style={{ display: "flex" }}>
+                {trail.map(({ x, height, ...rest }, index) => (
+                    <animated.div
+                        key={items[index].key}
+                        style={{ ...rest, transform: x.interpolate((x) => `translate3d(${x}px,0,0)`) }}>
+                        <Typography style={{
+                            textAlign: "left", fontSize: "calc(70px + (85 - 70) * ((100vw - 300px) / (1600 - 300)))",
+                            lineHeight: "calc(50px + (65 - 50) * ((100vw - 300px) / (1600 - 300)))", fontWeight: "bold", fontStyle: "normal",
+                            fontFamily: "'Rajdhani', sans-serif", color: "white"
+                        }} >{items[index]}</Typography>
+                    </animated.div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+const SectionGet = (props) => {
+
+    let enterSpringText = useSpring({
+        to: { transform: props.render ? `translateY(0%)` : `translateY(100%)`, opacity: props.render ? 1 : 0 },
+        from: { transform: `translateY(100%)`, opacity: 0 },
+        delay: 450,
+    })
+
+    let buttonSpring = useSpring({
+        to: { transform: props.render ? `translateY(0%)` : `translateY(100%)`, opacity: props.render ? 1 : 0 },
+        from: { transform: `translateY(100%)`, opacity: 0 },
+        delay: 650,
+    })
+
+    return (
+        <div style={{
+            backgroundColor: "rgba(25,25,25, 0.2)", height: `90vh`, display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center",
+            boxShadow: "rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px"
+        }}>
+            <Trail open={true}>
+                <span>G</span>
+                <span>E</span>
+                <span>T</span>
+                <span>{'\u00A0'}</span>
+                <span>E</span>
+                <span>X</span>
+                <span>P</span>
+                <span>|</span>
+                <span>C</span>
+                <span>O</span>
+                <span>N</span>
+                <span>{'\u00A0'}</span>
+                <span>N</span>
+                <span>O</span>
+                <span>W</span>
+            </Trail>
+            <animated.div style={{ ...enterSpringText, display: "flex", justifyContent: "center" }}>
                 <Typography style={{
-                    color: "#D34848", font: `normal normal bold ${74 / 1920 * props.size[0]}px/${90 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${7.4 / 1920 * props.size[0]}px`,
-                    height: `${88 / 1080 * props.size[1]}px`, display: "flex", alignItems: "center"
-                }}>GET EXP|CON NOW</Typography>
-                <Typography style={{
-                    color: "#FFFFFF", maxWidth: `${941 / 1920 * props.size[0]}px`, font: `normal normal normal ${51 / 1920 * props.size[0]}px/${61 / 1920 * props.size[0]}px Helvetica Neue`,
-                    letterSpacing: `${5.1 / 1920 * props.size[0]}px`, marginTop: `${21 / 1080 * props.size[1]}px`,
-                    height: `${60 / 1080 * props.size[1]}px`,
+                    textAlign: "left", fontSize: `calc(16px + (19 - 16) * ((100vw - 300px) / (1600 - 300)))`, lineHeight: `${25 / 1920 * props.size[0]}px`, fontWeight: "normal", fontStyle: "normal",
+                    fontFamily: "DINNextLTPro-Medium", color: 'white', marginTop: "24px"
                 }}>
                     Purchase and download the app.
                     </Typography>
+            </animated.div>
+            <div onMouseEnter={() => props.handleExpandCircle(true)} onMouseLeave={() => props.handleExpandCircle(false)} style={{ overflow: "hidden", display: "flex", alignItems: "center", marginTop: "5vmax" }}>
+                <animated.div style={{ ...buttonSpring }}>
+                    <Link to="/pricing" style={{ textDecoration: "none" }}>
+                        <div style={{ display: "flex" }}>
+                            <a style={{
+                                width: "248px", height: "62px",
+                            }} className="btntry-try-noborder" data-text="TRY IT NOW" />
+                        </div>
+                    </Link>
+                </animated.div>
             </div>
         </div>
     )

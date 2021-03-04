@@ -12,7 +12,7 @@ export default styled.button`
     cursor: pointer;
     outline: none;
     overflow: hidden;
-    border-radius: 79px;
+    border-radius: 4px;
     width: ${PRICING_CTA_WIDTH}px;
     height: ${PRICING_CTA_HEIGHT}px;
     margin-top: ${(props) => (38 / 1920 * props.size[0] + 'px')};

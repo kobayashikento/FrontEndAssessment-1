@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'FuturaC';
+  src: local('Futura-Bold-Condensed'), url(./Assets/fonts/Futura-Bold-Condensed.otf);
+}
+
+@font-face {
+  font-family: 'FuturaM';
+  src: local('FuturaMedium'), url(./Assets/fonts/FuturaMedium.otf);
+}
+
+@font-face {
+  font-family: 'DINNextLTPro-Medium';
+  src: local('DINNextLTPro-Medium'), url(./Assets/fonts/DINNextLTPro-Medium.otf);
+}
