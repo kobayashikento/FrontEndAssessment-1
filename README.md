@@ -1,4 +1,4 @@
-website built using a new design => https://exp-con-nu.vercel.app/ 
+**Updated** website built using my design and how I feel best represents the content => https://exp-con-nu.vercel.app/ 
 
 website built following specifications => https://expconkento.web.app/
 
